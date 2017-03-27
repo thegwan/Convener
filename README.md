@@ -1,12 +1,22 @@
 ## Welcome to Convener
 
-You can use the [editor on GitHub](https://github.com/thegwan/Convener/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+<!-- You can use the [editor on GitHub](https://github.com/thegwan/Convener/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files. -->
 
-### Markdown
+### Team Members
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Project Leader: Hector Solis
+Project Manager: Jerry Cai (qizhec@princeton.edu)
+
+- Gerry Wan (gwan@princeton.edu)
+- Aaron Bargotta (bargotta@princeton.edu)
+- Hector Solis (hsolis@princeton.edu)
+
+### Design Document
+View our design document [here](https://docs.google.com/a/princeton.edu/document/d/1xsXrY7amCBFhxwQwY0sNtyeXbMSl-21SSOqQVs2ySnw/edit?usp=sharing).
+
+<!-- Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
 Syntax highlighted code block
@@ -35,3 +45,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+ -->
