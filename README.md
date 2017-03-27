@@ -6,12 +6,13 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 
 ### Team Members
 
-Project Leader: Hector Solis
-Project Manager: Jerry Cai (qizhec@princeton.edu)
+Project Leader: **Hector Solis**
 
-- Gerry Wan (gwan@princeton.edu)
-- Aaron Bargotta (bargotta@princeton.edu)
-- Hector Solis (hsolis@princeton.edu)
+Project Manager: **Jerry Cai** (qizhec@princeton.edu)
+
+- **Gerry Wan** (gwan@princeton.edu)
+- **Aaron Bargotta** (bargotta@princeton.edu)
+- **Hector Solis** (hsolis@princeton.edu)
 
 ### Design Document
 View our design document [here](https://docs.google.com/a/princeton.edu/document/d/1xsXrY7amCBFhxwQwY0sNtyeXbMSl-21SSOqQVs2ySnw/edit?usp=sharing).
