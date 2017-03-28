@@ -17,6 +17,41 @@ Project Manager: **Jerry Cai** (qizhec@princeton.edu)
 ### Design Document
 View our design document [here](https://docs.google.com/a/princeton.edu/document/d/1xsXrY7amCBFhxwQwY0sNtyeXbMSl-21SSOqQVs2ySnw/edit?usp=sharing).
 
+
+### Project Timeline
+* March 19 - **March 26**
+    * Git repo set up
+    * Done messing around with Flask, SQLite3, and Heroku
+    * Get project progress site up (could just be a Github Pages site)
+    * Server running
+* March 26 - **March 31**
+    * Basic calendar working with test data
+    * Database tables setup properly in a well thought out manner and written script for querying
+    * Each tier works with hard coded test data in its own section
+    * Combined the three different levels and fixed any bugs that appear along the way. Get a few sample use cases, write some good tests. 
+    * Barebones WhenIsGood functionality done
+    * Displays calendar and lists
+* March 31 - **April 7**
+    * Minimum viable product done
+    * Interactive Dashboard (Calendar, Lists of Meetings)
+    * CAS integration done
+    * Add email notification for when everyone has filled out the form.
+* April 7 - **April 14**
+    * Done with all priority features 
+    * Begin work on non-priority features
+    * Alpha test and debug with a couple of known users.
+* April 14 - **April 21**
+    * Done with top 2 non-priority features
+    * Get user feedback 
+* April 21 - **April 28**
+    * Beta test
+    * Done with 1 more non-priority feature
+* April 28 - **May 5**
+    * Clean up major features and fix bugs
+* Demo Week
+* **May 14**
+    * Dean’s Date, everything done and submitted
+
 <!-- Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
