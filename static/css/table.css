@@ -18,7 +18,7 @@ table:hover {
 }
 
 td:hover {
-	background: rgb(0,100,0);
+	background: rgb(150,238,150);
 }
 
 td.selected {
