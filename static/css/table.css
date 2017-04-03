@@ -4,13 +4,9 @@ table {
     -ms-user-select: none; /* IE10+ */
 }
 
-.calendar {
-	margin-top: 10px;
-	margin-bottom: 5px;
-}
-
 td, th {
 	text-align: center;
+	color: black;
 }
 
 table:hover {
@@ -26,9 +22,5 @@ td.selected {
 }
 
 .cell {
-   padding: 0 !important;
-}
-
-button {
-	float: right;
+   padding: 0px 5px !important;
 }

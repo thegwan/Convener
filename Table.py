@@ -20,7 +20,7 @@ class Table(object):
 			day = i % self.DAYS_IN_WEEK
 			self.inOrderDayArray.append(dayArray[day])
 		# print table
-		self.html = "<table class='table table-bordered table-condensed calendar'>"
+		self.html = "<table class='table table-bordered table-condensed overwrite_table'>"
 		self.html += self.printHeader()
 		self.html += self.printCells()
 		self.html += "</table>"
