@@ -3,7 +3,7 @@
 from flask import redirect, url_for, request, render_template
 from flask_cas import CAS, login_required
 from main import app
-
+from database import *
 cas = CAS(app)
 
 with open('secrets', 'r') as s:

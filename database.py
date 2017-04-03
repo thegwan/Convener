@@ -106,3 +106,18 @@ def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 	updatedUser.unacceptableTimes = unacceptableTimes
 
 	db.session.commit()
+
+# Updates the meeting values
+def updateMeeting(mid, isScheduled=False, scheduledTime=None, notified=False):
+	upd = (db.session.query(Meeting).\
+		filter(Meeting.mid==mid))
+
+	updatedMeeting = upd.one_or_none()
+	if updatedMeeting is None:
+		return "Failed to updateMeeting"
+
+	updatedMeeting.isScheduled = isScheduled
+	updatedMeeting.scheduledTime = scheduledTime
+	updatedMeeting.notified= notified
+
+	db.session.commit()
