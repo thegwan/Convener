@@ -20,3 +20,11 @@ function getSelected() {
 	document.getElementById('selectedCells').innerHTML = selectedCells;
 	return selectedCells;
 }
+
+// remove selected class from all cells
+function clearSelected() {
+	var cells = document.getElementsByClassName('cell');
+	for (var i = 0; i < cells.length; i++) {
+  		cells[i].classList.remove("selected");
+	}
+}
