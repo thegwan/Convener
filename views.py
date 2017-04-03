@@ -3,8 +3,10 @@
 from flask import redirect, url_for, request, render_template
 from flask_cas import CAS, login_required
 from main import app
+from Table import Table
 
 cas = CAS(app)
+table = Table()
 
 with open('secrets', 'r') as s:
 	secrets = s.readlines()
@@ -18,7 +20,7 @@ def index():
 	#if not logged in. is this the correct way to do it?
 	if cas.username is None or cas.token is None:
 		return redirect(url_for('landing'))
-	return render_template('index.html', user=cas.username, token=cas.token)
+	return render_template('index.html', user=cas.username, token=cas.token, table=table)
 
 @app.route('/landing')
 def landing():

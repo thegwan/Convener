@@ -1,13 +1,34 @@
 <!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Convener</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!-- Links to an external Style Sheet -->
+ 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
 
-<html>
-	<body>
-		<h1>Welcome, {{ user }}</h1>
-		<form action = "/logout">
-			<p>This is your calendar.</p>
-			<p>Logout here:</p>
-			<p><input type = "submit" value = "Log Out" /></p>
-		</form>
+</head>
+<body>
+	<h1>Welcome, {{ user }}</h1>
+	<form action = "/logout">
+		<p><input type = "submit" value = "Log Out" /></p>
+	</form>
+	<div class="row">
+		<div class="col-sm-3"><b>left column</b><br>we can use this to show current meetings scheduled etc.</div>
+		<div class="col-sm-6 table-responsive">
+			<!-- Construct Table -->
+			{{ table.html | safe }}
+			<button onclick="getSelected()">submit</button>
+			<p id="selectedCells"></p>
+		</div>
+		<div class="col-sm-3"><b>right column</b></div>
+	</div>
 
-	</body>
+
+<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+</body>
 </html>

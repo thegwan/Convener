@@ -1,0 +1,34 @@
+table {
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+.calendar {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+td, th {
+	text-align: center;
+}
+
+table:hover {
+	cursor: pointer;
+}
+
+td:hover {
+	background: orange;
+}
+
+td.selected {
+	background: rgb(0,200,0);
+}
+
+.cell {
+   padding: 0 !important;
+}
+
+button {
+	float: right;
+}
