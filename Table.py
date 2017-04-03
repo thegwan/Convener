@@ -41,7 +41,7 @@ class Table(object):
 			for col in range(self.DAYS_IN_WEEK):
 				hour = row % 13
 				# so it says 12am instead of 0am
-				if hour == 0:
+				if hour == 0 and row < 12:
 					hour = 12
 				if row < 12:
 					html += "<td id ='%s_%dam' class='cell'>%dam</td>" % (self.inOrderDayArray[col], hour, hour)
