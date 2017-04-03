@@ -2,8 +2,10 @@ from flask_sqlalchemy import SQLAlchemy
 from main import app
 
 # Allows connection to database via password
-f = open('secrets.txt', 'r')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + f.readline().replace('\n','') + '@localhost/Convener'
+with open('secrets', 'r') as s:
+	secrets = s.readlines()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + secrets[1].replace('\n','') + '@localhost/Convener'
 db = SQLAlchemy(app)
 
 ###### DB Schema ################################################################################
