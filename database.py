@@ -2,8 +2,10 @@ from flask_sqlalchemy import SQLAlchemy
 from main import app
 
 # Allows connection to database via password
-f = open('secrets.txt', 'r')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + f.readline().replace('\n','') + '@localhost/Convener'
+with open('secrets', 'r') as s:
+	secrets = s.readlines()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + secrets[1].replace('\n','') + '@localhost/Convener'
 db = SQLAlchemy(app)
 
 ###### DB Schema ################################################################################
@@ -102,5 +104,20 @@ def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 	updatedUser.preferredTimes= preferredTimes
 	updatedUser.acceptableTimes = acceptableTimes
 	updatedUser.unacceptableTimes = unacceptableTimes
+
+	db.session.commit()
+
+# Updates the meeting values
+def updateMeeting(mid, isScheduled=False, scheduledTime=None, notified=False):
+	upd = (db.session.query(Meeting).\
+		filter(Meeting.mid==mid))
+
+	updatedMeeting = upd.one_or_none()
+	if updatedMeeting is None:
+		return "Failed to updateMeeting"
+
+	updatedMeeting.isScheduled = isScheduled
+	updatedMeeting.scheduledTime = scheduledTime
+	updatedMeeting.notified= notified
 
 	db.session.commit()

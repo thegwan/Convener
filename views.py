@@ -4,6 +4,7 @@ from flask import redirect, url_for, request, render_template
 from flask_cas import CAS, login_required
 from main import app
 from Table import Table
+from database import *
 
 cas = CAS(app)
 table = Table()
