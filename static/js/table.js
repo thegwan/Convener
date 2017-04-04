@@ -13,17 +13,25 @@ $(document).ready(function() {
 // creates JSON containing all selected cells
 function getSelected(netid) {
 	var cells = document.getElementsByClassName('selected');
-	var JSON = '{ "netid" : "' + netid + '", "response" : [';
+	var responseJSON = '{ "netid" : "' + netid + '", "response" : [';
 	for (var i = 0; i < cells.length; i++) {
 		var daytime = cells[i].id.split("_");
 		var day = daytime[0];
 		var time = daytime[1];
-		JSON += '{"day" : "' + day + '", "time" : "' + time + '"}';
+		responseJSON += '{"day" : "' + day + '", "time" : "' + time + '"}';
 		if (i != cells.length - 1)
-			JSON += ', ';
-		else
-			JSON += ']}';
+			responseJSON += ', ';	
 	}
+	responseJSON += ']}';
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		// Encode data as JSON.
+		data: JSON.stringify(responseJSON),
+		dataType: 'text',
+		url: '/',
+		success: function(){alert('submitted!');}
+	});
 	console.log(JSON);
 }
 

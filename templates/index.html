@@ -23,25 +23,7 @@
 
   <!-- paraphrased from http://code.runnable.com/UpYDdiBGFJNXAAAz/parse-json-request-data-from-request-in-flask-for-python -->
   <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script>
-      $(function(){
-        // POST json to server
-        $('.post').click(function(){
-          $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            // Encode data as JSON.
-            data: JSON.stringify({
-              key1: 'val1',
-              key2: 'val2'
-            }),
-            dataType: 'text',
-            url: '/',
-            success: function(){alert('submitted!');}
-          });
-        });
-      });
-    </script>
+   
 
   </head>
   <body>
