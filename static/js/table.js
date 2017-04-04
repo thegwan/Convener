@@ -13,16 +13,18 @@ $(document).ready(function() {
 // creates JSON containing all selected cells
 function getSelected(netid) {
 	var cells = document.getElementsByClassName('selected');
-	var responseJSON = '{ "netid" : "' + netid + '", "response" : [';
+
+	var responseJSON = {};
+	responseJSON.netid = netid;
+	responseJSON.response = [];
 	for (var i = 0; i < cells.length; i++) {
 		var daytime = cells[i].id.split("_");
 		var day = daytime[0];
 		var time = daytime[1];
-		responseJSON += '{"day" : "' + day + '", "time" : "' + time + '"}';
-		if (i != cells.length - 1)
-			responseJSON += ', ';	
+		responseJSON.response.push({"day":day, "time":time});
 	}
-	responseJSON += ']}';
+	// console.log(responseJSON);
+
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
@@ -32,7 +34,7 @@ function getSelected(netid) {
 		url: '/',
 		success: function(){alert('submitted!');}
 	});
-	console.log(JSON);
+	
 }
 
 // remove selected class from all cells
