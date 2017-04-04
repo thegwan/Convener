@@ -68,11 +68,11 @@
             <div class="fea">
               <div class="col-md-6">
                 <div class="table-responsive">
-					<!-- Construct Table -->
-					{{ table.html | safe }}
-					<button id="getselected" onclick="getSelected()">submit</button>
-					<button id="clearselected" onclick="clearSelected()">clear</button>
-					<p id="selectedCells"></p>
+        					<!-- Construct Table -->
+        					{{ table.html | safe }}
+        					<button id="getselected" onclick="getSelected('{{ user }}')">submit </button>
+        					<button id="clearselected" onclick="clearSelected()">clear</button>
+        					<p id="selectedCells"></p>
                 </div>
               </div>
             </div>

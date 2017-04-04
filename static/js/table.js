@@ -10,15 +10,21 @@ $(document).ready(function() {
   	});
 });
 
-// returns an array of selected cells
-function getSelected() {
+// creates JSON containing all selected cells
+function getSelected(netid) {
 	var cells = document.getElementsByClassName('selected');
-	var selectedCells = [];
+	var JSON = '{ "netid" : "' + netid + '", "response" : [';
 	for (var i = 0; i < cells.length; i++) {
-		selectedCells.push(cells[i].id);
+		var daytime = cells[i].id.split("_");
+		var day = daytime[0];
+		var time = daytime[1];
+		JSON += '{"day" : "' + day + '", "time" : "' + time + '"}';
+		if (i != cells.length - 1)
+			JSON += ', ';
+		else
+			JSON += ']}';
 	}
-	document.getElementById('selectedCells').innerHTML = selectedCells;
-	return selectedCells;
+	console.log(JSON);
 }
 
 // remove selected class from all cells
