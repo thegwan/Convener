@@ -1,22 +1,26 @@
 $(document).ready(function() {
 	// select and unselect clicked-on cells (good time)
   	$(".cell").click(function(){
-    	if ($(this).hasClass( "selected")) {
-      		$(this).removeClass("selected");
-    	}
-	    else {
-	      	$(this).addClass("selected");
-    	};
+  		if (! ($(this).hasClass( "badtime"))) {
+	    	if ($(this).hasClass( "selected")) {
+	      		$(this).removeClass("selected");
+	    	}
+		    else {
+		      	$(this).addClass("selected");
+	    	};
+  		};
   	});
 
   	// select and unselect double-clicked on cells (bad time)
   	$(".cell").dblclick(function(){
-    	if ($(this).hasClass( "badtime")) {
-      		$(this).removeClass("badtime");
-    	}
-	    else {
-	      	$(this).addClass("badtime");
-    	};
+  		if (! ($(this).hasClass( "selected"))) {
+	    	if ($(this).hasClass( "badtime")) {
+	      		$(this).removeClass("badtime");
+	    	}
+		    else {
+		      	$(this).addClass("badtime");
+	    	};
+  		};
   	});
 });
 
