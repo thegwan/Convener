@@ -21,6 +21,10 @@ td.selected {
 	background: rgb(0,228,0);
 }
 
+td.badtime {
+	background: rgb(228,0,0);
+}
+
 .cell {
    padding: 0px 5px !important;
 }

@@ -1,11 +1,21 @@
-// select and unselect clicked-on cells
 $(document).ready(function() {
+	// select and unselect clicked-on cells (good time)
   	$(".cell").click(function(){
     	if ($(this).hasClass( "selected")) {
       		$(this).removeClass("selected");
     	}
 	    else {
 	      	$(this).addClass("selected");
+    	};
+  	});
+
+  	// select and unselect double-clicked on cells (bad time)
+  	$(".cell").dblclick(function(){
+    	if ($(this).hasClass( "badtime")) {
+      		$(this).removeClass("badtime");
+    	}
+	    else {
+	      	$(this).addClass("badtime");
     	};
   	});
 });
@@ -35,10 +45,11 @@ function getSelected(netid) {
 	console.log(JSON);
 }
 
-// remove selected class from all cells
+// remove selected and badtime class from all cells
 function clearSelected() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
   		cells[i].classList.remove("selected");
+  		cells[i].classList.remove("badtime");
 	}
 }
