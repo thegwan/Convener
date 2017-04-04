@@ -1,6 +1,7 @@
 # views.py
 
-from flask import redirect, url_for, request, render_template
+import json
+from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS, login_required
 from main import app
 from Table import Table
@@ -21,8 +22,14 @@ def index():
 	#if not logged in. is this the correct way to do it?
 	if cas.username is None or cas.token is None:
 		return redirect(url_for('landing'))
-	json = request.json
-	print(json)
+
+	# get JSON request	
+	jresponse = request.get_json()
+	if jresponse is not None:
+		print jresponse['netid']
+		daytimes = [daytime for daytime in jresponse['response']]
+		print daytimes
+		
 	return render_template('index.html', user=cas.username, token=cas.token, table=table)
 
 @app.route('/landing')
