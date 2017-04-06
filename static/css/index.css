@@ -1,0 +1,18 @@
+button#getselected, button#clearselected {
+	float: right;
+	color: black;
+}
+
+.container-full {
+	margin: 0 auto;
+	width: 100%;
+}
+
+body {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.heading {
+	height: 300px;
+}
