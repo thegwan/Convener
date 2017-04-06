@@ -21,6 +21,7 @@ def index():
 	#if not logged in. is this the correct way to do it?
 	if cas.username is None or cas.token is None:
 		return redirect(url_for('landing'))
+		
 	return render_template('index.html', user=cas.username, token=cas.token, table=table)
 
 @app.route('/landing')

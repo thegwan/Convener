@@ -121,3 +121,16 @@ def updateMeeting(mid, isScheduled=False, scheduledTime=None, notified=False):
 	updatedMeeting.notified= notified
 
 	db.session.commit()
+
+# Get a user from their netid
+def getUser(netid):
+	usr = (db.session.query(User).\
+		filter(User.netid==netid))
+
+	# Assuming every user has a unique netid
+	user = usr.one_or_none()
+	if user is None:
+		return "Failed to retrieve user" + netid
+
+	return user
+
