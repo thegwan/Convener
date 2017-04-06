@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_#, in_
 from main import app
+import ast
 
 # Allows connection to database via password
 with open('secrets', 'r') as s:
@@ -177,18 +179,26 @@ def getUserCreatedMeetings(netid):
 
 	return meet.all()
 
-# # Returns all the meetings where a user with id netid has already responded
-# def getUserMeetings(netid):
-# 	user = getUser(netid)
+# Returns all the meetings where a user with id netid has already responded
+def getUserMeetings(netid):
+	user = getUser(netid)
 	
-# 	if user is None:
-# 		return None
+	if user is None:
+		return None
 
-# 	# Note, this line is unique to Postgres, MySQL would need ('regexp') instead of ('~')
-# 	meet = (db.session.query(Meeting).\
-# 		filter(Meeting.respondingId.op('~')('[\[|" "]' + str(user.uid) + '[,|\]]')))
+	# # Note, this line is unique to Postgres, MySQL would need ('regexp') instead of ('~')
+	# meet = (db.session.query(Meeting).\
+	# 	filter(Meeting.respondingId.op('~')('[\[|" "]' + str(user.uid) + '[,|\]]')))
 
-# 	return meet.all()
+	userResponses = (db.session.query(Response).\
+		filter(Response.responderId==user.uid))
+
+	meetingIds = [response.meetingId for response in userResponses]
+
+	meetings = (db.session.query(Meeting).\
+		filter(Meeting.mid.in_(meetingIds)))
+
+	return meetings
 
 # Returns a list of netids where all these netids respresent users who have responded to 
 # meeting request mid
@@ -236,6 +246,20 @@ def getRespondedPreferredTimes(mid):
 	responded = (db.session.query(Response).\
 		filter(Response.meetingId==mid))
 
-	preferredTimes = [response.preferredTimes for response in responded]
+	preferredTimes = [ast.literal_eval(response.preferredTimes) for response in responded]
+
+	return preferredTimes
+
+# Returns a list of dicts respresents one person's times response given a mid and a netid, or None if none exist
+def getUserPreferredTimes(mid, netid):
+	user = getUser(netid)
+
+	if user is None:
+		return None
+	
+	responses = (db.session.query(Response).\
+		filter(and_(Response.meetingId==mid, Response.responderId==user.uid)))
+
+	preferredTimes = [ast.literal_eval(response.preferredTimes) for response in responses]
 
 	return preferredTimes
