@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 ###### DB Schema ################################################################################
 
 class User(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
+	uid = db.Column(db.Integer, primary_key=True)
 	netid = db.Column(db.String(80), nullable=False, unique=True)
 	firstName = db.Column(db.String(80))
 	lastName = db.Column(db.String(80))
@@ -33,9 +33,9 @@ class User(db.Model):
 class Meeting(db.Model):
 	mid = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(120), nullable=False)
-	creatorId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+	creatorId = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
 	respondingId = db.Column(db.String(), nullable=False)
-	isScheduled = db.Column(db.Boolean(), nullable=False)
+	allResponded = db.Column(db.Boolean(), nullable=False)
 	scheduledTime = db.Column(db.String())
 	notified = db.Column(db.Boolean(), nullable=False)
 
@@ -43,7 +43,7 @@ class Meeting(db.Model):
 		self.creatorId = creatorId
 		self.title = title
 		self.respondingId = respondingId
-		self.isScheduled = False
+		self.allResponded = False
 		self.scheduledTime = None
 		self.notified = False
 		
@@ -53,7 +53,7 @@ class Meeting(db.Model):
 class Response(db.Model):
 	rid = db.Column(db.Integer, primary_key=True)
 	meetingId = db.Column(db.Integer, db.ForeignKey('meeting.mid'), nullable=False)
-	responderId = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+	responderId = db.Column(db.Integer, db.ForeignKey('user.uid'), nullable=False)
 	preferredTimes = db.Column(db.String())
 	acceptableTimes = db.Column(db.String())
 	unacceptableTimes = db.Column(db.String())
@@ -110,10 +110,10 @@ def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 	updatedUser.unacceptableTimes = unacceptableTimes
 
 	db.session.commit()
-	return user
+	return updatedUser
 
 # Updates the meeting values, returns the meeting if it is created or None if its not in the database
-def updateMeeting(mid, isScheduled=False, scheduledTime=None, notified=False):
+def updateMeeting(mid, allResponded=False, scheduledTime=None, notified=False):
 	upd = (db.session.query(Meeting).\
 		filter(Meeting.mid==mid))
 
@@ -121,12 +121,24 @@ def updateMeeting(mid, isScheduled=False, scheduledTime=None, notified=False):
 	if updatedMeeting is None:
 		return None
 
-	updatedMeeting.isScheduled = isScheduled
+	updatedMeeting.allResponded = allResponded
 	updatedMeeting.scheduledTime = scheduledTime
 	updatedMeeting.notified = notified
 
 	db.session.commit()
-	return meeting
+	return updatedMeeting
+
+# Get a user from their uid, returns the user if they exist or None if they aren't in the database
+def getUserFromId(uid):
+	usr = (db.session.query(User).\
+		filter(User.uid==uid))
+
+	# Assuming every user has a unique
+	user = usr.one_or_none()
+	if user is None:
+		return None
+
+	return user
 
 # Get a user from their netid, returns the user if they exist or None if they aren't in the database
 def getUser(netid):
@@ -140,3 +152,90 @@ def getUser(netid):
 
 	return user
 
+# Get a meeting from its mid, returns the meeting if it exists or None if it does not
+def getMeeting(mid):
+	meet = (db.session.query(Meeting).\
+		filter(Meeting.mid==mid))
+
+	# Assuming every user has a unique netid
+	meeting = meet.one_or_none()
+	if meeting is None:
+		return None
+
+	return meeting
+
+# Returns all the meetings where a user with id netid is the creator
+def getUserCreatedMeetings(netid):
+	user = getUser(netid)
+	
+	if user is None:
+		return None
+
+
+	meet = (db.session.query(Meeting).\
+		filter(Meeting.creatorId==user.uid))
+
+	return meet.all()
+
+# # Returns all the meetings where a user with id netid has already responded
+# def getUserMeetings(netid):
+# 	user = getUser(netid)
+	
+# 	if user is None:
+# 		return None
+
+# 	# Note, this line is unique to Postgres, MySQL would need ('regexp') instead of ('~')
+# 	meet = (db.session.query(Meeting).\
+# 		filter(Meeting.respondingId.op('~')('[\[|" "]' + str(user.uid) + '[,|\]]')))
+
+# 	return meet.all()
+
+# Returns a list of netids where all these netids respresent users who have responded to 
+# meeting request mid
+def getRespondedNetids(mid):
+	responded = (db.session.query(Response).\
+		filter(Response.meetingId==mid))
+
+	uids = [response.responderId for response in responded]
+
+	netids = []
+
+	for u in uids:
+		user = getUserFromId(u) 
+		if user is not None:
+			netids.append(user.netid)
+
+	return netids
+
+# Returns a list of netids where all these netids respresent users who have NOT responded to 
+# meeting request mid
+def getNotRespondedNetids(mid):
+	responded = (db.session.query(Response).\
+		filter(Response.meetingId==mid))
+
+	respondedIds = [response.responderId for response in responded]
+
+	netids = []
+	meeting = getMeeting(mid)
+	respondingId = meeting.respondingId
+
+	stringIds = respondingId[1:len(respondingId)-1].split(",")
+	numIds = [int(num) for num in stringIds]
+
+	finalIds = filter(lambda x: x not in respondedIds, numIds)
+	
+	for u in finalIds:
+		user = getUserFromId(u) 
+		if user is not None:
+			netids.append(user.netid)
+
+	return netids
+
+# Returns a list of lists of dicts where each list respresents one person's times response given a mid
+def getRespondedPreferredTimes(mid):
+	responded = (db.session.query(Response).\
+		filter(Response.meetingId==mid))
+
+	preferredTimes = [response.preferredTimes for response in responded]
+
+	return preferredTimes
