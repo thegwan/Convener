@@ -68,25 +68,25 @@ class Response(db.Model):
 	def __repr__(self):
 		return '<Response %r>' % self.rid
 
-### Database modifying functions
+### Database modifying functions #############################################################################################
 
-# Adds a new user with a netid and other optional arguments
+# Adds a new user with a netid and other optional arguments and returns the user
 def createUser(netid, firstName=None, lastName=None, preferredTimes=None, acceptableTimes=None, unacceptableTimes=None):
-	user = User(netid, firstName, lastName, preferredTimes, acceptableTimes, unacceptableTimes)
-	db.session.add(user)
-	db.session.commit()
+	return updateUser(netid, firstName, lastName, preferredTimes, acceptableTimes, unacceptableTimes)
 
-# Creates a new meeting with a responderId, creatorId, and list in string format of preferredTimes
+# Creates a new meeting with a responderId, creatorId, and list in string format of preferredTimes returns the meeting
 def createMeeting(title, creatorId, respondingId):
 	meeting = Meeting(title, creatorId, respondingId)
 	db.session.add(meeting)
 	db.session.commit()
+	return meeting
 
-# Creates a new response for a meeting with meetingId
+# Creates a new response for a meeting with meetingId and responder responderId, returns the response
 def createResponse(meetingId, responderId, preferredTimes=None, acceptableTimes=None, unacceptableTimes=None):
 	response = Response(meetingId, responderId, preferredTimes, acceptableTimes, unacceptableTimes)
 	db.session.add(response)
 	db.session.commit()
+	return response
 
 # Updates the values saved to a user's profile
 def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, acceptableTimes=None, unacceptableTimes=None):
@@ -97,8 +97,12 @@ def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 	# Assuming every user has a unique netid
 	updatedUser = upd.one_or_none()
 	if updatedUser is None:
-		return "Failed to updateUser"
+		user = User(netid, firstName, lastName, preferredTimes, acceptableTimes, unacceptableTimes)
+		db.session.add(user)
+		db.session.commit()
+		return user
 
+	# Might need to change this in case this will overwrite the user's old values
 	updatedUser.firstName = firstName
 	updatedUser.lastName = lastName
 	updatedUser.preferredTimes= preferredTimes
@@ -106,23 +110,25 @@ def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 	updatedUser.unacceptableTimes = unacceptableTimes
 
 	db.session.commit()
+	return user
 
-# Updates the meeting values
+# Updates the meeting values, returns the meeting if it is created or None if its not in the database
 def updateMeeting(mid, isScheduled=False, scheduledTime=None, notified=False):
 	upd = (db.session.query(Meeting).\
 		filter(Meeting.mid==mid))
 
 	updatedMeeting = upd.one_or_none()
 	if updatedMeeting is None:
-		return "Failed to updateMeeting"
+		return None
 
 	updatedMeeting.isScheduled = isScheduled
 	updatedMeeting.scheduledTime = scheduledTime
-	updatedMeeting.notified= notified
+	updatedMeeting.notified = notified
 
 	db.session.commit()
+	return meeting
 
-# Get a user from their netid
+# Get a user from their netid, returns the user if they exist or None if they aren't in the database
 def getUser(netid):
 	usr = (db.session.query(User).\
 		filter(User.netid==netid))
@@ -130,7 +136,7 @@ def getUser(netid):
 	# Assuming every user has a unique netid
 	user = usr.one_or_none()
 	if user is None:
-		return "Failed to retrieve user" + netid
+		return None
 
 	return user
 
