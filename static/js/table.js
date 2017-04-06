@@ -46,7 +46,7 @@ function getSelected(netid) {
 		data: JSON.stringify(responseJSON),
 		dataType: 'text',
 		url: '/',
-		success: function(){alert('submitted!');}
+		success: function(){alert('Event Created!');}
 	});
 	
 }
