@@ -340,9 +340,10 @@
 	background-image: url("iphone_6_plus/iphone_6_plus_gold_land.png");
 }
 
+/* modified right from 5.97 to 5.87; top from 11.58 to 11.48 */
 .device-mockup.iphone6_plus > .device > .screen,
 .device-mockup.iphone6_plus.portrait > .device > .screen {
-    top: 11.58%; bottom: 11.58%; left: 5.97%; right: 5.97%;
+    top: 11.48%; bottom: 11.58%; left: 5.97%; right: 5.87%;
 }
 
 .device-mockup.iphone6_plus.landscape > .device > .screen {
