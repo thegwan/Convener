@@ -6,7 +6,6 @@ from flask_cas import CAS
 from dash import toJSON
 from main import app
 from Table import Table
-from database import *
 
 cas = CAS(app)
 table = Table()
