@@ -167,12 +167,22 @@ def getMeeting(mid):
 	meet = (db.session.query(Meeting).\
 		filter(Meeting.mid==mid))
 
-	# Assuming every user has a unique netid
 	meeting = meet.one_or_none()
 	if meeting is None:
 		return None
 
 	return meeting
+
+# Get a response from its meetingId and responderId, returns the response if it exists or None if it does not
+def getResponse(meetingId, responderId):
+	rsp = (db.session.query(Response).\
+		filter(and_(Response.meetingId==meetingId, Response.responderId==responderId)))
+
+	response = rsp.one_or_none()
+	if response is None:
+		return None
+
+	return response
 
 # Returns all the meetings where a user with id netid is the creator
 def getUserCreatedMeetings(netid):
