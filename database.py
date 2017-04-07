@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_#, in_
 from main import app
+import ast
 
 # Allows connection to database via password
 with open('secrets', 'r') as s:
@@ -70,6 +72,9 @@ class Response(db.Model):
 
 ### Database modifying functions #############################################################################################
 
+## Create Functions: Add new rows to the database ############################################################################
+
+
 # Adds a new user with a netid and other optional arguments and returns the user
 def createUser(netid, firstName=None, lastName=None, preferredTimes=None, acceptableTimes=None, unacceptableTimes=None):
 	return updateUser(netid, firstName, lastName, preferredTimes, acceptableTimes, unacceptableTimes)
@@ -87,6 +92,8 @@ def createResponse(meetingId, responderId, preferredTimes=None, acceptableTimes=
 	db.session.add(response)
 	db.session.commit()
 	return response
+
+## Update Functions: Edit existing rows in the database ######################################################################
 
 # Updates the values saved to a user's profile
 def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, acceptableTimes=None, unacceptableTimes=None):
@@ -128,17 +135,8 @@ def updateMeeting(mid, allResponded=False, scheduledTime=None, notified=False):
 	db.session.commit()
 	return updatedMeeting
 
-# Get a user from their uid, returns the user if they exist or None if they aren't in the database
-def getUserFromId(uid):
-	usr = (db.session.query(User).\
-		filter(User.uid==uid))
+## Get Functions: Retrieve data from the database ############################################################################
 
-	# Assuming every user has a unique
-	user = usr.one_or_none()
-	if user is None:
-		return None
-
-	return user
 
 # Get a user from their netid, returns the user if they exist or None if they aren't in the database
 def getUser(netid):
@@ -152,17 +150,39 @@ def getUser(netid):
 
 	return user
 
+# Get a user from their uid, returns the user if they exist or None if they aren't in the database
+def getUserFromId(uid):
+	usr = (db.session.query(User).\
+		filter(User.uid==uid))
+
+	# Assuming every user has a unique
+	user = usr.one_or_none()
+	if user is None:
+		return None
+
+	return user
+
 # Get a meeting from its mid, returns the meeting if it exists or None if it does not
 def getMeeting(mid):
 	meet = (db.session.query(Meeting).\
 		filter(Meeting.mid==mid))
 
-	# Assuming every user has a unique netid
 	meeting = meet.one_or_none()
 	if meeting is None:
 		return None
 
 	return meeting
+
+# Get a response from its meetingId and responderId, returns the response if it exists or None if it does not
+def getResponse(meetingId, responderId):
+	rsp = (db.session.query(Response).\
+		filter(and_(Response.meetingId==meetingId, Response.responderId==responderId)))
+
+	response = rsp.one_or_none()
+	if response is None:
+		return None
+
+	return response
 
 # Returns all the meetings where a user with id netid is the creator
 def getUserCreatedMeetings(netid):
@@ -171,24 +191,50 @@ def getUserCreatedMeetings(netid):
 	if user is None:
 		return None
 
-
 	meet = (db.session.query(Meeting).\
 		filter(Meeting.creatorId==user.uid))
 
 	return meet.all()
 
-# # Returns all the meetings where a user with id netid has already responded
-# def getUserMeetings(netid):
-# 	user = getUser(netid)
+# Returns all the meetings where a user with id netid has already responded
+def getUserMeetings(netid):
+	user = getUser(netid)
 	
-# 	if user is None:
-# 		return None
+	if user is None:
+		return None
 
-# 	# Note, this line is unique to Postgres, MySQL would need ('regexp') instead of ('~')
-# 	meet = (db.session.query(Meeting).\
-# 		filter(Meeting.respondingId.op('~')('[\[|" "]' + str(user.uid) + '[,|\]]')))
+	userResponses = (db.session.query(Response).\
+		filter(Response.responderId==user.uid))
 
-# 	return meet.all()
+	meetingIds = [response.meetingId for response in userResponses]
+
+	meetings = (db.session.query(Meeting).\
+		filter(Meeting.mid.in_(meetingIds)))
+
+	return meetings
+
+# Returns all the meetings where a user with id netid still needs to respond
+def getUserRequestedMeetings(netid):
+	user = getUser(netid)
+	
+	if user is None:
+		return None
+
+	# Note, this line is unique to Postgres, MySQL would need ('regexp') instead of ('~')
+	allRequestedMeetings = (db.session.query(Meeting).\
+		filter(Meeting.respondingId.op('~')('[\[|" "]' + str(user.uid) + '[,|\]]')))
+
+	userResponses = (db.session.query(Response).\
+		filter(Response.responderId==user.uid))
+
+	respondedMeetingIds = [response.meetingId for response in userResponses]
+
+	# Requested meeting ids that have not yet been responded to
+	requestedMeetingIds = filter(lambda x: x not in respondedMeetingIds, [meeting.mid for meeting in allRequestedMeetings])
+
+	meetings = filter(lambda x: x.mid in requestedMeetingIds, allRequestedMeetings)
+
+	return meetings
 
 # Returns a list of netids where all these netids respresent users who have responded to 
 # meeting request mid
@@ -236,6 +282,20 @@ def getRespondedPreferredTimes(mid):
 	responded = (db.session.query(Response).\
 		filter(Response.meetingId==mid))
 
-	preferredTimes = [response.preferredTimes for response in responded]
+	preferredTimes = [ast.literal_eval(response.preferredTimes) for response in responded]
+
+	return preferredTimes
+
+# Returns a list of dicts respresents one person's times response given a mid and a netid, or None if none exist
+def getUserPreferredTimes(mid, netid):
+	user = getUser(netid)
+
+	if user is None:
+		return None
+	
+	responses = (db.session.query(Response).\
+		filter(and_(Response.meetingId==mid, Response.responderId==user.uid)))
+
+	preferredTimes = [ast.literal_eval(response.preferredTimes) for response in responses]
 
 	return preferredTimes
