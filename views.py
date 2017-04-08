@@ -34,11 +34,11 @@ def index():
 
 	# sample test data to connect to front end
 	# ------------------------------------------------------------------------------------------
-	init_data = json.dumps{
-						  "confirmed": [
+	init_data = json.dumps(
+						  {"confirmed": [
 						    {
 						      "creator": "hsolis", 
-						      "mine": true, 
+						      "mine": True, 
 						      "times": [
 						        [
 						          {
@@ -56,7 +56,7 @@ def index():
 						  ], 
 						  "my_meetings": [
 						    {
-						      "all_responded": false, 
+						      "all_responded": False, 
 						      "nresp_netids": [
 						        "gwan"
 						      ], 
@@ -72,7 +72,7 @@ def index():
 						      "title": "Back Massage"
 						    }, 
 						    {
-						      "all_responded": true, 
+						      "all_responded": True, 
 						      "nresp_netids": [], 
 						      "resp_netids": [
 						        "hsolis", 
@@ -117,7 +117,7 @@ def index():
 						  "pending": [
 						    {
 						      "creator": "hsolis", 
-						      "mine": true, 
+						      "mine": True, 
 						      "times": [
 						        [
 						          {
@@ -130,7 +130,7 @@ def index():
 						    }, 
 						    {
 						      "creator": "kl9", 
-						      "mine": false, 
+						      "mine": False, 
 						      "times": [
 						        [
 						          {
@@ -142,7 +142,7 @@ def index():
 						      "title": "Code@Night"
 						    }
 						  ]
-						}
+						})
 
 	# ------------------------------------------------------------------------------------------
 
