@@ -5,6 +5,7 @@ from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS
 from main import app
 from Table import Table
+from GetMeetings import GetMeetings
 
 cas = CAS(app)
 table = Table()
@@ -40,7 +41,6 @@ def index():
 						      "creator": "hsolis", 
 						      "mine": True, 
 						      "times": [
-						        [
 						          {
 						            "Day": "Thu", 
 						            "Time": "8:30"
@@ -49,7 +49,6 @@ def index():
 						            "Day": "Fri", 
 						            "Time": "12:00"
 						          }
-						        ]
 						      ], 
 						      "title": "Colonial Lunch"
 						    }
@@ -119,12 +118,10 @@ def index():
 						      "creator": "hsolis", 
 						      "mine": True, 
 						      "times": [
-						        [
 						          {
 						            "Day": "Fri", 
 						            "Time": "12:00"
 						          }
-						        ]
 						      ], 
 						      "title": "Back Massage"
 						    }, 
@@ -132,17 +129,18 @@ def index():
 						      "creator": "kl9", 
 						      "mine": False, 
 						      "times": [
-						        [
 						          {
 						            "Day": "Fri", 
 						            "Time": "20:00"
 						          }
-						        ]
 						      ], 
 						      "title": "Code@Night"
 						    }
 						  ]
 						})
+	
+	# GetMeetings object to parse init_data
+	meetings = GetMeetings(init_data)
 
 	# ------------------------------------------------------------------------------------------
 
@@ -150,7 +148,7 @@ def index():
 							user=cas.username,
 							token=cas.token,
 							table=table,
-							init_data=init_data)
+							meetings=meetings)
 
 @app.route('/landing')
 def landing():
