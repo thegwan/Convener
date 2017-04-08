@@ -1,9 +1,8 @@
 # views.py
 
-import json
+import json, dash
 from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS
-from dash import toJSON
 from main import app
 from Table import Table
 
@@ -31,7 +30,122 @@ def index():
 		print daytimes
 	
 	# initial protocol
-	init_data = toJSON(cas.username)
+	# init_data = json.dumps(toJSON(cas.username))
+
+	# sample test data to connect to front end
+	# ------------------------------------------------------------------------------------------
+	init_data = json.dumps(
+						  {"confirmed": [
+						    {
+						      "creator": "hsolis", 
+						      "mine": True, 
+						      "times": [
+						        [
+						          {
+						            "Day": "Thu", 
+						            "Time": "8:30"
+						          }, 
+						          {
+						            "Day": "Fri", 
+						            "Time": "12:00"
+						          }
+						        ]
+						      ], 
+						      "title": "Colonial Lunch"
+						    }
+						  ], 
+						  "my_meetings": [
+						    {
+						      "all_responded": False, 
+						      "nresp_netids": [
+						        "gwan"
+						      ], 
+						      "resp_netids": [
+						        "hsolis"
+						      ], 
+						      "times": [
+						        {
+						          "Day": "Fri", 
+						          "Time": "12:00"
+						        }
+						      ], 
+						      "title": "Back Massage"
+						    }, 
+						    {
+						      "all_responded": True, 
+						      "nresp_netids": [], 
+						      "resp_netids": [
+						        "hsolis", 
+						        "gwan", 
+						        "ksha"
+						      ], 
+						      "times": [
+						        {
+						          "Day": "Thu", 
+						          "Time": "8:30"
+						        }, 
+						        {
+						          "Day": "Fri", 
+						          "Time": "12:00"
+						        }, 
+						        {
+						          "Day": "Thu", 
+						          "Time": "8:30"
+						        }, 
+						        {
+						          "Day": "Fri", 
+						          "Time": "12:00"
+						        }, 
+						        {
+						          "Day": "Fri", 
+						          "Time": "12:00"
+						        }
+						      ], 
+						      "title": "Colonial Lunch"
+						    }
+						  ], 
+						  "my_requests": [
+						    {
+						      "creator": "gwan", 
+						      "title": "Charter Friday"
+						    }, 
+						    {
+						      "creator": "kl9", 
+						      "title": "Code@Night"
+						    }
+						  ], 
+						  "pending": [
+						    {
+						      "creator": "hsolis", 
+						      "mine": True, 
+						      "times": [
+						        [
+						          {
+						            "Day": "Fri", 
+						            "Time": "12:00"
+						          }
+						        ]
+						      ], 
+						      "title": "Back Massage"
+						    }, 
+						    {
+						      "creator": "kl9", 
+						      "mine": False, 
+						      "times": [
+						        [
+						          {
+						            "Day": "Fri", 
+						            "Time": "20:00"
+						          }
+						        ]
+						      ], 
+						      "title": "Code@Night"
+						    }
+						  ]
+						})
+
+	# ------------------------------------------------------------------------------------------
+
 	return render_template('index.html',
 							user=cas.username,
 							token=cas.token,
