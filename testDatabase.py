@@ -234,6 +234,4 @@ assert not(filter(lambda x: x not in preferredTimes, \
 ## getUserPreferredTimes ##########################################################################
 # Test getting the preferred times of a response given meetingid and netid
 preferredTimes = db.getUserPreferredTimes(1, 'hsolis')
-
-assert not(filter(lambda x: x not in preferredTimes, \
-	[[{'Day': 'Thu', 'Time': '8:30'}, {'Day': 'Fri', 'Time': '12:00'}]]))
+assert sorted(preferredTimes) == sorted([{'Day': 'Thu', 'Time': '8:30'}, {'Day': 'Fri', 'Time': '12:00'}])

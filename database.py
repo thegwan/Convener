@@ -301,6 +301,11 @@ def getUserPreferredTimes(mid, netid):
 	responses = (db.session.query(Response).\
 		filter(and_(Response.meetingId==mid, Response.responderId==user.uid)))
 
-	preferredTimes = [ast.literal_eval(response.preferredTimes) for response in responses]
+	response = responses.one_or_none()
+
+	if response is None:
+		return None
+
+	preferredTimes = ast.literal_eval(response.preferredTimes)
 
 	return preferredTimes
