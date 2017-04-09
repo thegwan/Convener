@@ -186,8 +186,8 @@ init_data = json.dumps({"confirmed": [
 						})
 
 # test that GetMeetings works for json above
-test = GetMeetings(init_data)
+# test = GetMeetings(init_data)
 # print "My Meetings:\n", test.my_meetings.replace("<br/>", "\n")
 # print "Pending:\n", test.pending.replace("<br/>", "\n")
 # print "My Requests:\n", test.my_requests.replace("<br/>", "\n")
-print "Confirmed:\n", test.confirmed.replace("<br/>", "\n")
+# print "Confirmed:\n", test.confirmed.replace("<br/>", "\n")

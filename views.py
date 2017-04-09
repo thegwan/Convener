@@ -1,6 +1,6 @@
 # views.py
 
-import json, dash
+import json, db2server, server2db
 from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS
 from main import app
@@ -23,22 +23,27 @@ def index():
 	if cas.username is None or cas.token is None:
 		return redirect(url_for('landing'))
 
-	# get POSTed json
-	jresponse = request.get_json()
-	if jresponse is not None:
-		print jresponse['netid']
-		daytimes = [daytime for daytime in jresponse['response']]
+	# get POSTed json (either a creation or a response)
+	jpost = request.get_json()
+	if jpost is not None:
+		# test make sure received
+		print jpost['netid']
+		daytimes = [daytime for daytime in jpost['response']]
 		print daytimes
+		print jpost
+		# update database
+		# server2db.parse(jpost)
 	
 	# initial protocol
-	# init_data = json.dumps(toJSON(cas.username))
+	# init_data = json.dumps(init_protocol(cas.username))
 
 	# sample test data to connect to front end
 	# ------------------------------------------------------------------------------------------
 	init_data = json.dumps(
 						  {"confirmed": [
 						    {
-						      "creator": "hsolis", 
+						      "creator": "hsolis",
+						      "mid":  1,
 						      "mine": True, 
 						      "times": [
 						          {
@@ -56,6 +61,7 @@ def index():
 						  "my_meetings": [
 						    {
 						      "all_responded": False, 
+						      "mid": 2,
 						      "nresp_netids": [
 						        "gwan"
 						      ], 
@@ -72,6 +78,7 @@ def index():
 						    }, 
 						    {
 						      "all_responded": True, 
+						      "mid": 1,
 						      "nresp_netids": [], 
 						      "resp_netids": [
 						        "hsolis", 
@@ -105,17 +112,20 @@ def index():
 						  ], 
 						  "my_requests": [
 						    {
-						      "creator": "gwan", 
+						      "creator": "gwan",
+						      "mid": 3, 
 						      "title": "Charter Friday"
 						    }, 
 						    {
 						      "creator": "kl9", 
+						      "mid": 4,
 						      "title": "Code@Night"
 						    }
 						  ], 
 						  "pending": [
 						    {
-						      "creator": "hsolis", 
+						      "creator": "hsolis",
+						      "mid": 2, 
 						      "mine": True, 
 						      "times": [
 						          {
@@ -127,6 +137,7 @@ def index():
 						    }, 
 						    {
 						      "creator": "kl9", 
+						      "mid": 4,
 						      "mine": False, 
 						      "times": [
 						          {
