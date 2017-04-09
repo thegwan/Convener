@@ -8,6 +8,7 @@ with open('secrets', 'r') as s:
 	secrets = s.readlines()
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + secrets[1].replace('\n','') + '@localhost/Convener'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 ###### DB Schema ################################################################################
@@ -79,7 +80,8 @@ class Response(db.Model):
 def createUser(netid, firstName=None, lastName=None, preferredTimes=None, acceptableTimes=None, unacceptableTimes=None):
 	return updateUser(netid, firstName, lastName, preferredTimes, acceptableTimes, unacceptableTimes)
 
-# Creates a new meeting with a responderId, creatorId, and list in string format of preferredTimes returns the meeting
+# Creates a new meeting with a title, list in string format of respondingId, and creatorId
+# returns the created meeting
 def createMeeting(title, creatorId, respondingId):
 	meeting = Meeting(title, creatorId, respondingId)
 	db.session.add(meeting)
@@ -207,6 +209,9 @@ def getUserMeetings(netid):
 		filter(Response.responderId==user.uid))
 
 	meetingIds = [response.meetingId for response in userResponses]
+
+	if len(meetingIds) == 0:
+		return []
 
 	meetings = (db.session.query(Meeting).\
 		filter(Meeting.mid.in_(meetingIds)))
