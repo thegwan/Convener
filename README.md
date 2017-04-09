@@ -22,19 +22,25 @@ Introducing Convener. Have you ever had difficulties scheduling group meetings w
 View our design document [here](https://docs.google.com/a/princeton.edu/document/d/1xsXrY7amCBFhxwQwY0sNtyeXbMSl-21SSOqQVs2ySnw/edit?usp=sharing).
 
 
-### Project Timeline
-* March 19 - **March 26**
-    * Git repo set up
-    * Done messing around with Flask, SQLite3, and Heroku
-    * Get project progress site up (could just be a Github Pages site)
-    * Server running
-* March 26 - **March 31**
-    * Basic calendar working with test data
-    * Database tables setup properly in a well thought out manner and written script for querying
-    * Each tier works with hard coded test data in its own section
-    * Combined the three different levels and fixed any bugs that appear along the way. Get a few sample use cases, write some good tests. 
-    * Barebones WhenIsGood functionality done
-    * Displays calendar and lists
+### Milestones Timeline
+* **March 27**
+    * Git repository set up
+    * Project Progress Site up and running
+* **March 31**
+    * Server up and running
+    * Database tables setup
+    * Static front end
+* **April 2**
+    * CAS integration
+    * Landing page completed
+    * Interactive front end
+    * Database functions done
+* **April 7**
+    * Database to server communication
+    * Server to database communication
+    * Client to server communication
+    * Server to client communication
+* **In Progress: Testing tier communication**
 * March 31 - **April 7**
     * Minimum viable product done
     * Interactive Dashboard (Calendar, Lists of Meetings)
