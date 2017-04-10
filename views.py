@@ -27,12 +27,9 @@ def index():
 	jpost = request.get_json()
 	if jpost is not None:
 		# test make sure received
-		print jpost['netid']
-		daytimes = [daytime for daytime in jpost['response']]
-		print daytimes
 		print jpost
 		# update database
-		# server2db.parse(jpost)
+		#server2db.parse(jpost)
 	
 	# initial protocol
 	# init_data = json.dumps(init_protocol(cas.username))
