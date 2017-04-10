@@ -28,7 +28,7 @@ import database as dbase
 #-----------------------ok----------------------------
 
 
-print json.dumps(db2server.init_protocol("hsolis"), indent=2, sort_keys=True)
+print json.dumps(db2server.init_protocol("gwan"), indent=2, sort_keys=True)
 #print json.dumps(dash.init_protocol("gwan"), indent=2, sort_keys=True)
 #print json.dumps(dash.init_protocol("ksha"), indent=2, sort_keys=True)
 #print json.dumps(dash.init_protocol("jackvw"), indent=2, sort_keys=True)

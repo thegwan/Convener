@@ -24,7 +24,16 @@ $(document).ready(function() {
   	});
 });
 
-// creates JSON containing all selected cells
+// disables create meeting button if no title or responders listed
+var checkButton = setInterval(function() {
+	if (document.getElementById('title').value == '' ||
+		document.getElementById('invite').value == '')
+		document.getElementById('modalcreate').disabled = true;
+	else
+		document.getElementById('modalcreate').disabled = false;
+}, 10);
+
+// creates JSON containing all selected cells and title and invitees
 function getSelected(netid) {
 	var cells = document.getElementsByClassName('selected');
 
@@ -38,6 +47,16 @@ function getSelected(netid) {
 		responseJSON.response.push({"day":day, "time":time});
 	}
 	// console.log(responseJSON);
+	var title = document.getElementById('title').value;
+	var responders = document.getElementById('invite').value;
+	
+
+	if (title != '' && responders != '') {
+		responseJSON.title = title
+		responseJSON.responders = responders.split(/\s*,\s*/);
+		document.getElementById('title').value = '';
+		document.getElementById('invite').value = '';
+	}
 
 	$.ajax({
 		type: 'POST',
