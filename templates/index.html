@@ -26,7 +26,7 @@
    
 
   </head>
-  <body>
+  <body onload="parseInitialData('{{ init_data }}'')">
     <!--Navigation bar-->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -65,7 +65,7 @@
                 <!-- Pending Meetings -->
                 <div class="heading pull-right">
                   <h4>Pending Meetings</h4>
-                  <p>{{ meetings.pending | safe }}</p>
+                  
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-css3"></i>
@@ -74,7 +74,7 @@
                 <!-- Requested Meetings -->
                 <div class="heading pull-right">
                   <h4>Requested Meetings</h4>
-                  <p>{{ meetings.my_requests | safe }}</p>
+                  
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-book"></i>
@@ -131,7 +131,7 @@
                 <!-- Confirmed Meetings -->
                 <div class="heading pull-right">
                   <h4>Confirmed Meetings</h4>
-                  <p>{{ meetings.confirmed | safe }}</p>
+                  
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-trophy"></i>
@@ -140,7 +140,7 @@
                 <!-- My Meetings -->
                 <div class="heading pull-right">
                   <h4>My Meetings</h4>
-                  <p>{{ meetings.my_meetings | safe }}</p>
+                  
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-address-book"></i>
@@ -163,7 +163,6 @@
     <script src="/static/js/jquery.easing.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/custom.js"></script>
-    <script src="/static/contactform/contactform.js"></script>
 	<script src="{{ url_for('static', filename='js/table.js') }}"></script>
     
   </body>

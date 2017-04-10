@@ -159,7 +159,8 @@ def index():
 							user=cas.username,
 							token=cas.token,
 							table=table,
-							meetings=meetings)
+							#meetings=meetings,
+							init_data=init_data)
 
 @app.route('/landing')
 def landing():

@@ -59,3 +59,8 @@ function clearSelected() {
   		cells[i].classList.remove("badtime");
 	}
 }
+
+function parseInitialData(init_data) {
+	var parsedData = JSON.parse(init_data);
+	alert(parsedData['confirmed']['creator']);
+}
