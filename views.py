@@ -45,11 +45,11 @@ def index():
 						      "times": [
 						          {
 						            "Day": "Thu", 
-						            "Time": "8:30"
+						            "Time": "8pm"
 						          }, 
 						          {
 						            "Day": "Fri", 
-						            "Time": "12:00"
+						            "Time": "12pm"
 						          }
 						      ], 
 						      "title": "Colonial Lunch"
@@ -68,7 +68,7 @@ def index():
 						      "times": [
 						        {
 						          "Day": "Fri", 
-						          "Time": "12:00"
+						          "Time": "12pm"
 						        }
 						      ], 
 						      "title": "Back Massage"
@@ -85,23 +85,23 @@ def index():
 						      "times": [
 						        {
 						          "Day": "Thu", 
-						          "Time": "8:30"
+						          "Time": "8pm"
 						        }, 
 						        {
 						          "Day": "Fri", 
-						          "Time": "12:00"
+						          "Time": "12pm"
 						        }, 
 						        {
 						          "Day": "Thu", 
-						          "Time": "8:30"
+						          "Time": "8pm"
 						        }, 
 						        {
 						          "Day": "Fri", 
-						          "Time": "12:00"
+						          "Time": "12pm"
 						        }, 
 						        {
 						          "Day": "Fri", 
-						          "Time": "12:00"
+						          "Time": "12pm"
 						        }
 						      ], 
 						      "title": "Colonial Lunch"
@@ -127,7 +127,7 @@ def index():
 						      "times": [
 						          {
 						            "Day": "Fri", 
-						            "Time": "12:00"
+						            "Time": "12pm"
 						          }
 						      ], 
 						      "title": "Back Massage"
@@ -139,7 +139,7 @@ def index():
 						      "times": [
 						          {
 						            "Day": "Fri", 
-						            "Time": "20:00"
+						            "Time": "8pm"
 						          }
 						      ], 
 						      "title": "Code@Night"

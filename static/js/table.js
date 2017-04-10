@@ -1,3 +1,5 @@
+var parsedData;
+
 $(document).ready(function() {
 	// select and unselect clicked-on cells (good time)
   	$(".cell").click(function(){
@@ -80,6 +82,66 @@ function clearSelected() {
 }
 
 function parseInitialData(init_data) {
-	var parsedData = JSON.parse(init_data);
-	alert(parsedData['confirmed']['creator']);
+	parsedData = JSON.parse(init_data);
+	
+	// For displaying the information from my_meetings
+	for (var i = 0; i < parsedData['my_meetings'].length; i++){
+		var meeting = parsedData['my_meetings'][i];
+		var div = document.createElement("DIV");
+		respString = '';
+		notRespString = '';
+		for (var j = 0; j < meeting['resp_netids'].length; j++){
+			respString += meeting['resp_netids'][j] + ' ';
+		}
+		for (var k = 0; k < meeting['nresp_netids'].length; k++){
+			notRespString += meeting['nresp_netids'][k] + ' ';
+		}
+		$(div).attr('tooltip', "Responded: " + respString + "Not Responded: " + notRespString);
+		var anchor = document.createElement("A");
+		//$(anchor).attr('onclick', 'myMeetingClicked(anchor)');
+		var f = clickMeet(i, meeting['title']);
+		// anchor.addEventListener('click', function(i) {
+		// 	myMeetingClicked(parsedData['my_meetings'][i]['times']);
+		// 	alert('clicked?');
+		// }, false);
+		anchor.addEventListener('click', f);
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+		div.appendChild(anchor)
+		document.getElementById('myMeetingsDiv').appendChild(div);
+	}
+
+	// fromDaysToTable(parsedData['my_meetings'][1]['times']);
+}
+
+// Returns an anonymous function that is attached to each item in myMeetings
+function clickMeet(i, title) {
+	return function() {
+		myMeetingClicked(parsedData['my_meetings'][i]['times']);
+		document.getElementById('tableHeader').innerText = title;
+		document.getElementById('getselected').innerText = 'Submit';
+	}
+};
+
+// When myMeeting is clicked, displays the times and days on the table
+function myMeetingClicked(meetingElement) {
+	// alert(parsedData['confirmed'][0]['creator']);
+	fromDaysToTable(meetingElement);
+}
+
+
+// Given a list of days and time dicts, changes the table on the main screen 
+function fromDaysToTable(listOfDaysAndTimes) {
+	clearSelected();
+	for (var i = 0; i < listOfDaysAndTimes.length; i++) {
+		day = listOfDaysAndTimes[i]['Day']
+		time = listOfDaysAndTimes[i]['Time']
+		cell = document.getElementById(day + '_' + time);
+
+		if (! ($(cell).hasClass( "selected"))) {
+      		$(cell).addClass("selected");
+		}
+
+	}
+	// alert('squadala');
 }

@@ -28,3 +28,33 @@ td.badtime {
 .cell {
    padding: 0px 5px !important;
 }
+
+/* Tooltip souce code: http://jsfiddle.net/AndreaLigios/jtLbpy62/*/
+
+[tooltip]:before {
+    /* needed - do not touch */
+    content: attr(tooltip);
+    position: absolute;
+    opacity: 0;
+    
+    /* customizable */
+    transition: all 0.15s ease;
+    padding: 10px;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px silver;    
+}
+
+[tooltip]:hover:before {
+    /* needed - do not touch */
+    opacity: 1;
+    
+    /* customizable */
+    background: lightgreen;
+    margin-top: -50px;
+    margin-left: 20px;    
+}
+ 
+[tooltip]:not([tooltip-persistent]):before {
+    pointer-events: none;
+} 
