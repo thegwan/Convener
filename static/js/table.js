@@ -112,6 +112,7 @@ function resetEverything() {
 	document.getElementById('getselected').style.visibility = 'visible';
 	document.getElementById('clearselected').style.visibility = 'visible';
 	document.getElementById('tableSubHeader').innerText = '';
+	document.getElementById('getselected').innerText = 'Create';
 }
 
 // Takes the initial meeting JSON sent by the server and parses it into 
@@ -179,6 +180,22 @@ function parseInitialData(init_data) {
 		div.appendChild(anchor)
 		document.getElementById('myRequestedDiv').appendChild(div);
 	}
+
+	// For displaying the information from confirmed
+	for (var i = 0; i < parsedData['confirmed'].length; i++){
+		var meeting = parsedData['confirmed'][i];
+		var div = document.createElement("DIV");
+
+		var anchor = document.createElement("A");
+
+		var f = clickConfirmed(i, meeting['title'], meeting['creator']);
+
+		anchor.addEventListener('click', f);
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+		div.appendChild(anchor)
+		document.getElementById('myConfirmedDiv').appendChild(div);
+	}
 }
 
 // Returns an anonymous function that is attached to each item in myMeetings
@@ -229,6 +246,24 @@ function clickRequested(i, title, creator) {
 function requestedClicked(meetingElement) {
 	resetEverything();
 	// fromDaysToTable(meetingElement);
+}
+
+// Returns an anonymous function that is attached to each item in confirmed
+function clickConfirmed(i, title) {
+	return function() {
+		confirmedClicked(parsedData['confirmed'][i]['times']);
+		document.getElementById('tableHeader').innerText = title;
+		document.getElementById('getselected').style.visibility = 'hidden';
+		document.getElementById('clearselected').style.visibility = 'hidden';
+		document.getElementById('tableSubHeader').innerText = '-Your Response';
+		makeUnselectable();
+	}
+};
+
+// When confirmed is clicked, displays the user's response times and days on the table
+function confirmedClicked(meetingElement) {
+	resetEverything();
+	fromDaysToTable(meetingElement);
 }
 
 // Given a list of days and time dicts, changes the table on the main screen 
