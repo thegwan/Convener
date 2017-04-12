@@ -167,6 +167,8 @@ function clickMyMeeting(i, title) {
 		myMeetingClicked(parsedData['my_meetings'][i]['times']);
 		document.getElementById('tableHeader').innerText = title;
 		document.getElementById('getselected').innerText = 'Submit';
+		document.getElementById('getselected').style.visibility = 'hidden';
+		document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
 
 	}
