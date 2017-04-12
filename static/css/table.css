@@ -25,6 +25,11 @@ td.badtime {
 	background: rgb(228,0,0);
 }
 
+td.unselectable {
+	opacity: 50%;
+	pointer-events: none;
+}
+
 .cell {
    padding: 0px 5px !important;
 }

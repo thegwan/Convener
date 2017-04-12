@@ -40,6 +40,7 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" onclick="resetEverything()">Home</a></li>
           <li><a href="#">Meetings</a></li>
           <li><a href="#">Pending</a></li>
           <li><a href="#">Confirmed</a></li>
@@ -57,6 +58,7 @@
         <div class="row">
           <div class="header-section text-center">
             <h2 id="tableHeader">Create Meeting</h2>
+            <h6 id="tableSubHeader"></h6>
           </div>
           <div class="feature-info">
             <!-- Left Column: Pending Meetings and Requested Meetings -->
@@ -65,7 +67,9 @@
                 <!-- Pending Meetings -->
                 <div class="heading pull-right">
                   <h4>Pending Meetings</h4>
-                  
+                  <div id="myPendingDiv">
+
+                  </div>
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-css3"></i>
@@ -74,7 +78,9 @@
                 <!-- Requested Meetings -->
                 <div class="heading pull-right">
                   <h4>Requested Meetings</h4>
-                  
+                  <div id="myRequestedDiv">
+
+                  </div>
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-book"></i>
@@ -89,6 +95,7 @@
                 <div class="table-responsive">
         					<!-- Construct Table -->
         					{{ table.html | safe }}
+        					<button type="button" id="repondButton" class="btn btn-lg btn-default">Respond</button>
         					<button type="button" id="getselected" class="btn btn-lg btn-default" data-toggle="modal" data-target="#createMeetingModal">Create</button>
         					<button type="button" id="clearselected" class="btn btn-lg btn-default" onclick="clearSelected()">Clear</button>
                   <!-- Create Meeting Modal -->

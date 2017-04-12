@@ -24,3 +24,11 @@ button#modalcreate {
 .heading {
 	height: 300px;
 }
+
+a {
+	cursor: pointer;
+}
+
+.tooltipDiv {
+	white-space: pre-line;
+}
