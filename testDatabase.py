@@ -5,12 +5,12 @@ import database as db
 # Testing
 
 # Sample time strings
-thursFri = "[{'Day': 'Thu', 'Time': '8:30'}, {'Day': 'Fri', 'Time': '12:00'}]"
-friLunch = "[{'Day': 'Fri', 'Time': '12:00'}]"
-wholeWeek = "[{'Day': 'Mon', 'Time': '18:00'}, {'Day': 'Tue', 'Time': '12:00'}, {'Day': 'Sat', 'Time': '9:00'}]"
-friNight = "[{'Day': 'Fri', 'Time': '20:00'}]"
-monMorn = "[{'Day': 'Mon', 'Time': '11:00'}]"
-wedNoon = "[{'Day': 'Wed', 'Time': '3:00'}]"
+thursFri = "[{'day': 'Thu', 'time': '8pm'}, {'day': 'Fri', 'time': '12pm'}]"
+friLunch = "[{'day': 'Fri', 'time': '12pm'}]"
+wholeWeek = "[{'day': 'Mon', 'time': '6pm'}, {'day': 'Tue', 'time': '12pm'}, {'day': 'Sat', 'time': '9pm'}]"
+friNight = "[{'day': 'Fri', 'time': '12am'}]"
+monMorn = "[{'day': 'Mon', 'time': '11pm'}]"
+wedNoon = "[{'day': 'Wed', 'time': '3pm'}]"
 
 ## Create users and check that they were properly added ###########################################
 db.createUser('hsolis', 'Hector', 'Solis', thursFri)
@@ -229,9 +229,9 @@ assert sorted(netids) == sorted(['gwan', 'ksha', 'jackvw'])
 preferredTimes = db.getRespondedPreferredTimes(1)
 
 assert not(filter(lambda x: x not in preferredTimes, \
-	[[{'Day': 'Thu', 'Time': '8:30'}, {'Day': 'Fri', 'Time': '12:00'}], [{'Day': 'Fri', 'Time': '12:00'}], [{'Day': 'Fri', 'Time': '12:00'}]]))
+	[[{'day': 'Thu', 'time': '8pm'}, {'day': 'Fri', 'time': '12pm'}], [{'day': 'Fri', 'time': '12pm'}], [{'day': 'Fri', 'time': '12pm'}]]))
 
 ## getUserPreferredTimes ##########################################################################
 # Test getting the preferred times of a response given meetingid and netid
 preferredTimes = db.getUserPreferredTimes(1, 'hsolis')
-assert sorted(preferredTimes) == sorted([{'Day': 'Thu', 'Time': '8:30'}, {'Day': 'Fri', 'Time': '12:00'}])
+assert sorted(preferredTimes) == sorted([{'day': 'Thu', 'time': '8pm'}, {'day': 'Fri', 'time': '12pm'}])
