@@ -27,128 +27,128 @@ def index():
 	jpost = request.get_json()
 	if jpost is not None:
 		# test make sure received
-		print jpost
+		# print jpost
 		# update database
-		#server2db.parse(jpost)
+		server2db.parse(jpost)
 	
 	# initial protocol
-	# init_data = json.dumps(init_protocol(cas.username))
+	init_data = json.dumps(db2server.init_protocol(cas.username))
 
 	# sample test data to connect to front end
 	# ------------------------------------------------------------------------------------------
-	init_data = json.dumps(
-						  {"confirmed": [
-						    {
-						      "creator": "hsolis",
-						      "mid":  1,
-						      "mine": True, 
-						      "times": [
-						          {
-						            "Day": "Thu", 
-						            "Time": "8pm"
-						          }, 
-						          {
-						            "Day": "Fri", 
-						            "Time": "12pm"
-						          }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }
-						  ], 
-						  "my_meetings": [
-						    {
-						      "all_responded": False, 
-						      "mid": 2,
-						      "nresp_netids": [
-						        "gwan"
-						      ], 
-						      "resp_netids": [
-						        "hsolis"
-						      ], 
-						      "times": [
-						        {
-						          "Day": "Fri", 
-						          "Time": "12pm"
-						        }
-						      ], 
-						      "title": "Back Massage"
-						    }, 
-						    {
-						      "all_responded": True, 
-						      "mid": 1,
-						      "nresp_netids": [], 
-						      "resp_netids": [
-						        "hsolis", 
-						        "gwan", 
-						        "ksha"
-						      ], 
-						      "times": [
-						        {
-						          "Day": "Thu", 
-						          "Time": "8pm"
-						        }, 
-						        {
-						          "Day": "Fri", 
-						          "Time": "12pm"
-						        }, 
-						        {
-						          "Day": "Thu", 
-						          "Time": "8pm"
-						        }, 
-						        {
-						          "Day": "Fri", 
-						          "Time": "12pm"
-						        }, 
-						        {
-						          "Day": "Fri", 
-						          "Time": "12pm"
-						        }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }
-						  ], 
-						  "my_requests": [
-						    {
-						      "creator": "gwan",
-						      "mid": 3, 
-						      "title": "Charter Friday"
-						    }, 
-						    {
-						      "creator": "kl9", 
-						      "mid": 4,
-						      "title": "Code@Night"
-						    }
-						  ], 
-						  "pending": [
-						    {
-						      "creator": "hsolis",
-						      "mid": 2, 
-						      "mine": True, 
-						      "times": [
-						          {
-						            "Day": "Fri", 
-						            "Time": "12pm"
-						          }
-						      ], 
-						      "title": "Back Massage"
-						    }, 
-						    {
-						      "creator": "kl9", 
-						      "mid": 4,
-						      "mine": False, 
-						      "times": [
-						          {
-						            "Day": "Fri", 
-						            "Time": "8pm"
-						          }
-						      ], 
-						      "title": "Code@Night"
-						    }
-						  ]
-						})
+	# init_data = json.dumps(
+	# 					  {"confirmed": [
+	# 					    {
+	# 					      "creator": "hsolis",
+	# 					      "mid":  1,
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					          {
+	# 					            "day": "Thu", 
+	# 					            "time": "8pm"
+	# 					          }, 
+	# 					          {
+	# 					            "day": "Fri", 
+	# 					            "time": "12pm"
+	# 					          }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }
+	# 					  ], 
+	# 					  "my_meetings": [
+	# 					    {
+	# 					      "all_responded": False, 
+	# 					      "mid": 2,
+	# 					      "nresp_netids": [
+	# 					        "gwan"
+	# 					      ], 
+	# 					      "resp_netids": [
+	# 					        "hsolis"
+	# 					      ], 
+	# 					      "times": [
+	# 					        {
+	# 					          "day": "Fri", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Back Massage"
+	# 					    }, 
+	# 					    {
+	# 					      "all_responded": True, 
+	# 					      "mid": 1,
+	# 					      "nresp_netids": [], 
+	# 					      "resp_netids": [
+	# 					        "hsolis", 
+	# 					        "gwan", 
+	# 					        "ksha"
+	# 					      ], 
+	# 					      "times": [
+	# 					        {
+	# 					          "day": "Thu", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "day": "Fri", 
+	# 					          "time": "12pm"
+	# 					        }, 
+	# 					        {
+	# 					          "day": "Thu", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "day": "Fri", 
+	# 					          "time": "12pm"
+	# 					        }, 
+	# 					        {
+	# 					          "day": "Fri", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }
+	# 					  ], 
+	# 					  "my_requests": [
+	# 					    {
+	# 					      "creator": "gwan",
+	# 					      "mid": 3, 
+	# 					      "title": "Charter Friday"
+	# 					    }, 
+	# 					    {
+	# 					      "creator": "kl9", 
+	# 					      "mid": 4,
+	# 					      "title": "Code@Night"
+	# 					    }
+	# 					  ], 
+	# 					  "pending": [
+	# 					    {
+	# 					      "creator": "hsolis",
+	# 					      "mid": 2, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					          {
+	# 					            "day": "Fri", 
+	# 					            "time": "12pm"
+	# 					          }
+	# 					      ], 
+	# 					      "title": "Back Massage"
+	# 					    }, 
+	# 					    {
+	# 					      "creator": "kl9", 
+	# 					      "mid": 4,
+	# 					      "mine": False, 
+	# 					      "times": [
+	# 					          {
+	# 					            "day": "Fri", 
+	# 					            "time": "8pm"
+	# 					          }
+	# 					      ], 
+	# 					      "title": "Code@Night"
+	# 					    }
+	# 					  ]
+	# 					})
 	
 	# GetMeetings object to parse init_data
-	meetings = GetMeetings(init_data)
+	#meetings = GetMeetings(init_data)
 
 	# ------------------------------------------------------------------------------------------
 

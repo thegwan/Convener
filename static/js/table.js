@@ -1,4 +1,5 @@
 var parsedData;
+var requestMid;
 
 $(document).ready(function() {
 	// select and unselect clicked-on cells (good time)
@@ -35,40 +36,17 @@ var checkButton = setInterval(function() {
 		document.getElementById('modalcreate').disabled = false;
 }, 10);
 
+
 // creates JSON containing all selected cells and title and invitees
-function getSelected(netid) {
+function getSelected(toServer) {
 	var cells = document.getElementsByClassName('selected');
 
-	var responseJSON = {};
-	responseJSON.netid = netid;
-	responseJSON.response = [];
 	for (var i = 0; i < cells.length; i++) {
 		var daytime = cells[i].id.split("_");
 		var day = daytime[0];
 		var time = daytime[1];
-		responseJSON.response.push({"day":day, "time":time});
+		toServer.response.push({"day":day, "time":time});
 	}
-	// console.log(responseJSON);
-	var title = document.getElementById('title').value;
-	var responders = document.getElementById('invite').value;
-	
-
-	if (title != '' && responders != '') {
-		responseJSON.title = title
-		responseJSON.responders = responders.split(/\s*,\s*/);
-		document.getElementById('title').value = '';
-		document.getElementById('invite').value = '';
-	}
-
-	$.ajax({
-		type: 'POST',
-		contentType: 'application/json',
-		// Encode data as JSON.
-		data: JSON.stringify(responseJSON),
-		dataType: 'text',
-		url: '/',
-		success: function(){alert('Event Created!');}
-	});
 	
 }
 
@@ -111,6 +89,7 @@ function resetEverything() {
 	document.getElementById('tableHeader').innerText = 'Convener';
 	document.getElementById('getselected').style.visibility = 'visible';
 	document.getElementById('clearselected').style.visibility = 'visible';
+	document.getElementById('respondButton').style.visibility = 'hidden';
 	document.getElementById('tableSubHeader').innerText = '';
 	document.getElementById('getselected').innerText = 'Create';
 }
@@ -118,6 +97,7 @@ function resetEverything() {
 // Takes the initial meeting JSON sent by the server and parses it into 
 // meetings that can be displayed on the page
 function parseInitialData(init_data) {
+	resetEverything();
 	parsedData = JSON.parse(init_data);
 	
 	// For displaying the information from my_meetings
@@ -172,7 +152,7 @@ function parseInitialData(init_data) {
 
 		var anchor = document.createElement("A");
 
-		var f = clickRequested(i, meeting['title'], meeting['creator']);
+		var f = clickRequested(i, meeting['title'], meeting['creator'], meeting['mid']);
 
 		anchor.addEventListener('click', f);
 		var textNode = document.createTextNode(meeting['title']);
@@ -204,6 +184,10 @@ function clickMyMeeting(i, title) {
 		myMeetingClicked(parsedData['my_meetings'][i]['times']);
 		document.getElementById('tableHeader').innerText = title;
 		document.getElementById('getselected').innerText = 'Submit';
+		document.getElementById('getselected').style.visibility = 'hidden';
+		document.getElementById('clearselected').style.visibility = 'hidden';
+		document.getElementById('respondButton').style.visibility = 'hidden';
+
 	}
 };
 
@@ -220,6 +204,7 @@ function clickPending(i, title) {
 		document.getElementById('tableHeader').innerText = title;
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'hidden';
+		document.getElementById('respondButton').style.visibility = 'hidden';
 		document.getElementById('tableSubHeader').innerText = '-Your Response';
 		makeUnselectable();
 	}
@@ -232,13 +217,15 @@ function pendingClicked(meetingElement) {
 }
 
 // Returns an anonymous function that is attached to each item in requested
-function clickRequested(i, title, creator) {
+function clickRequested(i, title, creator, mid) {
 	return function() {
 		requestedClicked(parsedData['my_requests'][i]['times']);
 		document.getElementById('tableHeader').innerText = title;
 		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'hidden';
+		document.getElementById('clearselected').style.visibility = 'visible';
+		document.getElementById('respondButton').style.visibility = 'visible';
 		document.getElementById('tableSubHeader').innerText = 'Created by: ' + creator;
+		requestMid = mid;
 	}
 };
 
@@ -270,8 +257,8 @@ function confirmedClicked(meetingElement) {
 function fromDaysToTable(listOfDaysAndTimes) {
 	clearSelected();
 	for (var i = 0; i < listOfDaysAndTimes.length; i++) {
-		day = listOfDaysAndTimes[i]['Day']
-		time = listOfDaysAndTimes[i]['Time']
+		day = listOfDaysAndTimes[i]['day']
+		time = listOfDaysAndTimes[i]['time']
 		cell = document.getElementById(day + '_' + time);
 
 		if (! ($(cell).hasClass( "selected"))) {
@@ -281,3 +268,44 @@ function fromDaysToTable(listOfDaysAndTimes) {
 	}
 	// alert('squadala');
 }
+
+//--------------------------------------------------------------------------------
+
+// creates JSON containing all selected cells, title, invitees, mid,
+// depending on if user responds to or creates a meeting
+
+function createJSON(netid) {
+	var toServer = {};
+	toServer.netid = netid;
+	toServer.response = [];
+
+	// get selected cells
+	getSelected(toServer);
+
+	// for meeting creation
+	var title = document.getElementById('title').value;
+	var responders = document.getElementById('invite').value;
+
+	if (title != '' && responders != '') {
+		toServer.title = title                              // js has title property - may cause problems
+		toServer.responders = responders.split(/\s*,\s*/);
+		document.getElementById('title').value = '';
+		document.getElementById('invite').value = '';
+	}
+	else {
+		toServer.mid = requestMid;
+	}
+	// console.log(toServer)
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		// Encode data as JSON.
+		data: JSON.stringify(toServer),
+		dataType: 'text',
+		url: '/',
+		success: function(){alert('Event Created!');}
+	});
+	
+}
+
+//--------------------------------------------------------------------------------
