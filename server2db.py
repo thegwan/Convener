@@ -39,6 +39,8 @@ def parseCreation(jpost):
 
 	meeting = db.createMeeting(title, creatorId, respondingIds)
 	db.createResponse(meeting.mid, creatorId, str(jpost["response"]))
+	if db.getNotRespondedNetids(meeting.mid) == []:
+		db.updateMeeting(meeting.mid, allResponded=True)
 
 #-----------------------------------------------------------------------
 
@@ -50,6 +52,8 @@ def parseResponse(jpost):
 	creatorId = db.getUser(netid).uid
 
 	db.createResponse(mid, creatorId, str(jpost["response"]))
+	if db.getNotRespondedNetids(mid) == []:
+		db.updateMeeting(mid, allResponded=True)
 
 
 #-----------------------------------------------------------------------
