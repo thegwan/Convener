@@ -48,6 +48,7 @@ def myRequests_toList(my_requests):
 		title = meeting.title
 		mid = meeting.mid	
 		creator = db.getUserFromId(meeting.creatorId).netid
+		times = db.getUserPreferredTimes(mid, creator)
 
 		# title = "title"+str(meeting)
 		# creator = "creator"+str(meeting)
@@ -55,7 +56,8 @@ def myRequests_toList(my_requests):
 		my_requests_list.append({
 			"mid":mid,
 			"title":title,
-			"creator":creator
+			"creator":creator,
+			"times":times
 			})
 
 	return my_requests_list
@@ -100,6 +102,10 @@ def confirmed_toList(confirmed, netid):
 		creator = db.getUserFromId(meeting.creatorId).netid
 		times = db.getUserPreferredTimes(meeting.mid, netid)
 		mine = creator == netid
+		# if meeting.scheduledTime is not None:
+		# 	finaltime = meeting.scheduledTime
+		# else:
+		# 	finaltime = "hello"
 
 		# title = "title"+str(meeting)
 		# creator = "creator"+str(meeting)
@@ -112,6 +118,7 @@ def confirmed_toList(confirmed, netid):
 			"creator":creator,
 			"times":times,
 			"mine":mine
+			#"finaltime":finaltime
 			})
 
 	return confirmed_list

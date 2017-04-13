@@ -275,11 +275,22 @@ function confirmedClicked(meetingElement) {
 // Convert a listOfDaysAndTimes into a heatmap on the page where darker colors are better
 // Gives a weight to each response depending on how many people responded
 function heatmap(listOfDaysAndTimes, respondedLength) {
+	
+	var colors = ['#24C904',  // most green
+				  '#6ECF07',
+				  '#87D008',
+				  '#A0D209',
+				  '#D3D60A',  // yellowish
+				  '#D8C20B',
+				  '#D9AC0C',
+				  '#DB950D',
+				  '#DD7F0E',
+				  '#DF680F']  // most orange
 	clearSelected();
 	var counts = {};
 	// var weight = 20;
 	// 250 max r and b values, 
-	var weight = Math.ceil(255 / respondedLength);
+	// var weight = Math.ceil(255 / respondedLength);
 	// if (respondedLength >= 30) {
 	// 	weight = 1;
 	// }
@@ -306,16 +317,17 @@ function heatmap(listOfDaysAndTimes, respondedLength) {
 		cell = document.getElementById(keys[j]);
 		//alert(day + '_' + time);
 		$(cell).addClass("selected");
-		redAndBlue = Math.floor(255 - weight * counts[keys[j]]);
-		if (redAndBlue < 0) {
-			redAndBlue = 0;
-		}
+		shade = counts[keys[j]] / respondedLength;
+		// redAndBlue = Math.floor(255 - weight * counts[keys[j]]);
+		// if (redAndBlue < 0) {
+		// 	redAndBlue = 0;
+		// }
 		// green = 238 - weight * counts[keys[j]];
 		// if (green < 50) {
 		// 	green = 50;
 		// }
 		// $(cell).css('background', 'rgb(0,' + Math.floor(green) + ',0)');
-		$(cell).css('background', 'rgb(' + redAndBlue + ',228,' + redAndBlue + ')');
+		$(cell).css('background', colors[10-Math.ceil(shade*10)]);
 	}
 }
 
