@@ -17,18 +17,22 @@ td:hover {
 	background: rgb(150,238,150);
 }
 
-td.selected {
-	background: rgb(0,228,0);
-}
-
-td.badtime {
-	background: rgb(228,0,0);
-}
-
 td.unselectable {
-	opacity: 50%;
+	background: rgb(150,150,150);
+	/*opacity: 50%;*/
 	pointer-events: none;
 }
+
+/* So, the !important stuff doesn't seem to work in firefox*/
+/* !important*/
+td.selected { 
+	background: rgb(0,228,0) ;
+}
+/* !important*/
+td.badtime { 
+	background: rgb(228,0,0) ;
+}
+
 
 .cell {
    padding: 0px 5px !important;

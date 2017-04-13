@@ -14,7 +14,7 @@ class Table(object):
 		# general array of days
 		dayArray = ["Sun", "Mon","Tue","Wed","Thu","Fri","Sat"]
 		# Today's day as a decimal number [0(Sun), 6]
-		currDay = int(time.strftime("%w"))
+		currDay = 0 # int(time.strftime("%w"))
 		# fill inOrderDayArray
 		for i in range(currDay, currDay + self.DAYS_IN_WEEK):
 			day = i % self.DAYS_IN_WEEK

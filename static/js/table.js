@@ -56,6 +56,7 @@ function clearSelected() {
 	for (var i = 0; i < cells.length; i++) {
   		cells[i].classList.remove("selected");
   		cells[i].classList.remove("badtime");
+  		$(cells[i]).css('background', '');
 	}
 }
 
@@ -63,19 +64,35 @@ function clearSelected() {
 function makeUnselectable() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
-  		// cells[i].classList.remove("selected");
-  		// cells[i].classList.remove("badtime");
-  		$(cells[i]).addClass('unselectable');
+		if ($(cells[i]).hasClass( "selected")) {
+			$(cells[i]).removeClass("selected");
+  			$(cells[i]).addClass('unselectable');
+			$(cells[i]).addClass("selected");
+		}
+		else {
+  			$(cells[i]).addClass('unselectable');
+		}
 	}
 	document.getElementById('mainTable').style.cursor = 'not-allowed';
+}
+
+// Make the white cells unselectable
+function makeSomeUnselectable() {
+	var cells = document.getElementsByClassName('cell');
+	for (var i = 0; i < cells.length; i++) {
+  		if (! ($(cells[i]).hasClass( "selected"))) {
+  			$(cells[i]).addClass('unselectable');
+  		}
+  		else {
+  			$(cells[i]).removeClass('selected');
+  		}
+	}
 }
 
 // Make all the cells selectable again
 function makeSelectable() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
-  		// cells[i].classList.remove("selected");
-  		// cells[i].classList.remove("badtime");
   		cells[i].classList.remove('unselectable');
 	}
 	document.getElementById('mainTable').style.cursor = 'pointer';
@@ -86,12 +103,13 @@ function makeSelectable() {
 function resetEverything() {
 	makeSelectable();
 	clearSelected();
-	document.getElementById('tableHeader').innerText = 'Convener';
+	$('#tableHeader').text('Convener');
 	document.getElementById('getselected').style.visibility = 'visible';
 	document.getElementById('clearselected').style.visibility = 'visible';
 	document.getElementById('respondButton').style.visibility = 'hidden';
-	document.getElementById('tableSubHeader').innerText = '';
-	document.getElementById('getselected').innerText = 'Create';
+	document.getElementById('submitButton').style.visibility = 'hidden';
+	$('#tableSubHeader').text('');
+	$('#getselected').text('Create');
 }
 
 // Takes the initial meeting JSON sent by the server and parses it into 
@@ -120,7 +138,7 @@ function parseInitialData(init_data) {
 		var anchor = document.createElement("A");
 
 		// Function that runs when any myMeeting is clicked
-		var f = clickMyMeeting(i, meeting['title']);
+		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length);
 		anchor.addEventListener('click', f);
 
 		var textNode = document.createTextNode(meeting['title']);
@@ -179,33 +197,33 @@ function parseInitialData(init_data) {
 }
 
 // Returns an anonymous function that is attached to each item in myMeetings
-function clickMyMeeting(i, title) {
+function clickMyMeeting(i, title, respondedLength) {
 	return function() {
-		myMeetingClicked(parsedData['my_meetings'][i]['times']);
-		document.getElementById('tableHeader').innerText = title;
-		document.getElementById('getselected').innerText = 'Submit';
+		myMeetingClicked(parsedData['my_meetings'][i]['times'], respondedLength);
+		$('#tableHeader').text(title);
+		$('#getselected').text('Submit');
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
-
+		document.getElementById('submitButton').style.visibility = 'visible';
 	}
 };
 
 // When myMeeting is clicked, displays the times and days on the table
-function myMeetingClicked(meetingElement) {
+function myMeetingClicked(meetingElement, respondedLength) {
 	resetEverything();
-	fromDaysToTable(meetingElement);
+	heatmap(meetingElement, respondedLength);
 }
 
 // Returns an anonymous function that is attached to each item in pending
 function clickPending(i, title) {
 	return function() {
 		pendingClicked(parsedData['pending'][i]['times']);
-		document.getElementById('tableHeader').innerText = title;
+		$('#tableHeader').text(title);
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
-		document.getElementById('tableSubHeader').innerText = '-Your Response';
+		$('#tableSubHeader').text('-Your Response');
 		makeUnselectable();
 	}
 };
@@ -220,11 +238,11 @@ function pendingClicked(meetingElement) {
 function clickRequested(i, title, creator, mid) {
 	return function() {
 		requestedClicked(parsedData['my_requests'][i]['times']);
-		document.getElementById('tableHeader').innerText = title;
+		$('#tableHeader').text(title);
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'visible';
 		document.getElementById('respondButton').style.visibility = 'visible';
-		document.getElementById('tableSubHeader').innerText = 'Created by: ' + creator;
+		$('#tableSubHeader').text('Created by: ' + creator);
 		requestMid = mid;
 	}
 };
@@ -232,17 +250,18 @@ function clickRequested(i, title, creator, mid) {
 // When pending is clicked, displays the user's response times and days on the table
 function requestedClicked(meetingElement) {
 	resetEverything();
-	// fromDaysToTable(meetingElement);
+	fromDaysToTable(meetingElement);
+	makeSomeUnselectable();
 }
 
 // Returns an anonymous function that is attached to each item in confirmed
 function clickConfirmed(i, title) {
 	return function() {
 		confirmedClicked(parsedData['confirmed'][i]['times']);
-		document.getElementById('tableHeader').innerText = title;
+		$('#tableHeader').text(title);
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'hidden';
-		document.getElementById('tableSubHeader').innerText = '-Your Response';
+		$('#tableSubHeader').text('-Your Response');
 		makeUnselectable();
 	}
 };
@@ -251,6 +270,53 @@ function clickConfirmed(i, title) {
 function confirmedClicked(meetingElement) {
 	resetEverything();
 	fromDaysToTable(meetingElement);
+}
+
+// Convert a listOfDaysAndTimes into a heatmap on the page where darker colors are better
+// Gives a weight to each response depending on how many people responded
+function heatmap(listOfDaysAndTimes, respondedLength) {
+	clearSelected();
+	var counts = {};
+	// var weight = 20;
+	// 250 max r and b values, 
+	var weight = Math.ceil(255 / respondedLength);
+	// if (respondedLength >= 30) {
+	// 	weight = 1;
+	// }
+	//alert(listOfDaysAndTimes.length);
+	for (var i = 0; i < listOfDaysAndTimes.length; i++) {
+		//console.log(listOfDaysAndTimes);
+		day = listOfDaysAndTimes[i]['day']
+		time = listOfDaysAndTimes[i]['time']
+
+		if (counts[day+'_'+time] == null) {
+			counts[day+'_'+time] = 1;
+		}
+		else {
+			counts[day+'_'+time] += 1;
+		}
+	}
+	// alert(counts);
+	var keys = Object.keys(counts);
+	//alert(keys.length);
+	for (var j = 0; j < keys.length; j++) {
+		//day = listOfDaysAndTimes[j]['day'];
+		// time = listOfDaysAndTimes[j]['time'];
+
+		cell = document.getElementById(keys[j]);
+		//alert(day + '_' + time);
+		$(cell).addClass("selected");
+		redAndBlue = Math.floor(255 - weight * counts[keys[j]]);
+		if (redAndBlue < 0) {
+			redAndBlue = 0;
+		}
+		// green = 238 - weight * counts[keys[j]];
+		// if (green < 50) {
+		// 	green = 50;
+		// }
+		// $(cell).css('background', 'rgb(0,' + Math.floor(green) + ',0)');
+		$(cell).css('background', 'rgb(' + redAndBlue + ',228,' + redAndBlue + ')');
+	}
 }
 
 // Given a list of days and time dicts, changes the table on the main screen 
@@ -266,7 +332,6 @@ function fromDaysToTable(listOfDaysAndTimes) {
 		}
 
 	}
-	// alert('squadala');
 }
 
 //--------------------------------------------------------------------------------
