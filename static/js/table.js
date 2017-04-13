@@ -1,22 +1,41 @@
 var parsedData;
 var requestMid;
+var createdMid;
 
 $(document).ready(function() {
 	// select and unselect clicked-on cells (good time)
   	$(".cell").click(function(){
-  		if (! ($(this).hasClass( "badtime"))) {
+  		if (!($(this).hasClass( "badtime")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored")) ) {
 	    	if ($(this).hasClass( "selected")) {
 	      		$(this).removeClass("selected");
+	   //    		$(this).removeClass('finalSelected');
+				// $(this).css('background', '');
 	    	}
 		    else {
+				// $(this).addClass('finalSelected');
+				// $(cell).css('background', 'rgb(0,2,0)');		      	
 		      	$(this).addClass("selected");
 	    	};
-  		};
+  		}
+  		else {
+	  		if ($(this).hasClass("colored")) {
+	  			// Click a colored box to highlight it
+	  			clearSelectedColored();
+	  			$(this).removeClass("colored");
+	  			$(this).addClass("selectedColored");
+				$(this).css('border', '5px solid yellow');
+	  		}
+	  		else if ($(this).hasClass("selectedColored")){ // hasClass selectedColored
+	  			// Unclick to unhighlight
+				$(this).css('border', '');
+	  			$(this).addClass("colored");
+	  			$(this).removeClass("selectedColored");
+	  		}   			
+  		}
   	});
-
   	// select and unselect double-clicked on cells (bad time)
   	$(".cell").dblclick(function(){
-  		if (! ($(this).hasClass( "selected"))) {
+  		if (!($(this).hasClass( "selected")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored"))) {
 	    	if ($(this).hasClass( "badtime")) {
 	      		$(this).removeClass("badtime");
 	    	}
@@ -50,13 +69,26 @@ function getSelected(toServer) {
 	
 }
 
+// creates JSON with the final submit cell
+function getSelectedColored(toServer) {
+	var cells = document.getElementsByClassName('selectedColored');
+
+	for (var i = 0; i < cells.length; i++) {
+		var daytime = cells[i].id.split("_");
+		var day = daytime[0];
+		var time = daytime[1];
+		toServer.response.push({"day":day, "time":time});
+	}
+	
+}
+
 // remove selected and badtime class from all cells
 function clearSelected() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
   		cells[i].classList.remove("selected");
   		cells[i].classList.remove("badtime");
-  		$(cells[i]).css('background', '');
+  		$(cells[i]).removeAttr('style');
 	}
 }
 
@@ -108,8 +140,20 @@ function resetEverything() {
 	document.getElementById('clearselected').style.visibility = 'visible';
 	document.getElementById('respondButton').style.visibility = 'hidden';
 	document.getElementById('submitButton').style.visibility = 'hidden';
-	$('#tableSubHeader').text('');
+	$('#tableSubHeader').text('Create Meeting');
 	$('#getselected').text('Create');
+}
+
+// Makes it so only one cell can be used in the final submit
+function clearSelectedColored() {
+	var cells = document.getElementsByClassName('cell');
+	for (var i = 0; i < cells.length; i++) {
+		if ($(cells[i]).hasClass('selectedColored')) {
+	  		cells[i].classList.remove("selectedColored");
+	  		$(cells[i]).css('border', '');
+			$(cells[i]).addClass("colored");
+		}
+	}
 }
 
 // Takes the initial meeting JSON sent by the server and parses it into 
@@ -138,7 +182,7 @@ function parseInitialData(init_data) {
 		var anchor = document.createElement("A");
 
 		// Function that runs when any myMeeting is clicked
-		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length);
+		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
 		anchor.addEventListener('click', f);
 
 		var textNode = document.createTextNode(meeting['title']);
@@ -197,7 +241,7 @@ function parseInitialData(init_data) {
 }
 
 // Returns an anonymous function that is attached to each item in myMeetings
-function clickMyMeeting(i, title, respondedLength) {
+function clickMyMeeting(i, title, respondedLength, mid) {
 	return function() {
 		myMeetingClicked(parsedData['my_meetings'][i]['times'], respondedLength);
 		$('#tableHeader').text(title);
@@ -206,6 +250,8 @@ function clickMyMeeting(i, title, respondedLength) {
 		document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
 		document.getElementById('submitButton').style.visibility = 'visible';
+		$('#tableSubHeader').text('Select a final meeting time');
+		createdMid = mid;
 	}
 };
 
@@ -316,7 +362,6 @@ function heatmap(listOfDaysAndTimes, respondedLength) {
 
 		cell = document.getElementById(keys[j]);
 		//alert(day + '_' + time);
-		$(cell).addClass("selected");
 		shade = counts[keys[j]] / respondedLength;
 		// redAndBlue = Math.floor(255 - weight * counts[keys[j]]);
 		// if (redAndBlue < 0) {
@@ -327,6 +372,8 @@ function heatmap(listOfDaysAndTimes, respondedLength) {
 		// 	green = 50;
 		// }
 		// $(cell).css('background', 'rgb(0,' + Math.floor(green) + ',0)');
+		
+		$(cell).addClass("colored");
 		$(cell).css('background', colors[10-Math.ceil(shade*10)]);
 	}
 }
@@ -382,6 +429,37 @@ function createJSON(netid) {
 		url: '/',
 		success: function(){alert('Event Created!');}
 	});
+	
+}
+
+
+// Creates JSON containing the one cell that represents the creator's scheduled time, and
+// and mid
+
+function createFinalJSON(netid) {
+	var toServer = {};
+	toServer.netid = netid;
+	toServer.response = [];
+
+	// get selected cells
+	//getSelected(toServer);
+
+	// Gets the selectedColored cell
+	getSelectedColored(toServer);
+
+	toServer.mid = createdMid;
+
+	// Server needs to be prepared for this response
+
+	// $.ajax({
+	// 	type: 'POST',
+	// 	contentType: 'application/json',
+	// 	// Encode data as JSON.
+	// 	data: JSON.stringify(toServer),
+	// 	dataType: 'text',
+	// 	url: '/',
+	// 	success: function(){alert('Meeting Scheduled');}
+	// });
 	
 }
 
