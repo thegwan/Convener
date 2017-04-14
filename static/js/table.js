@@ -135,6 +135,8 @@ function makeSelectable() {
 function resetEverything() {
 	makeSelectable();
 	clearSelected();
+	clearSelectedColored();
+	clearColored();
 	$('#tableHeader').text('Convener');
 	document.getElementById('getselected').style.visibility = 'visible';
 	document.getElementById('clearselected').style.visibility = 'visible';
@@ -149,9 +151,19 @@ function clearSelectedColored() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
 		if ($(cells[i]).hasClass('selectedColored')) {
-	  		cells[i].classList.remove("selectedColored");
+	  		$(cells[i]).removeClass("selectedColored");
 	  		$(cells[i]).css('border', '');
 			$(cells[i]).addClass("colored");
+		}
+	}
+}
+
+// Removes the colored class from all cells
+function clearColored() {
+	var cells = document.getElementsByClassName('cell');
+	for (var i = 0; i < cells.length; i++) {
+		if ($(cells[i]).hasClass('colored')) {
+	  		$(cells[i]).removeClass("colored");
 		}
 	}
 }
