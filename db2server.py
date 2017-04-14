@@ -1,7 +1,7 @@
 # db2server.py
 # parses data from database to a json
 
-import json
+import json, ast
 import database as db
 
 #-----------------------------------------------------------------------
@@ -102,10 +102,7 @@ def confirmed_toList(confirmed, netid):
 		creator = db.getUserFromId(meeting.creatorId).netid
 		times = db.getUserPreferredTimes(meeting.mid, netid)
 		mine = creator == netid
-		# if meeting.scheduledTime is not None:
-		# 	finaltime = meeting.scheduledTime
-		# else:
-		# 	finaltime = "hello"
+		finaltime = db.getScheduledTime(mid)
 
 		# title = "title"+str(meeting)
 		# creator = "creator"+str(meeting)
@@ -117,8 +114,8 @@ def confirmed_toList(confirmed, netid):
 			"title":title,
 			"creator":creator,
 			"times":times,
-			"mine":mine
-			#"finaltime":finaltime
+			"mine":mine,
+			"finaltime":finaltime
 			})
 
 	return confirmed_list
@@ -135,8 +132,8 @@ def init_protocol(netid):
 	# get all requests
 	my_requests = db.getUserRequestedMeetings(netid)
 	# meetings where everyone has responded
-	confirmed = [m for m in meetings if m.allResponded]
-	pending   = [m for m in meetings if not m.allResponded]
+	confirmed = [m for m in meetings if m.scheduledTime is not None]
+	pending   = [m for m in meetings if m.scheduledTime is None]
 	
 	# my_meetings = [1,2] 
 	# my_requests = [3,4]

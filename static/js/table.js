@@ -77,7 +77,7 @@ function getSelectedColored(toServer) {
 		var daytime = cells[i].id.split("_");
 		var day = daytime[0];
 		var time = daytime[1];
-		toServer.response.push({"day":day, "time":time});
+		toServer.finalTime.push({"day":day, "time":time});
 	}
 	
 }
@@ -198,7 +198,7 @@ function parseInitialData(init_data) {
 
 		var anchor = document.createElement("A");
 
-		var f = clickPending(i, meeting['title']);
+		var f = clickPending(i, meeting['title'], meeting['creator']);
 
 		anchor.addEventListener('click', f);
 		var textNode = document.createTextNode(meeting['title']);
@@ -230,7 +230,7 @@ function parseInitialData(init_data) {
 
 		var anchor = document.createElement("A");
 
-		var f = clickConfirmed(i, meeting['title'], meeting['creator']);
+		var f = clickConfirmed(i, meeting['title'], meeting['creator'], meeting['finaltime']);
 
 		anchor.addEventListener('click', f);
 		var textNode = document.createTextNode(meeting['title']);
@@ -262,10 +262,10 @@ function myMeetingClicked(meetingElement, respondedLength) {
 }
 
 // Returns an anonymous function that is attached to each item in pending
-function clickPending(i, title) {
+function clickPending(i, title, creator) {
 	return function() {
 		pendingClicked(parsedData['pending'][i]['times']);
-		$('#tableHeader').text(title);
+		$('#tableHeader').text(title + ' ('+creator+')');
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
@@ -301,14 +301,19 @@ function requestedClicked(meetingElement) {
 }
 
 // Returns an anonymous function that is attached to each item in confirmed
-function clickConfirmed(i, title) {
+function clickConfirmed(i, title, creator, finaltime) {
 	return function() {
 		confirmedClicked(parsedData['confirmed'][i]['times']);
-		$('#tableHeader').text(title);
+		$('#tableHeader').text(title + ' ('+creator+')');
 		document.getElementById('getselected').style.visibility = 'hidden';
 		document.getElementById('clearselected').style.visibility = 'hidden';
 		$('#tableSubHeader').text('-Your Response');
 		makeUnselectable();
+		for (var j = 0; j < finaltime.length; j++) {
+			var daytime = "#"+finaltime[j]["day"]+"_"+finaltime[j]["time"];
+			$(daytime).css('border', '5px solid yellow');
+		}
+		
 	}
 };
 
@@ -322,16 +327,26 @@ function confirmedClicked(meetingElement) {
 // Gives a weight to each response depending on how many people responded
 function heatmap(listOfDaysAndTimes, respondedLength) {
 	
-	var colors = ['#24C904',  // most green
-				  '#6ECF07',
-				  '#87D008',
-				  '#A0D209',
-				  '#D3D60A',  // yellowish
-				  '#D8C20B',
-				  '#D9AC0C',
-				  '#DB950D',
-				  '#DD7F0E',
-				  '#DF680F']  // most orange
+	// var colors = ['#24C904',  // most green
+	// 			  '#6ECF07',
+	// 			  '#87D008',
+	// 			  '#A0D209',
+	// 			  '#D3D60A',  // yellowish
+	// 			  '#D8C20B',
+	// 			  '#D9AC0C',
+	// 			  '#DB950D',
+	// 			  '#DD7F0E',
+	// 			  '#DF680F']  // most orange
+	var colors = ['#0ABD21',  // most green
+				  '#17E731',
+				  '#2EE945',
+				  '#45EC59',
+				  '#5CEE6D',  
+				  '#74F182',
+				  '#8BF396',
+				  '#A2F5AA',
+				  '#B9F8BE',
+				  '#E8FDE7']  // most whitish
 	clearSelected();
 	var counts = {};
 	// var weight = 20;
@@ -439,7 +454,7 @@ function createJSON(netid) {
 function createFinalJSON(netid) {
 	var toServer = {};
 	toServer.netid = netid;
-	toServer.response = [];
+	toServer.finalTime = [];
 
 	// get selected cells
 	//getSelected(toServer);
@@ -451,15 +466,15 @@ function createFinalJSON(netid) {
 
 	// Server needs to be prepared for this response
 
-	// $.ajax({
-	// 	type: 'POST',
-	// 	contentType: 'application/json',
-	// 	// Encode data as JSON.
-	// 	data: JSON.stringify(toServer),
-	// 	dataType: 'text',
-	// 	url: '/',
-	// 	success: function(){alert('Meeting Scheduled');}
-	// });
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		// Encode data as JSON.
+		data: JSON.stringify(toServer),
+		dataType: 'text',
+		url: '/',
+		success: function(){alert('Meeting Scheduled');}
+	});
 	
 }
 

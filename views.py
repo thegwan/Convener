@@ -34,6 +34,7 @@ def index():
 	# initial protocol
 	init_data = json.dumps(db2server.init_protocol(cas.username))
 
+
 	# sample test data to connect to front end
 	# ------------------------------------------------------------------------------------------
 	# init_data = json.dumps(
