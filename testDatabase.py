@@ -112,16 +112,36 @@ assert hector.uid == 1 and hector.firstName == 'Tear' and \
 	and hector.acceptableTimes == monMorn and \
 	hector.unacceptableTimes == wedNoon
 
+db.updateUser(netid='hsolis', firstName='Hector', lastName='Solis')
+
+hector = db.getUser('hsolis')
+
+assert hector.uid == 1 and hector.firstName == 'Hector' and \
+	hector.lastName == 'Solis' and hector.preferredTimes == friLunch \
+	and hector.acceptableTimes == monMorn and \
+	hector.unacceptableTimes == wedNoon
+
 ## Update a meeting, check if it worked ###########################################################
 
 
-db.updateMeeting(1, True, friLunch)
+db.updateMeeting(mid=1, allResponded=True, scheduledTime=friLunch)
 
 colonial = db.getMeeting(1)
 
 assert colonial.mid == 1 and colonial.title == 'Colonial Lunch' and \
 	colonial.creatorId == hector.uid and colonial.respondingId == "[2, 4]" \
-	and colonial.allResponded == True and colonial.scheduledTime == friLunch
+	and colonial.allResponded == True and colonial.scheduledTime == friLunch \
+	and colonial.notified == False
+
+db.updateMeeting(mid=1, notified=True)
+
+colonial = db.getMeeting(1)
+
+assert colonial.mid == 1 and colonial.title == 'Colonial Lunch' and \
+	colonial.creatorId == hector.uid and colonial.respondingId == "[2, 4]" \
+	and colonial.allResponded == True and colonial.scheduledTime == friLunch \
+	and colonial.notified == True
+
 
 ## Make sure you can still add users who are late to the party ####################################
 

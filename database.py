@@ -106,23 +106,29 @@ def updateUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 	# Assuming every user has a unique netid
 	updatedUser = upd.one_or_none()
 	if updatedUser is None:
+		# Create a new user if the update failed
 		user = User(netid, firstName, lastName, preferredTimes, acceptableTimes, unacceptableTimes)
 		db.session.add(user)
 		db.session.commit()
 		return user
 
 	# Might need to change this in case this will overwrite the user's old values
-	updatedUser.firstName = firstName
-	updatedUser.lastName = lastName
-	updatedUser.preferredTimes= preferredTimes
-	updatedUser.acceptableTimes = acceptableTimes
-	updatedUser.unacceptableTimes = unacceptableTimes
+	if firstName is not None:
+		updatedUser.firstName = firstName
+	if lastName is not None:
+		updatedUser.lastName = lastName
+	if preferredTimes is not None:
+		updatedUser.preferredTimes= preferredTimes
+	if acceptableTimes is not None:
+		updatedUser.acceptableTimes = acceptableTimes
+	if unacceptableTimes is not None:
+		updatedUser.unacceptableTimes = unacceptableTimes
 
 	db.session.commit()
 	return updatedUser
 
 # Updates the meeting values, returns the meeting if it is created or None if its not in the database
-def updateMeeting(mid, allResponded=False, scheduledTime=None, notified=False):
+def updateMeeting(mid, allResponded=None, scheduledTime=None, notified=None):
 	upd = (db.session.query(Meeting).\
 		filter(Meeting.mid==mid))
 
@@ -130,9 +136,12 @@ def updateMeeting(mid, allResponded=False, scheduledTime=None, notified=False):
 	if updatedMeeting is None:
 		return None
 
-	updatedMeeting.allResponded = allResponded
-	updatedMeeting.scheduledTime = scheduledTime
-	updatedMeeting.notified = notified
+	if allResponded is not None:
+		updatedMeeting.allResponded = allResponded
+	if scheduledTime is not None:
+		updatedMeeting.scheduledTime = scheduledTime
+	if notified is not None:
+		updatedMeeting.notified = notified
 
 	db.session.commit()
 	return updatedMeeting
