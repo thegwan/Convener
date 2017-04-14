@@ -58,10 +58,28 @@ def parseResponse(jpost):
 
 #-----------------------------------------------------------------------
 
+# updates database for a meeting time decision
+def parseDecision(jpost):
+	mid = jpost["mid"]
+
+	netid = jpost["netid"]
+	creatorId = db.getUser(netid).uid
+	finalTime = str(jpost["finalTime"])
+
+	if db.getNotRespondedNetids(mid) == []:
+		db.updateMeeting(mid, allResponded=True, scheduledTime=finalTime)
+	else:
+		db.updateMeeting(mid, scheduledTime=finalTime)
+
+
+#-----------------------------------------------------------------------
+
 # distinguishes between a meeting creation and a meeting response
 def parse(jpost):
 	if "responders" in jpost:
 		parseCreation(jpost)
+	elif "finalTime" in jpost:
+		parseDecision(jpost)
 	else:
 		parseResponse(jpost)
 

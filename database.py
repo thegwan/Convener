@@ -318,3 +318,14 @@ def getUserPreferredTimes(mid, netid):
 	preferredTimes = ast.literal_eval(response.preferredTimes)
 
 	return preferredTimes
+
+# Returns list of scheduled times given mid
+def getScheduledTime(mid):
+	meeting = getMeeting(mid)
+
+	if meeting is None or meeting.scheduledTime is None:
+		return []
+
+	decision = ast.literal_eval(meeting.scheduledTime)
+
+	return decision
