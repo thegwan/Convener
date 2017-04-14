@@ -295,7 +295,7 @@ def getNotRespondedNetids(mid):
 def getRespondedPreferredTimes(mid):
 	responded = (db.session.query(Response).\
 		filter(Response.meetingId==mid))
-
+	
 	preferredTimes = [ast.literal_eval(response.preferredTimes) for response in responded]
 
 	return preferredTimes

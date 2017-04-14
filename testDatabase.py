@@ -272,7 +272,7 @@ db.createMeeting('Pitch Training', gary.uid, "[1, 3]")
 
 db.createResponse(5, 1, "[{'day': 'Fri', 'time':  '12pm'},{'day': 'Fri', 'time':  '1pm'},{'day': 'Fri', 'time':  '2pm'},{'day': 'Fri', 'time':  '3pm'},{'day': 'Fri', 'time':  '4pm'},{'day': 'Fri', 'time':  '5pm'},{'day': 'Fri', 'time':  '6pm'},{'day': 'Thu', 'time':  '2pm'},{'day': 'Thu', 'time':  '3pm'},{'day': 'Thu', 'time':  '4pm'},{'day': 'Thu', 'time':  '5pm'},{'day': 'Thu', 'time':  '6pm'},{'day': 'Wed', 'time':  '2pm'},{'day': 'Wed', 'time':  '3pm'}]")
 db.createResponse(5, 2, "[{'day': 'Sat', 'time':  '6pm'},{'day': 'Sat', 'time':  '2pm'},{'day': 'Sat', 'time':  '1pm'},{'day': 'Fri', 'time':  '2pm'},{'day': 'Fri', 'time':  '3pm'}]")
-db.createResponse(5, 4, "[{'day': 'Tue', 'time': '3pm'}][{'day': 'Fri', 'time':  '2pm'},{'day': 'Fri', 'time':  '3pm'},{'day': 'Sat', 'time':  '2pm'}]")
+db.createResponse(5, 4, "[{'day': 'Tue', 'time': '3pm'},{'day': 'Fri', 'time':  '2pm'},{'day': 'Fri', 'time':  '3pm'},{'day': 'Sat', 'time':  '2pm'}]")
 
 db.createResponse(6, 2,  "[{'day': 'Mon', 'time': '3pm'}, {'day': 'Mon', 'time': '9am'}, {'day': 'Tue', 'time': '11am'}, {'day': 'Wed', 'time': '12pm'}, {'day': 'Thu', 'time': '10am'}, {'day': 'Fri', 'time': '11am'}, {'day': 'Sat', 'time': '11am'}]")
 
