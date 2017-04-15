@@ -17,6 +17,11 @@ app.secret_key = secrets[0].replace('\n', '')
 app.config['CAS_SERVER'] = 'https://fed.princeton.edu/cas/'
 app.config['CAS_AFTER_LOGIN'] = 'index'
 
+@app.route('/_refreshPage/', methods = ['GET'])
+def refreshPage():
+	init_data = json.dumps(db2server.init_protocol(cas.username))
+	return init_data
+
 @app.route('/', methods = ['GET', 'POST'])
 def index():
 	#if not logged in. is this the correct way to do it?

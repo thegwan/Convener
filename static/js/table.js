@@ -252,6 +252,96 @@ function parseInitialData(init_data) {
 	}
 }
 
+// Takes the JSON info sent by the server and parses it into 
+// meetings that can be displayed on the page
+function parseData(init_data) {
+	resetEverything();
+	// parsedData = JSON.parse(init_data);
+	parsedData = init_data;
+	// Need to remove everything in the four columns first
+	$('#myPendingDiv div').remove();
+	$('#myRequestedDiv div').remove();
+	$('#myConfirmedDiv div').remove();
+	$('#myMeetingsDiv div').remove();
+
+	// For displaying the information from my_meetings
+	for (var i = 0; i < parsedData['my_meetings'].length; i++){
+		var meeting = parsedData['my_meetings'][i];
+		// Create a string of who has and hasn't responded
+		respString = '';
+		notRespString = '';
+		for (var j = 0; j < meeting['resp_netids'].length; j++){
+			respString += meeting['resp_netids'][j] + ' ';
+		}
+		for (var k = 0; k < meeting['nresp_netids'].length; k++){
+			notRespString += meeting['nresp_netids'][k] + ' ';
+		}
+		// Creating a div and anchor element to display myMeeting
+		var div = document.createElement("DIV");
+		// Add a tooltip for when the meeting is hovered over
+		$(div).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
+		$(div).addClass('tooltipDiv');
+		var anchor = document.createElement("A");
+
+		// Function that runs when any myMeeting is clicked
+		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
+		anchor.addEventListener('click', f);
+
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+		div.appendChild(anchor)
+		document.getElementById('myMeetingsDiv').appendChild(div);
+	}
+
+	// For displaying the information from pending
+	for (var i = 0; i < parsedData['pending'].length; i++){
+		var meeting = parsedData['pending'][i];
+		var div = document.createElement("DIV");
+
+		var anchor = document.createElement("A");
+
+		var f = clickPending(i, meeting['title'], meeting['creator']);
+
+		anchor.addEventListener('click', f);
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+		div.appendChild(anchor)
+		document.getElementById('myPendingDiv').appendChild(div);
+	}
+
+	// For displaying the information from requested
+	for (var i = 0; i < parsedData['my_requests'].length; i++){
+		var meeting = parsedData['my_requests'][i];
+		var div = document.createElement("DIV");
+
+		var anchor = document.createElement("A");
+
+		var f = clickRequested(i, meeting['title'], meeting['creator'], meeting['mid']);
+
+		anchor.addEventListener('click', f);
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+		div.appendChild(anchor)
+		document.getElementById('myRequestedDiv').appendChild(div);
+	}
+
+	// For displaying the information from confirmed
+	for (var i = 0; i < parsedData['confirmed'].length; i++){
+		var meeting = parsedData['confirmed'][i];
+		var div = document.createElement("DIV");
+
+		var anchor = document.createElement("A");
+
+		var f = clickConfirmed(i, meeting['title'], meeting['creator'], meeting['finaltime']);
+
+		anchor.addEventListener('click', f);
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+		div.appendChild(anchor)
+		document.getElementById('myConfirmedDiv').appendChild(div);
+	}
+}
+
 // Returns an anonymous function that is attached to each item in myMeetings
 function clickMyMeeting(i, title, respondedLength, mid) {
 	return function() {
@@ -446,6 +536,7 @@ function createJSON(netid) {
 	else {
 		toServer.mid = requestMid;
 	}
+
 	// console.log(toServer)
 	$.ajax({
 		type: 'POST',
@@ -454,9 +545,23 @@ function createJSON(netid) {
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
-		success: function(){alert('Event Created!');}
+		success: function(){
+			if (toServer.hasOwnProperty('mid')) {
+				alert('Response Submitted');
+			}
+			else {
+				alert('Event Created!');
+			}
+		}
 	});
-	
+	// Refresh the page asynchronously
+	$.getJSON('/_refreshPage', {
+
+	}, function(data) {
+		// alert('at least we made it this far');
+		parseData(data);
+	});
+	resetEverything();
 }
 
 
@@ -487,7 +592,14 @@ function createFinalJSON(netid) {
 		url: '/',
 		success: function(){alert('Meeting Scheduled');}
 	});
-	
+	// Refresh the page asynchronously
+	$.getJSON('/_refreshPage', {
+
+	}, function(data) {
+		// alert('at least we made it this far');
+		parseData(data);
+	});
+	resetEverything();
 }
 
 //--------------------------------------------------------------------------------
