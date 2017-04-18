@@ -5,7 +5,6 @@ from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS
 from main import app
 from Table import Table
-from GetMeetings import GetMeetings
 
 cas = CAS(app)
 table = Table()
@@ -24,9 +23,12 @@ def refreshPage():
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
-	#if not logged in. is this the correct way to do it?
+	#if not logged in display landing page
 	if cas.username is None or cas.token is None:
 		return redirect(url_for('landing'))
+
+	# if user has logged in for the first time, add user to db
+	server2db.inviteUsers([cas.username])
 
 	# get POSTed json (either a creation or a response)
 	jpost = request.get_json()
@@ -38,9 +40,171 @@ def index():
 	
 	# initial protocol
 	init_data = json.dumps(db2server.init_protocol(cas.username))
+	print json.dumps(db2server.init_protocol("hsolis"), indent=2, sort_keys=True)
 
+	# new sample test data -- look at the format
+	init_data = json.dumps(
+							{
+						  "my_meetings": [
+						    {
+						      "all_responded": False, 
+						      "creation_date": "Thu", 
+						      "finaltime": [], 
+						      "mid": 2, 
+						      "nresp_netids": [
+						        "gwan"
+						      ], 
+						      "resp_netids": [
+						        "hsolis"
+						      ], 
+						      "responder_times": {
+						        "hsolis": [
+						          {
+						            "date": "Fri", 
+						            "time": "12pm"
+						          }
+						        ]
+						      }, 
+						      "title": "Back Massage"
+						    }, 
+						    {
+						      "all_responded": True, 
+						      "creation_date": "Thu", 
+						      "finaltime": [
+						        {
+						          "date": "Fri", 
+						          "time": "12pm"
+						        }
+						      ], 
+						      "mid": 1, 
+						      "nresp_netids": [], 
+						      "resp_netids": [
+						        "hsolis", 
+						        "gwan", 
+						        "ksha"
+						      ], 
+						      "responder_times": {
+						        "gwan": [
+						          {
+						            "date": "Thu", 
+						            "time": "8pm"
+						          }, 
+						          {
+						            "date": "Fri", 
+						            "time": "12pm"
+						          }
+						        ], 
+						        "hsolis": [
+						          {
+						            "date": "Thu", 
+						            "time": "8pm"
+						          }, 
+						          {
+						            "date": "Fri", 
+						            "time": "12pm"
+						          }
+						        ], 
+						        "ksha": [
+						          {
+						            "date": "Fri", 
+						            "time": "12pm"
+						          }
+						        ]
+						      }, 
+						      "title": "Colonial Lunch"
+						    }
+						  ], 
+						  "my_preferred": "[{'date': 'Fri', 'time': '12pm'}]", 
+						  "my_requests": [
+						    {
+						      "creation_date": "Thu", 
+						      "creator": "gwan", 
+						      "mid": 6, 
+						      "times": [
+						        {
+						          "date": "Mon", 
+						          "time": "3pm"
+						        }, 
+						        {
+						          "date": "Mon", 
+						          "time": "9am"
+						        }
+						      ], 
+						      "title": "WeightLifting"
+						    }, 
+						    {
+						      "creation_date": "Thu", 
+						      "creator": "gwan", 
+						      "mid": 9, 
+						      "times": [
+						        {
+						          "date": "Wed", 
+						          "time": "3am"
+						        }, 
+						        {
+						          "date": "Tue", 
+						          "time": "5am"
+						        }
+						      ]
+						    }
+						  ], 
+						  "my_responded": [
+						    {
+						      "creation_date": "Thu", 
+						      "creator": "hsolis", 
+						      "finaltime": [], 
+						      "mid": 2, 
+						      "mine": True, 
+						      "times": [
+						        {
+						          "date": "Fri", 
+						          "time": "12pm"
+						        }
+						      ], 
+						      "title": "Back Massage"
+						    }, 
+						    {
+						      "creation_date": "Thu", 
+						      "creator": "kl9", 
+						      "finaltime": [], 
+						      "mid": 4, 
+						      "mine": False, 
+						      "times": [
+						        {
+						          "date": "Fri", 
+						          "time": "12am"
+						        }
+						      ], 
+						      "title": "Code@Night"
+						    }, 
+						    {
+						      "creation_date": "Thu", 
+						      "creator": "hsolis", 
+						      "finaltime": [
+						        {
+						          "date": "Fri", 
+						          "time": "12pm"
+						        }
+						      ], 
+						      "mid": 1, 
+						      "mine": True, 
+						      "times": [
+						        {
+						          "date": "Thu", 
+						          "time": "8pm"
+						        }, 
+						        {
+						          "date": "Fri", 
+						          "time": "12pm"
+						        }
+						      ], 
+						      "title": "Colonial Lunch"
+						    }
+						  ]
+						}
+						)
 
-	# sample test data to connect to front end
+	# old sample test data to connect to front end
 	# ------------------------------------------------------------------------------------------
 	# init_data = json.dumps(
 	# 					  {"confirmed": [
@@ -274,7 +438,6 @@ def index():
 							user=cas.username,
 							token=cas.token,
 							table=table,
-							#meetings=meetings,
 							init_data=init_data)
 
 @app.route('/landing')

@@ -41,14 +41,16 @@ class Meeting(db.Model):
 	allResponded = db.Column(db.Boolean(), nullable=False)
 	scheduledTime = db.Column(db.String())
 	notified = db.Column(db.Boolean(), nullable=False)
+	creationDate = db.Column(db.String(), nullable=False)
 
-	def __init__(self, title, creatorId, respondingId):
+	def __init__(self, title, creatorId, respondingId, creationDate):
 		self.creatorId = creatorId
 		self.title = title
 		self.respondingId = respondingId
 		self.allResponded = False
 		self.scheduledTime = None
 		self.notified = False
+		self.creationDate = creationDate
 		
 	def __repr__(self):
 		return '<Meeting %r>' % self.mid
@@ -82,8 +84,8 @@ def createUser(netid, firstName=None, lastName=None, preferredTimes=None, accept
 
 # Creates a new meeting with a title, list in string format of respondingId, and creatorId
 # returns the created meeting
-def createMeeting(title, creatorId, respondingId):
-	meeting = Meeting(title, creatorId, respondingId)
+def createMeeting(title, creatorId, respondingId, creationDate):
+	meeting = Meeting(title, creatorId, respondingId, creationDate)
 	db.session.add(meeting)
 	db.session.commit()
 	return meeting
@@ -329,3 +331,4 @@ def getScheduledTime(mid):
 	decision = ast.literal_eval(meeting.scheduledTime)
 
 	return decision
+

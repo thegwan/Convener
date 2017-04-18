@@ -1,0 +1,158 @@
+{
+  "my_meetings": [
+    {
+      "all_responded": false, 
+      "creation_date": "Thu", 
+      "finaltime": [], 
+      "mid": 2, 
+      "nresp_netids": [
+        "gwan"
+      ], 
+      "resp_netids": [
+        "hsolis"
+      ], 
+      "responder_times": {
+        "hsolis": [
+          {
+            "date": "Fri", 
+            "time": "12pm"
+          }
+        ]
+      }, 
+      "title": "Back Massage"
+    }, 
+    {
+      "all_responded": true, 
+      "creation_date": "Thu", 
+      "finaltime": [
+        {
+          "date": "Fri", 
+          "time": "12pm"
+        }
+      ], 
+      "mid": 1, 
+      "nresp_netids": [], 
+      "resp_netids": [
+        "hsolis", 
+        "gwan", 
+        "ksha"
+      ], 
+      "responder_times": {
+        "gwan": [
+          {
+            "date": "Thu", 
+            "time": "8pm"
+          }, 
+          {
+            "date": "Fri", 
+            "time": "12pm"
+          }
+        ], 
+        "hsolis": [
+          {
+            "date": "Thu", 
+            "time": "8pm"
+          }, 
+          {
+            "date": "Fri", 
+            "time": "12pm"
+          }
+        ], 
+        "ksha": [
+          {
+            "date": "Fri", 
+            "time": "12pm"
+          }
+        ]
+      }, 
+      "title": "Colonial Lunch"
+    }
+  ], 
+  "my_preferred": "[{'date': 'Fri', 'time': '12pm'}]", 
+  "my_requests": [
+    {
+      "creation_date": "Thu", 
+      "creator": "gwan", 
+      "mid": 6, 
+      "times": [
+        {
+          "date": "Mon", 
+          "time": "3pm"
+        }, 
+        {
+          "date": "Mon", 
+          "time": "9am"
+        }
+      ], 
+      "title": "WeightLifting"
+    }, 
+    {
+      "creation_date": "Thu", 
+      "creator": "gwan", 
+      "mid": 9, 
+      "times": [
+        {
+          "date": "Wed", 
+          "time": "3am"
+        }, 
+        {
+          "date": "Tue", 
+          "time": "5am"
+        }
+      ]
+    }
+  ], 
+  "my_responded": [
+    {
+      "creation_date": "Thu", 
+      "creator": "hsolis", 
+      "finaltime": [], 
+      "mid": 2, 
+      "mine": true, 
+      "times": [
+        {
+          "date": "Fri", 
+          "time": "12pm"
+        }
+      ], 
+      "title": "Back Massage"
+    }, 
+    {
+      "creation_date": "Thu", 
+      "creator": "kl9", 
+      "finaltime": [], 
+      "mid": 4, 
+      "mine": false, 
+      "times": [
+        {
+          "date": "Fri", 
+          "time": "12am"
+        }
+      ], 
+      "title": "Code@Night"
+    }, 
+    {
+      "creation_date": "Thu", 
+      "creator": "hsolis", 
+      "finaltime": [
+        {
+          "date": "Fri", 
+          "time": "12pm"
+        }
+      ], 
+      "mid": 1, 
+      "mine": true, 
+      "times": [
+        {
+          "date": "Thu", 
+          "time": "8pm"
+        }, 
+        {
+          "date": "Fri", 
+          "time": "12pm"
+        }
+      ], 
+      "title": "Colonial Lunch"
+    }
+  ]
+}
