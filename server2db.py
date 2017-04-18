@@ -74,12 +74,23 @@ def parseDecision(jpost):
 
 #-----------------------------------------------------------------------
 
+# updates database with user preferred times
+def parsePreference(jpost):
+	netid = jpost["netid"]
+	preferredTimes = jpost["preferredTimes"]
+
+	db.updateUser(netid, preferredTimes=preferredTimes)
+
+#-----------------------------------------------------------------------
+
 # distinguishes between a meeting creation and a meeting response
 def parse(jpost):
 	if "responders" in jpost:
 		parseCreation(jpost)
 	elif "finalTime" in jpost:
 		parseDecision(jpost)
+	elif "preferredTimes" in jpost:
+		parsePreference(jpost)
 	else:
 		parseResponse(jpost)
 

@@ -321,6 +321,21 @@ def getUserPreferredTimes(mid, netid):
 
 	return preferredTimes
 
+# Returns a list that represents a user's profile time preferences
+def getUserPreferences(netid):
+	user = getUser(netid)
+
+	if user is None:
+		return None
+
+	preferences = user.preferredTimes
+	if preferences is not None:
+		preferences = ast.literal_eval(preferences)
+	else:
+		preferences = []
+
+	return preferences
+
 # Returns list of scheduled times given mid
 def getScheduledTime(mid):
 	meeting = getMeeting(mid)

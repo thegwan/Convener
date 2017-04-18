@@ -259,6 +259,15 @@ function respondedClicked(meetingElement) {
 	fromDaysToTable(meetingElement);
 }
 
+
+//--------------------------------- 
+// Need another ajax call for user preferred times
+// (could integrate into createJSON if u want or just create another one)
+
+// json format: {"netid": netid, "preferredTimes": [lsit of times]}
+// preferredTimes in {"day": __, "time:":__} format
+//---------------------------------
+
 //--------------------------------------------------------------------------------
 
 // creates JSON containing all selected cells, title, invitees, mid,

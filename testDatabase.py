@@ -5,6 +5,8 @@ import database as db
 # Testing
 
 # Sample time strings
+randomPrefTime = "[{'day': 'Sat', 'time': '9am'}, {'day': 'Sun', 'time': '10am'}]"
+
 thursFri = "[{'date': 'Thu', 'time': '8pm'}, {'date': 'Fri', 'time': '12pm'}]"
 friLunch = "[{'date': 'Fri', 'time': '12pm'}]"
 wholeWeek = "[{'date': 'Mon', 'time': '6pm'}, {'date': 'Tue', 'time': '12pm'}, {'date': 'Sat', 'time': '9pm'}]"
@@ -17,7 +19,7 @@ db.createUser('hsolis', 'Hector', 'Solis', thursFri)
 db.createUser('gwan', 'Gerry')
 db.createUser('bargotta', unacceptableTimes=friLunch)
 db.createUser('ksha', lastName='Sha', acceptableTimes=friLunch)
-db.createUser('kl9', 'Katherine', 'Lee', wholeWeek)
+db.createUser('kl9', 'Katherine', 'Lee', randomPrefTime)
 
 hector = db.getUser('hsolis')
 gary = db.getUser('gwan')
@@ -38,7 +40,7 @@ assert kim.uid == 4 and kim.firstName == None and \
 	kim.lastName == 'Sha' and kim.acceptableTimes == friLunch
 
 assert katlee.uid == 5 and katlee.firstName == 'Katherine' and \
-	katlee.lastName == 'Lee' and katlee.preferredTimes == wholeWeek
+	katlee.lastName == 'Lee' and katlee.preferredTimes == randomPrefTime
 
 ## Create meetings and check that they were properly added ########################################
 
@@ -102,13 +104,13 @@ assert rsp8.preferredTimes == friNight
 ## Update a user, check if it worked ##############################################################
 
 
-db.updateUser('hsolis', 'Tear', 'Swag', friLunch, \
+db.updateUser('hsolis', 'Tear', 'Swag', randomPrefTime, \
 	monMorn, wedNoon)
 
 hector = db.getUser('hsolis')
 
 assert hector.uid == 1 and hector.firstName == 'Tear' and \
-	hector.lastName == 'Swag' and hector.preferredTimes == friLunch \
+	hector.lastName == 'Swag' and hector.preferredTimes == randomPrefTime \
 	and hector.acceptableTimes == monMorn and \
 	hector.unacceptableTimes == wedNoon
 
@@ -117,7 +119,7 @@ db.updateUser(netid='hsolis', firstName='Hector', lastName='Solis')
 hector = db.getUser('hsolis')
 
 assert hector.uid == 1 and hector.firstName == 'Hector' and \
-	hector.lastName == 'Solis' and hector.preferredTimes == friLunch \
+	hector.lastName == 'Solis' and hector.preferredTimes == randomPrefTime \
 	and hector.acceptableTimes == monMorn and \
 	hector.unacceptableTimes == wedNoon
 

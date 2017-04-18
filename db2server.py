@@ -158,7 +158,7 @@ def init_protocol(netid):
 			"my_meetings": my_meetings_list,
 			"my_responded": my_responded_list,
 			"my_requests": my_requests_list,
-			"my_preferred": db.getUser(netid).preferredTimes
+			"my_preferred": db.getUserPreferences(netid)
 			}
 
 	return data

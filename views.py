@@ -114,7 +114,16 @@ def index():
 						      "title": "Colonial Lunch"
 						    }
 						  ], 
-						  "my_preferred": [{"date": "Fri", "time": "12pm"}], 
+						  "my_preferred": [
+						    {
+						      "day": "Sat", 
+						      "time": "9am"
+						    },
+						    {
+						      "day": "Sun", 
+						      "time": "10am"
+						    }
+						  ],  
 						  "my_requests": [
 						    {
 						      "creation_date": "Thu", 
