@@ -41,10 +41,15 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Welcome, {{ user }}</a></li>
           <li><a href="#" onclick="resetEverything()">Home</a></li>
-          <li><a href="#">Meetings</a></li>
-          <li><a href="#">Pending</a></li>
-          <li><a href="#">Confirmed</a></li>
+          <li><a href="#">Preferred</a></li>
+          <li class="requestsLI">
+          	<a href="#" class="requestsAnchor" onclick="dropdown()">Requests</a>
+          	<div id="myRequestedDiv" class="dropdown-content">
+
+          	</div>
+          </li>
           <li><a href="/logout">Log Out</a></li>
         </ul>
         </div>
@@ -63,37 +68,37 @@
             <h6 id="tableSubHeader">Create Meeting</h6>
           </div>
           <div class="feature-info">
-            <!-- Left Column: Pending Meetings and Requested Meetings -->
+            <!-- Left Column: Responded Meetings and My Meetings -->
             <div class="fea">
               <div class="col-md-3">
-                <!-- Pending Meetings -->
+                <!-- Responded Meetings -->
                 <div class="heading pull-right">
-                  <h4>Pending Meetings</h4>
-                  <div id="myPendingDiv">
+                  <h4>Responded Meetings</h4>
+                  <div id="myRespondedDiv">
 
                   </div>
                 </div>
                 <div class="fea-img pull-left">
                   <i class="fa fa-css3"></i>
                 </div>
-                <!--/ Pending Meetings -->
-                <!-- Requested Meetings -->
+                <!--/ Responded Meetings -->
+             	<!-- My Meetings -->
                 <div class="heading pull-right">
-                  <h4>Requested Meetings</h4>
-                  <div id="myRequestedDiv">
+                  <h4>My Meetings</h4>
+                  <div id="myMeetingsDiv">
 
                   </div>
                 </div>
                 <div class="fea-img pull-left">
-                  <i class="fa fa-book"></i>
+                  <i class="fa fa-address-book"></i>
                 </div>
-                <!--/ Requested Meetings -->
+                <!--/ My Meetings -->
               </div>
             </div>
             <!--/ Left Column -->
             <!-- Middle Column: Table -->
             <div class="fea">
-              <div class="col-md-6">
+              <div class="col-md-7">
                 <div class="table-responsive">
         					<!-- Construct Table -->
         					{{ table.html | safe }}
@@ -141,31 +146,12 @@
               </div>
             </div>
             <!--/ Middle Column -->
-            <!-- Right Column: Confirmed Meetings -->
+            <!-- Right Column: Available List -->
             <div class="fea">
-              <div class="col-md-3">
-                <!-- Confirmed Meetings -->
-                <div class="heading pull-right">
-                  <h4>Confirmed Meetings</h4>
-                  <div id="myConfirmedDiv">
-
-                  </div>
-                </div>
-                <div class="fea-img pull-left">
-                  <i class="fa fa-trophy"></i>
-                </div>
-                <!--/ Confirmed Meetings -->
-                <!-- My Meetings -->
-                <div class="heading pull-right">
-                  <h4>My Meetings</h4>
-                  <div id="myMeetingsDiv">
-
-                  </div>
-                </div>
-                <div class="fea-img pull-left">
-                  <i class="fa fa-address-book"></i>
-                </div>
-                <!--/ My Meetings -->
+              <div class="col-md-2">
+              	<div id="availableList">
+              		
+              	</div>
               </div>
               <!--/ Right Column -->
             </div>
@@ -184,7 +170,7 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/custom.js"></script>
 	<script src="{{ url_for('static', filename='js/table.js') }}"></script>
-
+	<script src="{{ url_for('static', filename='js/index.js') }}"></script>
     
   </body>
 </html>
