@@ -54,7 +54,14 @@ function parseInitialData(init_data) {
 	// }
 
 	// For displaying the information from requested
-	for (var i = 0; i < parsedData['my_requests'].length; i++){
+	var numRequests = parsedData['my_requests'].length;
+	if (numRequests <= 0) {
+		document.getElementById('requestsBadge').innerHTML = '';
+	}
+	else {
+		document.getElementById('requestsBadge').innerHTML = numRequests;
+	}
+	for (var i = 0; i < numRequests; i++){
 		var meeting = parsedData['my_requests'][i];
 		var div = document.createElement("DIV");
 

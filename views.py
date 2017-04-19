@@ -154,7 +154,9 @@ def index():
 						          "date": "Tue", 
 						          "time": "5am"
 						        }
-						      ]
+						      ],
+						      # "title": "Should've'st" Note, ' symbols in title break frontend
+							  "title": "Morning Run"
 						    }
 						  ], 
 						  "my_responded": [
