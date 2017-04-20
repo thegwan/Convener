@@ -1,46 +1,76 @@
 $(document).ready(function() {
-	// select and unselect clicked-on cells (good time)
-  	$(".cell").click(function(){
-  		if (!($(this).hasClass( "badtime")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored")) ) {
-	    	if ($(this).hasClass( "selected")) {
-	      		$(this).removeClass("selected");
-	   //    		$(this).removeClass('finalSelected');
-				// $(this).css('background', '');
-	    	}
-		    else {
-				// $(this).addClass('finalSelected');
-				// $(cell).css('background', 'rgb(0,2,0)');		      	
-		      	$(this).addClass("selected");
-	    	};
+	// highlight cells when mousedown
+	var $cell = $('.cell').mousedown(function() {
+		$(this).toggleClass('selected');
+		var flag = $(this).hasClass('selected')
+		// while mousedown, highlight cells when mouseenters cell
+		$cell.on('mouseenter.selected', function() {
+			$(this).toggleClass('selected', flag);
+		});
+		// highlight final meeting time
+		if ($(this).hasClass("colored")) {
+  			// Click a colored box to highlight it
+  			clearSelectedColored();
+  			$(this).removeClass("colored");
+  			$(this).addClass("selectedColored");
+			$(this).css('border', '5px solid yellow');
+			$(this).css('box-sizing', 'border-box'); // border stays inside element
   		}
-  		else {
-	  		if ($(this).hasClass("colored")) {
-	  			// Click a colored box to highlight it
-	  			clearSelectedColored();
-	  			$(this).removeClass("colored");
-	  			$(this).addClass("selectedColored");
-				$(this).css('border', '5px solid yellow');
-	  		}
-	  		else if ($(this).hasClass("selectedColored")){ // hasClass selectedColored
-	  			// Unclick to unhighlight
-				$(this).css('border', '');
-	  			$(this).addClass("colored");
-	  			$(this).removeClass("selectedColored");
-	  		}   			
-  		}
-  	});
-  	// select and unselect double-clicked on cells (bad time)
-  	$(".cell").dblclick(function(){
-  		if (!($(this).hasClass( "selected")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored"))) {
-	    	if ($(this).hasClass( "badtime")) {
-	      		$(this).removeClass("badtime");
-	    	}
-		    else {
-		      	$(this).addClass("badtime");
-	    	};
-  		};
-  	});
+  		else if ($(this).hasClass("selectedColored")) { // hasClass selectedColored
+  			// Unclick to unhighlight
+			$(this).css('border', '');
+  			$(this).addClass("colored");
+  			$(this).removeClass("selectedColored");
+  		}   
+	});
+	$(document).mouseup(function() {
+		$cell.off('mouseenter.selected')
+	})
 });
+// previous implementation
+// $(document).ready(function() {
+// 	// select and unselect clicked-on cells (good time)
+//   	$(".cell").click(function(){
+//   		if (!($(this).hasClass( "badtime")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored")) ) {
+// 	    	if ($(this).hasClass( "selected")) {
+// 	      		$(this).removeClass("selected");
+// 	   //    		$(this).removeClass('finalSelected');
+// 				// $(this).css('background', '');
+// 	    	}
+// 		    else {
+// 				// $(this).addClass('finalSelected');
+// 				// $(cell).css('background', 'rgb(0,2,0)');		      	
+// 		      	$(this).addClass("selected");
+// 	    	};
+//   		}
+//   		else {
+// 	  		if ($(this).hasClass("colored")) {
+// 	  			// Click a colored box to highlight it
+// 	  			clearSelectedColored();
+// 	  			$(this).removeClass("colored");
+// 	  			$(this).addClass("selectedColored");
+// 				$(this).css('border', '5px solid yellow');
+// 	  		}
+// 	  		else if ($(this).hasClass("selectedColored")){ // hasClass selectedColored
+// 	  			// Unclick to unhighlight
+// 				$(this).css('border', '');
+// 	  			$(this).addClass("colored");
+// 	  			$(this).removeClass("selectedColored");
+// 	  		}   			
+//   		}
+//   	});
+//   	// select and unselect double-clicked on cells (bad time)
+//   	$(".cell").dblclick(function(){
+//   		if (!($(this).hasClass( "selected")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored"))) {
+// 	    	if ($(this).hasClass( "badtime")) {
+// 	      		$(this).removeClass("badtime");
+// 	    	}
+// 		    else {
+// 		      	$(this).addClass("badtime");
+// 	    	};
+//   		};
+//   	});
+// });
 
 // disables create meeting button if no title or responders listed
 var checkButton = setInterval(function() {
