@@ -42,7 +42,8 @@ def index():
 	# sample update preferred times
 	jpost4 = {u'preferredTimes': [{u'date': u'03-19-17', u'time': u'10am'}, {u'date': u'03-20-17', u'time': u'11am'}], u'netid': u'ksha'}
 	
-	jpost = jpost4
+	# test ajax security
+	#jpost = jpost4
 	if jpost is not None:
 		# test make sure received
 		# print jpost
