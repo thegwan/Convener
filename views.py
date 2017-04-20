@@ -40,7 +40,7 @@ def index():
 	# sample decision
 	jpost3 = {u'mid': 10, u'finalTime': [{u'date': u'04-22-17', u'time': u'10am'}], u'netid': u'gwan'}
 	# sample update preferred times
-	jpost4 = {u'preferredTimes': [{u'date': u'03-19-17', u'time': u'10am'}, {u'date': u'03-20-17', u'time': u'11am'}], u'netid': u'ksha'}
+	jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
 	
 	# test ajax security
 	#jpost = jpost4

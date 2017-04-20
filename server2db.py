@@ -9,8 +9,17 @@ import database as db
 jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-17', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-17'}
 jpost2 = {u'mid': 1, u'response': [{u'date': u'04-19-17', u'time': u'7am'}, {u'date': u'04-20-17', u'time': u'7am'}], u'netid': u'gwan'}
 jpost3 = {u'mid': 3, u'finalTime': [{u'date': u'04-22-17', u'time': u'10am'}], u'netid': u'gwan'}
-jpost4 = {u'preferredTimes': [{u'date': u'03-19-17', u'time': u'10am'}, {u'date': u'03-20-17', u'time': u'11am'}], u'netid': u'gwan'}
+jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
 
+
+#-----------------------------------------------------------------------
+
+# checks if a day is in the right 3 letter format
+def day_isValid(day):
+	days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+	if day in days:
+		return True
+	return False
 
 #-----------------------------------------------------------------------
 
@@ -46,6 +55,21 @@ def datetimes_isValid(datetimes):
 			if key not in datetimeFields:
 				return False
 		if not (date_isValid(dt["date"]) and time_isValid(dt["time"])):
+			return False
+	return True
+
+#-----------------------------------------------------------------------
+
+# checks if a list of days and times is valid
+def daytimes_isValid(daytimes):
+	if daytimes is None:
+		return False
+	daytimeFields = ["day", "time"]
+	for dt in daytimes:
+		for key in dt:
+			if key not in daytimeFields:
+				return False
+		if not (day_isValid(dt["day"]) and time_isValid(dt["time"])):
 			return False
 	return True
 
@@ -141,7 +165,7 @@ def isValid_Preference(jpost):
 
 	if not isinstance(jpost["netid"], basestring):
 		return False
-	if not datetimes_isValid(jpost["preferredTimes"]):
+	if not daytimes_isValid(jpost["preferredTimes"]):
 		return False
 		
 	print "preference ok"
