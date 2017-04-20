@@ -20,21 +20,77 @@ function parseInitialData(init_data) {
 		for (var k = 0; k < meeting['nresp_netids'].length; k++){
 			notRespString += meeting['nresp_netids'][k] + ' ';
 		}
-		// Creating a div and anchor element to display myMeeting
-		var div = document.createElement("DIV");
-		// Add a tooltip for when the meeting is hovered over
-		$(div).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
-		$(div).addClass('tooltipDiv');
-		var anchor = document.createElement("A");
+		// Creating a row div, column divs, and anchor element to display myMeeting
+		var rowDiv = document.createElement("DIV");
+		var titleDiv = document.createElement("DIV");
+		var starDiv = document.createElement("DIV");
+
+		// $(rowDiv).addClass('row');
+		$(rowDiv).addClass('rowDiv');
 
 		// Function that runs when any myMeeting is clicked
+		var anchor = document.createElement("A");
 		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
 		anchor.addEventListener('click', f);
 
 		var textNode = document.createTextNode(meeting['title']);
 		anchor.appendChild(textNode);
-		div.appendChild(anchor)
-		document.getElementById('myMeetingsDiv').appendChild(div);
+
+		// Add a tooltip for when the meeting is hovered over
+		$(titleDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
+		titleDiv.appendChild(anchor);
+		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
+		// $(titleDiv).addClass('titleDiv');
+		// $(titleDiv).addClass('col-md-10');
+		
+		// Add a star to the starDiv if the meeting is confirmed
+		if (meeting['finaltime'].length > 0) {
+			starDiv.appendChild(document.createTextNode('*'));
+		}
+		else {
+			starDiv.appendChild(document.createTextNode('-'));
+		}
+		$(starDiv).addClass('starDiv col-md-2');
+		// $(starDiv).addClass('col-md-2');
+
+		rowDiv.appendChild(titleDiv);
+		rowDiv.appendChild(starDiv);
+		document.getElementById('myMeetingsDiv').appendChild(rowDiv);
+	}
+
+	// For displaying the information from my_responded
+	for (var i = 0; i < parsedData['my_responded'].length; i++){
+		var meeting = parsedData['my_responded'][i];
+
+		var f = clickMyResponded(i, meeting['title'], meeting['creator'], meeting['finaltime']);
+
+		var rowDiv = document.createElement("DIV");
+		var titleDiv = document.createElement("DIV");
+		var starDiv = document.createElement("DIV");
+
+		// $(rowDiv).addClass('row');
+		$(rowDiv).addClass('rowDiv');
+
+		var anchor = document.createElement("A");
+		anchor.addEventListener('click', f);
+		var textNode = document.createTextNode(meeting['title']);
+		anchor.appendChild(textNode);
+
+		titleDiv.appendChild(anchor);
+		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
+		
+		// Add a star to the starDiv if the meeting is confirmed
+		if (meeting['finaltime'].length > 0) {
+			starDiv.appendChild(document.createTextNode('*'));
+		}
+		else {
+			starDiv.appendChild(document.createTextNode('-'));
+		}
+		$(starDiv).addClass('starDiv col-md-2');
+
+		rowDiv.appendChild(titleDiv);
+		rowDiv.appendChild(starDiv);
+		document.getElementById('myRespondedDiv').appendChild(rowDiv);
 	}
 
 	// // For displaying the information from pending
@@ -76,21 +132,6 @@ function parseInitialData(init_data) {
 		document.getElementById('myRequestedDiv').appendChild(div);
 	}
 
-	// For displaying the information from my_responded
-	for (var i = 0; i < parsedData['my_responded'].length; i++){
-		var meeting = parsedData['my_responded'][i];
-		var div = document.createElement("DIV");
-
-		var anchor = document.createElement("A");
-
-		var f = clickMyResponded(i, meeting['title'], meeting['creator'], meeting['finaltime']);
-
-		anchor.addEventListener('click', f);
-		var textNode = document.createTextNode(meeting['title']);
-		anchor.appendChild(textNode);
-		div.appendChild(anchor)
-		document.getElementById('myRespondedDiv').appendChild(div);
-	}
 }
 
 // // Takes the JSON info sent by the server and parses it into 
