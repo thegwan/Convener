@@ -240,9 +240,9 @@ function clickMyMeeting(i, title, respondedLength, mid) {
 	return function() {
 		myMeetingClicked(parsedData['my_meetings'][i]['times'], respondedLength);
 		$('#tableHeader').text(title);
-		$('#getselected').text('Submit');
-		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'hidden';
+		// $('#getselected').text('Submit');
+		// document.getElementById('getselected').style.visibility = 'hidden';
+		// document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
 		document.getElementById('submitButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Select a final meeting time');
@@ -280,8 +280,8 @@ function clickRequested(i, title, creator, mid) {
 	return function() {
 		requestedClicked(parsedData['my_requests'][i]['times']);
 		$('#tableHeader').text(title);
-		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'visible';
+		// document.getElementById('getselected').style.visibility = 'hidden';
+		// document.getElementById('clearselected').style.visibility = 'visible';
 		document.getElementById('respondButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Created by: ' + creator);
 		requestMid = mid;
@@ -300,8 +300,8 @@ function clickMyResponded(i, title, creator, finaltime) {
 	return function() {
 		respondedClicked(parsedData['my_responded'][i]['times']);
 		$('#tableHeader').text(title + ' ('+creator+')');
-		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'hidden';
+		// document.getElementById('getselected').style.visibility = 'hidden';
+		// document.getElementById('clearselected').style.visibility = 'hidden';
 		$('#tableSubHeader').text('-Your Response');
 		makeUnselectable();
 		for (var j = 0; j < finaltime.length; j++) {
