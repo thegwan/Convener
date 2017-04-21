@@ -1,4 +1,5 @@
 import time
+from datetime import datetime, timedelta
 
 # Table object for Convener: html attribute contains the html
 # to construct the table
@@ -11,14 +12,10 @@ class Table(object):
 	inOrderDayArray = []
 	
 	def __init__(self):
-		# general array of days
-		dayArray = ["Sun", "Mon","Tue","Wed","Thu","Fri","Sat"]
-		# Today's day as a decimal number [0(Sun), 6]
-		currDay = 0 # int(time.strftime("%w"))
-		# fill inOrderDayArray
-		for i in range(currDay, currDay + self.DAYS_IN_WEEK):
-			day = i % self.DAYS_IN_WEEK
-			self.inOrderDayArray.append(dayArray[day])
+		# fill inOrderDayArray with dates for the next two weeks
+		for i in range(2 * self.DAYS_IN_WEEK):
+			self.inOrderDayArray.append((datetime.now() + timedelta(i)).strftime('%B<br/>%d'))
+
 		# print table
 		self.html = "<table id='mainTable' class='table table-bordered table-condensed overwrite_table'>"
 		self.html += self.printHeader()
@@ -28,18 +25,14 @@ class Table(object):
 	# print the days of the week as headers, starting from today
 	def printHeader(self):
 		html = "<tr>"
-		# to determine where to put the vertical line
+		# to determine where to put the vertical line (divider)
 		index = 0
-		# print 2 weeks
-		for i in range(2):
-			for day in self.inOrderDayArray:
-				if index == 6:
-					html += '<th class="bold_col">%s</th>' % day
-					print html
-				else:
-					html += "<th>%s</th>" % day
-				index += 1
-				print index
+		for day in self.inOrderDayArray:
+			if index == 6:
+				html += '<th class="bold_col">%s</th>' % day
+			else:
+				html += "<th>%s</th>" % day
+			index += 1
 		html += "</tr>"
 		return html
 
