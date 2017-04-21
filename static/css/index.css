@@ -143,3 +143,17 @@ div.rowDiv:hover {
 	border-right: dashed orange 3px;
 }
 
+/* am and pm divs for table */
+#am, #pm {
+	margin-right: -20px;
+	text-align: right;
+	color: black;
+}
+
+#am {
+	padding-top: 57px;
+}
+
+#pm {
+	padding-top: 119px;
+}
