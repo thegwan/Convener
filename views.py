@@ -32,6 +32,18 @@ def index():
 
 	# get POSTed json (either a creation or a response)
 	jpost = request.get_json()
+
+	# sample creation
+	jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-17', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-17'}
+	# sample response
+	jpost2 = {u'mid': 10, u'response': [{u'date': u'04-19-17', u'time': u'7am'}, {u'date': u'04-20-17', u'time': u'7am'}], u'netid': u'hsolis'}
+	# sample decision
+	jpost3 = {u'mid': 10, u'finalTime': [{u'date': u'04-22-17', u'time': u'10am'}], u'netid': u'gwan'}
+	# sample update preferred times
+	jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
+	
+	# test ajax security
+	#jpost = jpost4
 	if jpost is not None:
 		# test make sure received
 		# print jpost
@@ -40,7 +52,7 @@ def index():
 	
 	# initial protocol
 	init_data = json.dumps(db2server.init_protocol(cas.username))
-	print json.dumps(db2server.init_protocol("hsolis"), indent=2, sort_keys=True)
+	#print json.dumps(db2server.init_protocol("hsolis"), indent=2, sort_keys=True)
 
 	# new sample test data -- look at the format
 	init_data = json.dumps(
