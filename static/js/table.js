@@ -242,6 +242,8 @@ function clearColored() {
 }
 
 // overlays user's response on top of creator's response in my_responded
+// where userTimes are the user's response, and creatorTimes are the creator's
+// response when initially creating the meeting
 function responsemap(userTimes, creatorTimes) {
 	colors = ['#0ABD21',
 			  '#E8FDE7'];

@@ -56,6 +56,9 @@ def myResponded_toList(my_responded, netid):
 		finaltime = db.getScheduledTime(mid)
 		mine = creator == netid
 
+		if (mine):
+			continue
+
 		my_responded_list.append({
 			"mid":mid,
 			"title":title,
