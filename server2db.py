@@ -6,9 +6,9 @@ import database as db
 
 # sample data
 
-jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-17', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-17'}
-jpost2 = {u'mid': 1, u'response': [{u'date': u'04-19-17', u'time': u'7am'}, {u'date': u'04-20-17', u'time': u'7am'}], u'netid': u'gwan'}
-jpost3 = {u'mid': 3, u'finalTime': [{u'date': u'04-22-17', u'time': u'10am'}], u'netid': u'gwan'}
+jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-2017', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-2017'}
+jpost2 = {u'mid': 1, u'response': [{u'date': u'04-19-2017', u'time': u'7am'}, {u'date': u'04-20-2017', u'time': u'7am'}], u'netid': u'gwan'}
+jpost3 = {u'mid': 3, u'finalTime': [{u'date': u'04-22-2017', u'time': u'10am'}], u'netid': u'gwan'}
 jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
 
 
@@ -27,7 +27,7 @@ def day_isValid(day):
 def date_isValid(date):
 	if not isinstance(date, basestring):
 		return False
-	r = re.compile('^\d{2}-\d{2}-\d{2}$')
+	r = re.compile('^\d{2}-\d{2}-\d{4}$')
 	if r.match(date) is not None:
 		return True
 	return False
