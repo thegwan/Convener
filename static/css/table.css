@@ -45,9 +45,8 @@ td.badtime {
     border-top: 2px solid black;
 }
 
-#bold_col {
-    border-right: 2px solid black;
-    background: red;
+.bold_col {
+    border-right: 2px solid orange !important;
 }
 
 /* Tooltip souce code: http://jsfiddle.net/AndreaLigios/jtLbpy62/*/

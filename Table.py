@@ -34,7 +34,7 @@ class Table(object):
 		for i in range(2):
 			for day in self.inOrderDayArray:
 				if index == 6:
-					html += "<th class='bold_col'>%s</th>" % day
+					html += '<th class="bold_col">%s</th>' % day
 					print html
 				else:
 					html += "<th>%s</th>" % day
@@ -47,8 +47,8 @@ class Table(object):
 	def printCells(self):
 		html = ""
 		# to determine where to put the vertical line
-		index = 0
 		for row in range(6, self.HOURS_IN_DAY + 6):
+			index = 0
 			if row == 12:
 				html += "<tr id='bold_row'>"
 			else:
