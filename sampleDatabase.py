@@ -27,10 +27,11 @@ aaron = db.getUser('bargotta')
 
 ## Create meetings  ########################################
 
-db.createMeeting('test1', hector.uid, "[2]", "04-21-2017")
-db.createMeeting('test2', hector.uid, "[2]", "04-21-2017")
-db.createMeeting('test3', gerry.uid, "[1]", "04-21-2017")
-db.createMeeting('test4', gerry.uid, "[1]", "04-21-2017")
+db.createMeeting('test1', hector.uid, "[2, 3]", "04-21-2017")
+db.createMeeting('test2', hector.uid, "[2, 3]", "04-21-2017")
+db.createMeeting('test3', gerry.uid, "[1, 3]", "04-21-2017")
+db.createMeeting('test4', gerry.uid, "[1, 3]", "04-21-2017")
+db.createMeeting('test5', aaron.uid, "[2]", "04-21-2017")
 
 ## Create responses  ################################################################
 
@@ -48,5 +49,7 @@ db.createResponse(3, hector.uid, sample2)
 db.createResponse(4, hector.uid, sample5)
 db.createResponse(3, aaron.uid, sample3)
 db.createResponse(4, aaron.uid, sample6)
+
+db.createResponse(5, aaron.uid, sample1)
 
 
