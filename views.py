@@ -5,9 +5,11 @@ from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS
 from main import app
 from Table import Table
+from Table_Pref import Table_Pref
 
 cas = CAS(app)
 table = Table()
+table_pref = Table_Pref()
 
 with open('secrets', 'r') as s:
 	secrets = s.readlines()
@@ -557,6 +559,7 @@ def index():
 							user=cas.username,
 							token=cas.token,
 							table=table,
+							table_pref=table_pref,
 							init_data=init_data)
 
 @app.route('/landing')

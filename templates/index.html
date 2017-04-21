@@ -45,7 +45,7 @@
           <ul class="nav navbar-nav navbar-right">
           <li><a href="#">Welcome, {{ user }}</a></li>
           <li><a href="#" onclick="resetEverything()">Home</a></li>
-          <li><a href="#">Preferred</a></li>
+          <li><a href="#" onclick="loadPreferredTable('{{ table_pref.html | safe }}')">Preferred</a></li>
           <li class="requestsLI">
           	<a class="requestsAnchor" onclick="dropdown()">
           		Requests

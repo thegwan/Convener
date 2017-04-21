@@ -313,3 +313,9 @@ function loadPTimes() {
 		}
 	}	
 }
+
+// load preferred table (Table_Pref object)
+function loadPreferredTable(table_pref) {
+	$("#mainTable").remove();
+	console.log(table_pref);
+}
