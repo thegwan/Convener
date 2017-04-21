@@ -48,7 +48,7 @@ def index():
 	#jpost = jpost4
 	if jpost is not None:
 		# test make sure received
-		# print jpost
+		print jpost
 		# update database
 		server2db.parse(jpost)
 	
