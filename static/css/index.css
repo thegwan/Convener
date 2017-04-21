@@ -133,3 +133,18 @@ a {
 									   to(#19911D),
 									   color-stop(.6,#54DE5D))
 }
+
+/* am and pm divs for table */
+#am, #pm {
+	margin-right: -20px;
+	text-align: right;
+	color: black;
+}
+
+#am {
+	padding-top: 35px;
+}
+
+#pm {
+	padding-top: 119px;
+}

@@ -5,7 +5,7 @@ import time
 class Table(object):
 
 	# constants
-	HOURS_IN_DAY = 24
+	HOURS_IN_DAY = 18 # starting from 6am
 	DAYS_IN_WEEK = 7
 	# array of days with today's day at index 0
 	inOrderDayArray = []
@@ -28,26 +28,49 @@ class Table(object):
 	# print the days of the week as headers, starting from today
 	def printHeader(self):
 		html = "<tr>"
-		for day in self.inOrderDayArray:
-			html += "<th>%s</th>" % day
+		# to determine where to put the vertical line
+		index = 0
+		# print 2 weeks
+		for i in range(2):
+			for day in self.inOrderDayArray:
+				if index == 6:
+					html += "<th class='bold_col'>%s</th>" % day
+					print html
+				else:
+					html += "<th>%s</th>" % day
+				index += 1
+				print index
 		html += "</tr>"
 		return html
 
 	# print each individual cell of the table
 	def printCells(self):
 		html = ""
-		for row in range(self.HOURS_IN_DAY):
-			html += "<tr>"
-			for col in range(self.DAYS_IN_WEEK):
-				hour = row % 13
-				# so it says 12am instead of 0am
-				if hour == 0 and row < 12:
-					hour = 12
-				if row < 12:
-					html += "<td id ='%s_%dam' class='cell'>%dam</td>" % (self.inOrderDayArray[col], hour, hour)
-				else:
-					if row > 12:
-						hour += 1
-					html += "<td id ='%s_%dpm' class='cell'>%dpm</td>" % (self.inOrderDayArray[col], hour, hour)
+		# to determine where to put the vertical line
+		index = 0
+		for row in range(6, self.HOURS_IN_DAY + 6):
+			if row == 12:
+				html += "<tr id='bold_row'>"
+			else:
+				html += "<tr>"
+			for i in range(2):
+				for col in range(self.DAYS_IN_WEEK):
+					hour = row % 13
+					# so it says 12am instead of 0am
+					if hour == 0 and row < 12:
+						hour = 12
+					if row < 12:
+						if index == 6:
+							html += "<td id ='%s_%dam' class='cell bold_col'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+						else:
+							html += "<td id ='%s_%dam' class='cell'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+					else:
+						if row > 12:
+							hour += 1
+						if index == 6:
+							html += "<td id ='%s_%dpm' class='cell bold_col'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+						else:
+							html += "<td id ='%s_%dpm' class='cell'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+					index += 1
 			html += "</tr>"
 		return html

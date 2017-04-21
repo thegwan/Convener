@@ -41,6 +41,15 @@ td.badtime {
    padding: 0px 5px !important;
 }
 
+#bold_row {
+    border-top: 2px solid black;
+}
+
+#bold_col {
+    border-right: 2px solid black;
+    background: red;
+}
+
 /* Tooltip souce code: http://jsfiddle.net/AndreaLigios/jtLbpy62/*/
 
 [tooltip]:before {
