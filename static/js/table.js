@@ -26,10 +26,11 @@ $(document).ready(function() {
 	var $cell = $('.cell').hover(function() {
 		if (inMyMeeting) {
 			var cellId = $(this).attr('id');
+			var aList;
 			if (cellId in availableDict) {
 				// alert('hovered');
 				$('#availableList div').remove();
-				var aList = availableDict[cellId];
+				aList = availableDict[cellId];
 				for (var i = 0; i < aList.length; i++) {
 					var aDiv = document.createElement("DIV");
 					var textNode = document.createTextNode(aList[i]);
@@ -37,14 +38,17 @@ $(document).ready(function() {
 
 					document.getElementById('availableList').appendChild(aDiv);
 				}
-				var oldText = document.getElementById('availableHeader').innerText;
-				var startIndex = oldText.indexOf(' ');
-				var endIndex = oldText.indexOf('/');
-				var p1 = oldText.substring(0, startIndex + 1);
-				var p2 = oldText.substring(endIndex, oldText.length);
-				document.getElementById('availableHeader').innerText = p1 + aList.length + p2;		
 			}
-			
+			else {
+				$('#availableList div').remove();
+				aList = [];
+			}
+			var oldText = document.getElementById('availableHeader').innerText;
+			var startIndex = oldText.indexOf(' ');
+			var endIndex = oldText.indexOf('/');
+			var p1 = oldText.substring(0, startIndex + 1);
+			var p2 = oldText.substring(endIndex, oldText.length);
+			document.getElementById('availableHeader').innerText = p1 + aList.length + p2;		
 		}
 	});
 	$(document).mouseup(function() {
