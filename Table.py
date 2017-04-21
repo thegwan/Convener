@@ -41,14 +41,13 @@ class Table(object):
 	# print each individual cell of the table
 	def printCells(self):
 		html = ""
-		# to determine where to put the vertical line
 		for row in range(6, self.HOURS_IN_DAY + 6):
-			index = 0
+			index = 0 # to determine where to put the vertical line
 			if row == 12:
 				html += "<tr id='bold_row'>"
 			else:
 				html += "<tr>"
-			for col in range(self.DAYS_IN_WEEK * 2):
+			for col in range(2 * self.DAYS_IN_WEEK):
 				hour = row % 13
 				# so it says 12am instead of 0am
 				if hour == 0 and row < 12:
