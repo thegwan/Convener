@@ -48,24 +48,23 @@ class Table(object):
 				html += "<tr id='bold_row'>"
 			else:
 				html += "<tr>"
-			for i in range(2):
-				for col in range(self.DAYS_IN_WEEK):
-					hour = row % 13
-					# so it says 12am instead of 0am
-					if hour == 0 and row < 12:
-						hour = 12
-					if row < 12:
-						if index == 6:
-							html += "<td id ='%s_%dam' class='cell selectable bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
-						else:
-							html += "<td id ='%s_%dam' class='cell selectable'>%d</td>" % (self.dayArray[col], hour, hour)
+			for col in range(self.DAYS_IN_WEEK * 2):
+				hour = row % 13
+				# so it says 12am instead of 0am
+				if hour == 0 and row < 12:
+					hour = 12
+				if row < 12:
+					if index == 6:
+						html += "<td id ='%s_%dam' class='cell selectable bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
 					else:
-						if row > 12:
-							hour += 1
-						if index == 6:
-							html += "<td id ='%s_%dpm' class='cell selectable bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
-						else:
-							html += "<td id ='%s_%dpm' class='cell selectable'>%d</td>" % (self.dayArray[col], hour, hour)
-					index += 1
+						html += "<td id ='%s_%dam' class='cell selectable'>%d</td>" % (self.dayArray[col], hour, hour)
+				else:
+					if row > 12:
+						hour += 1
+					if index == 6:
+						html += "<td id ='%s_%dpm' class='cell selectable bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
+					else:
+						html += "<td id ='%s_%dpm' class='cell selectable'>%d</td>" % (self.dayArray[col], hour, hour)
+				index += 1
 			html += "</tr>"
 		return html
