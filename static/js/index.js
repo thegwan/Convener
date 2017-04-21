@@ -260,30 +260,30 @@ function clickMyResponded(i, title, creator, finaltime) {
 
 //-------------------------------------------------------------------------------------------------
 
-// creates JSON containing all selected cells, title, invitees, mid,
-// depending on if user responds to or creates a meeting
+// makes creation JSON containing all selected cells, title, responders,
+// creationDate, netid
 
-function createJSON(netid) {
+function makeCreationJSON(netid) {
 	var toServer = {};
 	toServer.netid = netid;
 	toServer.response = [];
 
-	// get selected cells
-	getSelected(toServer);
+	// get selected cells, updates toServer.response
+	getSelectedDates(toServer);
 
 	// for meeting creation
 	var title = document.getElementById('title').value;
 	var responders = document.getElementById('invite').value;
+	var first = document.getElementsByClassName('cell')[0].id.split("_");
+	var creationDate = first[0]
 
-	if (title != '' && responders != '') {
-		toServer.title = title                              // js has title property - may cause problems
-		toServer.responders = responders.split(/\s*,\s*/);
-		document.getElementById('title').value = '';
-		document.getElementById('invite').value = '';
-	}
-	else {
-		toServer.mid = requestMid;
-	}
+	toServer.title = title
+	toServer.responders = responders.split(/\s*,\s*/);
+	toServer.creationDate = creationDate
+
+	// clear fields
+	document.getElementById('title').value = '';
+	document.getElementById('invite').value = '';
 
 	// console.log(toServer)
 	$.ajax({
@@ -294,12 +294,7 @@ function createJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			if (toServer.hasOwnProperty('mid')) {
-				alert('Response Submitted');
-			}
-			else {
-				alert('Event Created!');
-			}
+			alert('Event Created!');
 		}
 	});
 	// Refresh the page asynchronously
@@ -312,17 +307,83 @@ function createJSON(netid) {
 	resetEverything();
 }
 
+//-------------------------------------------------------------------------------------------------
+
+// makes response JSON containing all selected cells, netid, mid,
+
+function makeResponseJSON(netid) {
+	var toServer = {};
+	toServer.netid = netid;
+	toServer.response = [];
+
+	// get selected cells, updates toServer.response
+	getSelectedDates(toServer);
+
+	toServer.mid = requestMid;
+
+	// console.log(toServer)
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		// Encode data as JSON.
+		data: JSON.stringify(toServer),
+		dataType: 'text',
+		url: '/',
+		success: function(){
+			alert('Response Submitted');
+		}
+	});
+	// Refresh the page asynchronously
+	$.getJSON('/_refreshPage', {
+
+	}, function(data) {
+		// alert('at least we made it this far');
+		parseData(data);
+	});
+	resetEverything();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+// makes response JSON containing all selected cells, netid, mid,
+
+function makePreferenceJSON(netid) {
+	var toServer = {};
+	toServer.netid = netid;
+	toServer.preferredTimes = [];
+
+	// get selected cells, updates toServer.response
+	getSelectedDays(toServer);
+
+	// console.log(toServer)
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		// Encode data as JSON.
+		data: JSON.stringify(toServer),
+		dataType: 'text',
+		url: '/',
+		success: function(){
+			alert('Preferences Submitted');
+		}
+	});
+	// Refresh the page asynchronously
+	$.getJSON('/_refreshPage', {
+
+	}, function(data) {
+		// alert('at least we made it this far');
+		parseData(data);
+	});
+	resetEverything();
+}
 
 // Creates JSON containing the one cell that represents the creator's scheduled time, and
 // and mid
 
-function createFinalJSON(netid) {
+function makeFinalJSON(netid) {
 	var toServer = {};
 	toServer.netid = netid;
 	toServer.finalTime = [];
-
-	// get selected cells
-	//getSelected(toServer);
 
 	// Gets the selectedColored cell
 	getSelectedColored(toServer);

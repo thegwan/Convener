@@ -106,27 +106,43 @@ var checkButton = setInterval(function() {
 }, 10);
 
 
-// creates JSON containing all selected cells and title and invitees
-function getSelected(toServer) {
+// get all selected date cells from main table
+function getSelectedDates(toServer) {
+	//var main_table = document.getElementById("#mainTable");
+	var cells = document.getElementsByClassName('selected');
+
+	for (var i = 0; i < cells.length; i++) {
+		var datetime = cells[i].id.split("_");
+		var date = datetime[0];
+		var time = datetime[1];
+		toServer.response.push({"date":date, "time":time});
+	}	
+}
+
+// get all selected day cells from preference table
+function getSelectedDays(toServer) {
+	// var pref_table = document.getElementById("#prefTable");
 	var cells = document.getElementsByClassName('selected');
 
 	for (var i = 0; i < cells.length; i++) {
 		var daytime = cells[i].id.split("_");
 		var day = daytime[0];
 		var time = daytime[1];
-		toServer.response.push({"day":day, "time":time});
+		toServer.preferredTimes.push({"day":day, "time":time});
 	}	
 }
 
-// creates JSON with the final submit cell
+// get the final submit cell
 function getSelectedColored(toServer) {
+	//var main_table = document.getElementById("#mainTable");
 	var cells = document.getElementsByClassName('selectedColored');
 
+	// should be length 1
 	for (var i = 0; i < cells.length; i++) {
-		var daytime = cells[i].id.split("_");
-		var day = daytime[0];
-		var time = daytime[1];
-		toServer.finalTime.push({"day":day, "time":time});
+		var datetime = cells[i].id.split("_");
+		var date = datetime[0];
+		var time = datetime[1];
+		toServer.finalTime.push({"date":date, "time":time});
 	}
 	
 }
