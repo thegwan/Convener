@@ -62,7 +62,7 @@ def myResponded_toList(my_responded, netid):
 			"creation_date":creation_date,
 			"creator":creator,
 			"times":times,
-			"creator_times":creator_times
+			"creator_times":creator_times,
 			"finaltime":finaltime,
 			"mine":mine
 			})

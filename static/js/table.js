@@ -241,11 +241,34 @@ function clearColored() {
 	}
 }
 
+// overlays user's response on top of creator's response in my_responded
+function responsemap(userTimes, creatorTimes) {
+	colors = ['#0ABD21',
+			  '#E8FDE7'];
+	clearSelected();
+	// convert creatorTimes
+	for (var i = 0; i < creatorTimes.length; i++) {
+		date = creatorTimes[i]['date'];
+		time = creatorTimes[i]['time'];
+		cell = document.getElementById(date + '_' + time);
+		$(cell).addClass("colored");
+		$(cell).css('background', colors[1]);
+	}
+	// convert userTimes
+	for (var i = 0; i < userTimes.length; i++) {
+		date = userTimes[i]['date'];
+		time = userTimes[i]['time'];
+		cell = document.getElementById(date + '_' + time);
+		$(cell).addClass("colored");
+		$(cell).css('background', colors[0]);
+	}
+
+}
+
 // Convert a responderTimes into a heatmap on the page where darker colors are better, 
 // where responderTimes is a dict of key netid, value times list pairs 
 // Gives a weight to each response depending on how many people responded
 function heatmap(responderTimes, respondedLength) {
-	
 	// var colors = ['#24C904',  // most green
 	// 			  '#6ECF07',
 	// 			  '#87D008',
@@ -265,7 +288,7 @@ function heatmap(responderTimes, respondedLength) {
 				  '#8BF396',
 				  '#A2F5AA',
 				  '#B9F8BE',
-				  '#E8FDE7']  // most whitish
+				  '#E8FDE7'];  // most whitish
 	clearSelected();
 	var counts = {};
 	// var weight = 20;
@@ -322,9 +345,9 @@ function heatmap(responderTimes, respondedLength) {
 function fromDatesToTable(listOfDatesAndTimes) {
 	clearSelected();
 	for (var i = 0; i < listOfDatesAndTimes.length; i++) {
-		day = listOfDatesAndTimes[i]['date']
+		date = listOfDatesAndTimes[i]['date']
 		time = listOfDatesAndTimes[i]['time']
-		cell = document.getElementById(day + '_' + time);
+		cell = document.getElementById(date + '_' + time);
 
 		if (! ($(cell).hasClass("selected"))) {
       		$(cell).addClass("selected");

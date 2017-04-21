@@ -57,273 +57,273 @@ def index():
 	#print json.dumps(db2server.init_protocol("hsolis"), indent=2, sort_keys=True)
 
 	# new sample test data -- look at the format
-	init_data = json.dumps(
-							{
-						  "my_meetings": [
-						    {
-						      "all_responded": False, 
-						      "creation_date": "04-20-2017", 
-						      "finaltime": [], 
-						      "mid": 2, 
-						      "nresp_netids": [
-						        "gwan"
-						      ], 
-						      "resp_netids": [
-						        "hsolis"
-						      ], 
-						      "responder_times": {
-						        "hsolis": [
-						          {
-						            "date": "04-21-2017", 
-						            "time": "12pm"
-						          }
-						        ]
-						      }, 
-						      "title": "Back Massage"
-						    }, 
-						    {
-						      "all_responded": True, 
-						      "creation_date": "04-20-2017", 
-						      "finaltime": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "mid": 1, 
-						      "nresp_netids": [], 
-						      "resp_netids": [
-						        "hsolis", 
-						        "gwan", 
-						        "ksha"
-						      ], 
-						      "responder_times": {
-						        "gwan": [
-						          {
-						            "date": "04-20-2017", 
-						            "time": "8pm"
-						          }, 
-						          {
-						            "date": "04-21-2017", 
-						            "time": "12pm"
-						          }
-						        ], 
-						        "hsolis": [
-						          {
-						            "date": "04-20-2017", 
-						            "time": "8pm"
-						          }, 
-						          {
-						            "date": "04-21-2017", 
-						            "time": "12pm"
-						          }
-						        ], 
-						        "ksha": [
-						          {
-						            "date": "04-21-2017", 
-						            "time": "12pm"
-						          }
-						        ]
-						      }, 
-						      "title": "Colonial Lunch"
-						    }
-						  ], 
-						  "my_preferred": [
-						    {
-						      "day": "Sat", 
-						      "time": "9am"
-						    },
-						    {
-						      "day": "Sun", 
-						      "time": "10am"
-						    },
-		    			    {
-						      "day": "Mon", 
-						      "time": "9am"
-						    }
-						  ],  
-						  "my_requests": [
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "gwan", 
-						      "mid": 6, 
-						      "times": [
-						        {
-						          "date": "04-24-2017", 
-						          "time": "3pm"
-						        }, 
-						        {
-						          "date": "04-24-2017", 
-						          "time": "9am"
-						        }
-						      ], 
-						      "title": "WeightLifting"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "gwan", 
-						      "mid": 9, 
-						      "times": [
-						        {
-						          "date": "04-26-2017", 
-						          "time": "6am"
-						        }, 
-						        {
-						          "date": "04-25-2017", 
-						          "time": "7am"
-						        }
-						      ],
-						      # "title": "Should've'st" Note, ' symbols in title break frontend
-							  "title": "Morning Run"
-						    }
-						  ], 
-						  "my_responded": [
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "hsolis", 
-						      "finaltime": [], 
-						      "mid": 2, 
-						      "mine": True, 
-						      "times": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "title": "Back Massage"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "kl9", 
-						      "finaltime": [], 
-						      "mid": 4, 
-						      "mine": False, 
-						      "times": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "8pm"
-						        }
-						      ], 
-						      "title": "Code@Night"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "hsolis", 
-						      "finaltime": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "mid": 1, 
-						      "mine": True, 
-						      "times": [
-						        {
-						          "date": "04-20-2017", 
-						          "time": "8pm"
-						        }, 
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "hsolis", 
-						      "finaltime": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "mid": 1, 
-						      "mine": True, 
-						      "times": [
-						        {
-						          "date": "04-20-2017", 
-						          "time": "8pm"
-						        }, 
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "hsolis", 
-						      "finaltime": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "mid": 1, 
-						      "mine": True, 
-						      "times": [
-						        {
-						          "date": "04-20-2017", 
-						          "time": "8pm"
-						        }, 
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "hsolis", 
-						      "finaltime": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "mid": 1, 
-						      "mine": True, 
-						      "times": [
-						        {
-						          "date": "04-20-2017", 
-						          "time": "8pm"
-						        }, 
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }, 
-						    {
-						      "creation_date": "04-20-2017", 
-						      "creator": "hsolis", 
-						      "finaltime": [
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "mid": 1, 
-						      "mine": True, 
-						      "times": [
-						        {
-						          "date": "04-20-2017", 
-						          "time": "8pm"
-						        }, 
-						        {
-						          "date": "04-21-2017", 
-						          "time": "12pm"
-						        }
-						      ], 
-						      "title": "Colonial Lunch"
-						    }
-						  ]
-						}
-						)
+	# init_data = json.dumps(
+	# 						{
+	# 					  "my_meetings": [
+	# 					    {
+	# 					      "all_responded": False, 
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "finaltime": [], 
+	# 					      "mid": 2, 
+	# 					      "nresp_netids": [
+	# 					        "gwan"
+	# 					      ], 
+	# 					      "resp_netids": [
+	# 					        "hsolis"
+	# 					      ], 
+	# 					      "responder_times": {
+	# 					        "hsolis": [
+	# 					          {
+	# 					            "date": "04-21-2017", 
+	# 					            "time": "12pm"
+	# 					          }
+	# 					        ]
+	# 					      }, 
+	# 					      "title": "Back Massage"
+	# 					    }, 
+	# 					    {
+	# 					      "all_responded": True, 
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "finaltime": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "mid": 1, 
+	# 					      "nresp_netids": [], 
+	# 					      "resp_netids": [
+	# 					        "hsolis", 
+	# 					        "gwan", 
+	# 					        "ksha"
+	# 					      ], 
+	# 					      "responder_times": {
+	# 					        "gwan": [
+	# 					          {
+	# 					            "date": "04-20-2017", 
+	# 					            "time": "8pm"
+	# 					          }, 
+	# 					          {
+	# 					            "date": "04-21-2017", 
+	# 					            "time": "12pm"
+	# 					          }
+	# 					        ], 
+	# 					        "hsolis": [
+	# 					          {
+	# 					            "date": "04-20-2017", 
+	# 					            "time": "8pm"
+	# 					          }, 
+	# 					          {
+	# 					            "date": "04-21-2017", 
+	# 					            "time": "12pm"
+	# 					          }
+	# 					        ], 
+	# 					        "ksha": [
+	# 					          {
+	# 					            "date": "04-21-2017", 
+	# 					            "time": "12pm"
+	# 					          }
+	# 					        ]
+	# 					      }, 
+	# 					      "title": "Colonial Lunch"
+	# 					    }
+	# 					  ], 
+	# 					  "my_preferred": [
+	# 					    {
+	# 					      "day": "Sat", 
+	# 					      "time": "9am"
+	# 					    },
+	# 					    {
+	# 					      "day": "Sun", 
+	# 					      "time": "10am"
+	# 					    },
+	# 	    			    {
+	# 					      "day": "Mon", 
+	# 					      "time": "9am"
+	# 					    }
+	# 					  ],  
+	# 					  "my_requests": [
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "gwan", 
+	# 					      "mid": 6, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-24-2017", 
+	# 					          "time": "3pm"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-24-2017", 
+	# 					          "time": "9am"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "WeightLifting"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "gwan", 
+	# 					      "mid": 9, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-26-2017", 
+	# 					          "time": "6am"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-25-2017", 
+	# 					          "time": "7am"
+	# 					        }
+	# 					      ],
+	# 					      # "title": "Should've'st" Note, ' symbols in title break frontend
+	# 						  "title": "Morning Run"
+	# 					    }
+	# 					  ], 
+	# 					  "my_responded": [
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "hsolis", 
+	# 					      "finaltime": [], 
+	# 					      "mid": 2, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Back Massage"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "kl9", 
+	# 					      "finaltime": [], 
+	# 					      "mid": 4, 
+	# 					      "mine": False, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "8pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Code@Night"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "hsolis", 
+	# 					      "finaltime": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "mid": 1, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-20-2017", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "hsolis", 
+	# 					      "finaltime": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "mid": 1, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-20-2017", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "hsolis", 
+	# 					      "finaltime": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "mid": 1, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-20-2017", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "hsolis", 
+	# 					      "finaltime": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "mid": 1, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-20-2017", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }, 
+	# 					    {
+	# 					      "creation_date": "04-20-2017", 
+	# 					      "creator": "hsolis", 
+	# 					      "finaltime": [
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "mid": 1, 
+	# 					      "mine": True, 
+	# 					      "times": [
+	# 					        {
+	# 					          "date": "04-20-2017", 
+	# 					          "time": "8pm"
+	# 					        }, 
+	# 					        {
+	# 					          "date": "04-21-2017", 
+	# 					          "time": "12pm"
+	# 					        }
+	# 					      ], 
+	# 					      "title": "Colonial Lunch"
+	# 					    }
+	# 					  ]
+	# 					}
+	# 					)
 
 	# old sample test data to connect to front end
 	# ------------------------------------------------------------------------------------------
