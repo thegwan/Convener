@@ -194,9 +194,10 @@ function clearColored() {
 	}
 }
 
-// Convert a listOfDaysAndTimes into a heatmap on the page where darker colors are better
+// Convert a responderTimes into a heatmap on the page where darker colors are better, 
+// where responderTimes is a dict of key netid, value times list pairs 
 // Gives a weight to each response depending on how many people responded
-function heatmap(listOfDaysAndTimes, respondedLength) {
+function heatmap(responderTimes, respondedLength) {
 	
 	// var colors = ['#24C904',  // most green
 	// 			  '#6ECF07',
@@ -226,11 +227,11 @@ function heatmap(listOfDaysAndTimes, respondedLength) {
 	// if (respondedLength >= 30) {
 	// 	weight = 1;
 	// }
-	//alert(listOfDaysAndTimes.length);
-	for (var i = 0; i < listOfDaysAndTimes.length; i++) {
-		//console.log(listOfDaysAndTimes);
-		day = listOfDaysAndTimes[i]['day']
-		time = listOfDaysAndTimes[i]['time']
+	//alert(listOfDatesAndTimes.length);
+	for (var i = 0; i < listOfDatesAndTimes.length; i++) {
+		//console.log(listOfDatesAndTimes);
+		day = listOfDatesAndTimes[i]['day']
+		time = listOfDatesAndTimes[i]['time']
 
 		if (counts[day+'_'+time] == null) {
 			counts[day+'_'+time] = 1;
@@ -243,8 +244,8 @@ function heatmap(listOfDaysAndTimes, respondedLength) {
 	var keys = Object.keys(counts);
 	//alert(keys.length);
 	for (var j = 0; j < keys.length; j++) {
-		//day = listOfDaysAndTimes[j]['day'];
-		// time = listOfDaysAndTimes[j]['time'];
+		//day = listOfDatesAndTimes[j]['day'];
+		// time = listOfDatesAndTimes[j]['time'];
 
 		cell = document.getElementById(keys[j]);
 		//alert(day + '_' + time);
@@ -264,12 +265,12 @@ function heatmap(listOfDaysAndTimes, respondedLength) {
 	}
 }
 
-// Given a list of days and time dicts, changes the table on the main screen 
-function fromDaysToTable(listOfDaysAndTimes) {
+// Given a list of date and time dicts, changes the table on the main screen 
+function fromDatesToTable(listOfDatesAndTimes) {
 	clearSelected();
-	for (var i = 0; i < listOfDaysAndTimes.length; i++) {
-		day = listOfDaysAndTimes[i]['day']
-		time = listOfDaysAndTimes[i]['time']
+	for (var i = 0; i < listOfDatesAndTimes.length; i++) {
+		day = listOfDatesAndTimes[i]['date']
+		time = listOfDatesAndTimes[i]['time']
 		cell = document.getElementById(day + '_' + time);
 
 		if (! ($(cell).hasClass( "selected"))) {

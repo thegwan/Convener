@@ -1,16 +1,37 @@
+// The parsed JSON that is accessed throughout
 var parsedData;
+
+// The meeting id for when the user fills out a request
 var requestMid;
+
+// The meeting id for when the user is the creator
 var createdMid;
 
 // Takes the initial meeting JSON sent by the server and parses it into 
 // meetings that can be displayed on the page
 function parseInitialData(init_data) {
+	// Cleans the screen
 	resetEverything();
-	parsedData = JSON.parse(init_data);
+
+	// Parses init_data if sent from the initial load
+	// leaves the JSON if it comes from the AJAX GET call
+	try {
+		parsedData = JSON.parse(init_data);
+	}
+	catch(e) {
+		parsedData = init_data;
+	}
+
+	// Removes the old meetings that were in the divs
+	$('#myRespondedDiv div').remove();
+	$('#myMeetingsDiv div').remove();
+	$('#myRequestedDiv div').remove();
 	
+	//------------------------------MY MEETINGS----------------------------------------------------
 	// For displaying the information from my_meetings
 	for (var i = 0; i < parsedData['my_meetings'].length; i++){
 		var meeting = parsedData['my_meetings'][i];
+
 		// Create a string of who has and hasn't responded
 		respString = '';
 		notRespString = '';
@@ -20,28 +41,28 @@ function parseInitialData(init_data) {
 		for (var k = 0; k < meeting['nresp_netids'].length; k++){
 			notRespString += meeting['nresp_netids'][k] + ' ';
 		}
-		// Creating a row div, column divs, and anchor element to display myMeeting
+		// Elements where my meetings is to be stored
 		var rowDiv = document.createElement("DIV");
 		var titleDiv = document.createElement("DIV");
 		var starDiv = document.createElement("DIV");
-
-		// $(rowDiv).addClass('row');
-		$(rowDiv).addClass('rowDiv');
-
-		// Function that runs when any myMeeting is clicked
-		var anchor = document.createElement("A");
-		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
-		anchor.addEventListener('click', f);
-
 		var textNode = document.createTextNode(meeting['title']);
-		anchor.appendChild(textNode);
+		
+		// Function that runs when any myMeeting is clicked
+		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
+		rowDiv.addEventListener('click', f);
+
+		// Appends children to the DOM objects
+		rowDiv.appendChild(titleDiv);
+		rowDiv.appendChild(starDiv);
+		titleDiv.appendChild(textNode);
+
+		// Adds classes to be styled in css later
+		$(rowDiv).addClass('rowDiv');
+		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
+		$(starDiv).addClass('starDiv col-md-2');
 
 		// Add a tooltip for when the meeting is hovered over
 		$(titleDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
-		titleDiv.appendChild(anchor);
-		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
-		// $(titleDiv).addClass('titleDiv');
-		// $(titleDiv).addClass('col-md-10');
 		
 		// Add a star to the starDiv if the meeting is confirmed
 		if (meeting['finaltime'].length > 0) {
@@ -50,35 +71,45 @@ function parseInitialData(init_data) {
 		else {
 			starDiv.appendChild(document.createTextNode('-'));
 		}
-		$(starDiv).addClass('starDiv col-md-2');
-		// $(starDiv).addClass('col-md-2');
 
-		rowDiv.appendChild(titleDiv);
-		rowDiv.appendChild(starDiv);
+		// Corner styling for divs in the meetings lists
+		if (i == 0) {
+			$(titleDiv).addClass('topLeftDiv');
+			$(starDiv).addClass('topRightDiv');
+		}
+		else if (i == parsedData['my_meetings'].length - 1) {
+			$(titleDiv).addClass('bottomLeftDiv');
+			$(starDiv).addClass('bottomRightDiv');
+		}
+
+		// Add the current row to the document
 		document.getElementById('myMeetingsDiv').appendChild(rowDiv);
 	}
 
+	//---------------------------RESPONDED---------------------------------------------------------
 	// For displaying the information from my_responded
 	for (var i = 0; i < parsedData['my_responded'].length; i++){
 		var meeting = parsedData['my_responded'][i];
 
-		var f = clickMyResponded(i, meeting['title'], meeting['creator'], meeting['finaltime']);
-
+		// Elements where responded is to be stored
 		var rowDiv = document.createElement("DIV");
 		var titleDiv = document.createElement("DIV");
 		var starDiv = document.createElement("DIV");
-
-		// $(rowDiv).addClass('row');
-		$(rowDiv).addClass('rowDiv');
-
-		// var anchor = document.createElement("A");
-		// anchor.addEventListener('click', f);
-		rowDiv.addEventListener('click', f);
 		var textNode = document.createTextNode(meeting['title']);
-		titleDiv.appendChild(textNode);
 
-		// titleDiv.appendChild(anchor);
+		// Function to be executed when responded is clicked
+		var f = clickMyResponded(i, meeting['title'], meeting['creator'], meeting['finaltime']);
+		rowDiv.addEventListener('click', f);
+
+		// Appends children to the DOM objects
+		rowDiv.appendChild(titleDiv);
+		rowDiv.appendChild(starDiv);
+		titleDiv.appendChild(textNode);
+		
+		// Adds classes to be styled in css later
+		$(rowDiv).addClass('rowDiv');
 		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
+		$(starDiv).addClass('starDiv col-md-2');
 		
 		// Add a star to the starDiv if the meeting is confirmed
 		if (meeting['finaltime'].length > 0) {
@@ -87,9 +118,8 @@ function parseInitialData(init_data) {
 		else {
 			starDiv.appendChild(document.createTextNode('-'));
 		}
-		$(starDiv).addClass('starDiv col-md-2');
 
-		// Corner styling for divs 
+		// Corner styling for divs in the meetings lists
 		if (i == 0) {
 			$(titleDiv).addClass('topLeftDiv');
 			$(starDiv).addClass('topRightDiv');
@@ -99,27 +129,11 @@ function parseInitialData(init_data) {
 			$(starDiv).addClass('bottomRightDiv');
 		}
 
-		rowDiv.appendChild(titleDiv);
-		rowDiv.appendChild(starDiv);
+		// Add the current row to the document
 		document.getElementById('myRespondedDiv').appendChild(rowDiv);
 	}
 
-	// // For displaying the information from pending
-	// for (var i = 0; i < parsedData['pending'].length; i++){
-	// 	var meeting = parsedData['pending'][i];
-	// 	var div = document.createElement("DIV");
-
-	// 	var anchor = document.createElement("A");
-
-	// 	var f = clickPending(i, meeting['title'], meeting['creator']);
-
-	// 	anchor.addEventListener('click', f);
-	// 	var textNode = document.createTextNode(meeting['title']);
-	// 	anchor.appendChild(textNode);
-	// 	div.appendChild(anchor)
-	// 	document.getElementById('myPendingDiv').appendChild(div);
-	// }
-
+	//-----------------------REQUESTED-------------------------------------------------------------
 	// For displaying the information from requested
 	var numRequests = parsedData['my_requests'].length;
 	if (numRequests <= 0) {
@@ -142,103 +156,16 @@ function parseInitialData(init_data) {
 		div.appendChild(anchor)
 		document.getElementById('myRequestedDiv').appendChild(div);
 	}
-
 }
 
-// // Takes the JSON info sent by the server and parses it into 
-// // meetings that can be displayed on the page
-// function parseData(init_data) {
-// 	resetEverything();
-// 	// parsedData = JSON.parse(init_data);
-// 	parsedData = init_data;
-// 	// Need to remove everything in the four columns first
-// 	$('#myPendingDiv div').remove();
-// 	$('#myRequestedDiv div').remove();
-// 	$('#myConfirmedDiv div').remove();
-// 	$('#myMeetingsDiv div').remove();
-
-// 	// For displaying the information from my_meetings
-// 	for (var i = 0; i < parsedData['my_meetings'].length; i++){
-// 		var meeting = parsedData['my_meetings'][i];
-// 		// Create a string of who has and hasn't responded
-// 		respString = '';
-// 		notRespString = '';
-// 		for (var j = 0; j < meeting['resp_netids'].length; j++){
-// 			respString += meeting['resp_netids'][j] + ' ';
-// 		}
-// 		for (var k = 0; k < meeting['nresp_netids'].length; k++){
-// 			notRespString += meeting['nresp_netids'][k] + ' ';
-// 		}
-// 		// Creating a div and anchor element to display myMeeting
-// 		var div = document.createElement("DIV");
-// 		// Add a tooltip for when the meeting is hovered over
-// 		$(div).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
-// 		$(div).addClass('tooltipDiv');
-// 		var anchor = document.createElement("A");
-
-// 		// Function that runs when any myMeeting is clicked
-// 		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
-// 		anchor.addEventListener('click', f);
-
-// 		var textNode = document.createTextNode(meeting['title']);
-// 		anchor.appendChild(textNode);
-// 		div.appendChild(anchor)
-// 		document.getElementById('myMeetingsDiv').appendChild(div);
-// 	}
-
-// 	// For displaying the information from pending
-// 	for (var i = 0; i < parsedData['pending'].length; i++){
-// 		var meeting = parsedData['pending'][i];
-// 		var div = document.createElement("DIV");
-
-// 		var anchor = document.createElement("A");
-
-// 		var f = clickPending(i, meeting['title'], meeting['creator']);
-
-// 		anchor.addEventListener('click', f);
-// 		var textNode = document.createTextNode(meeting['title']);
-// 		anchor.appendChild(textNode);
-// 		div.appendChild(anchor)
-// 		document.getElementById('myPendingDiv').appendChild(div);
-// 	}
-
-// 	// For displaying the information from requested
-// 	for (var i = 0; i < parsedData['my_requests'].length; i++){
-// 		var meeting = parsedData['my_requests'][i];
-// 		var div = document.createElement("DIV");
-
-// 		var anchor = document.createElement("A");
-
-// 		var f = clickRequested(i, meeting['title'], meeting['creator'], meeting['mid']);
-
-// 		anchor.addEventListener('click', f);
-// 		var textNode = document.createTextNode(meeting['title']);
-// 		anchor.appendChild(textNode);
-// 		div.appendChild(anchor)
-// 		document.getElementById('myRequestedDiv').appendChild(div);
-// 	}
-
-// 	// For displaying the information from confirmed
-// 	for (var i = 0; i < parsedData['confirmed'].length; i++){
-// 		var meeting = parsedData['confirmed'][i];
-// 		var div = document.createElement("DIV");
-
-// 		var anchor = document.createElement("A");
-
-// 		var f = clickConfirmed(i, meeting['title'], meeting['creator'], meeting['finaltime']);
-
-// 		anchor.addEventListener('click', f);
-// 		var textNode = document.createTextNode(meeting['title']);
-// 		anchor.appendChild(textNode);
-// 		div.appendChild(anchor)
-// 		document.getElementById('myConfirmedDiv').appendChild(div);
-// 	}
-// }
+//-------------------------------------------------------------------------------------------------
 
 // Returns an anonymous function that is attached to each item in myMeetings
 function clickMyMeeting(i, title, respondedLength, mid) {
 	return function() {
-		myMeetingClicked(parsedData['my_meetings'][i]['times'], respondedLength);
+		resetEverything();
+		heatmap(parsedData['my_meetings'][i]['times'], respondedLength);
+		// myMeetingClicked(, respondedLength);
 		$('#tableHeader').text(title);
 		// $('#getselected').text('Submit');
 		// document.getElementById('getselected').style.visibility = 'hidden';
@@ -250,35 +177,13 @@ function clickMyMeeting(i, title, respondedLength, mid) {
 	}
 };
 
-// When myMeeting is clicked, displays the times and days on the table
-function myMeetingClicked(meetingElement, respondedLength) {
-	resetEverything();
-	heatmap(meetingElement, respondedLength);
-}
-
-// // Returns an anonymous function that is attached to each item in pending
-// function clickPending(i, title, creator) {
-// 	return function() {
-// 		pendingClicked(parsedData['pending'][i]['times']);
-// 		$('#tableHeader').text(title + ' ('+creator+')');
-// 		document.getElementById('getselected').style.visibility = 'hidden';
-// 		document.getElementById('clearselected').style.visibility = 'hidden';
-// 		document.getElementById('respondButton').style.visibility = 'hidden';
-// 		$('#tableSubHeader').text('-Your Response');
-// 		makeUnselectable();
-// 	}
-// };
-
-// // When pending is clicked, displays the user's response times and days on the table
-// function pendingClicked(meetingElement) {
-// 	resetEverything();
-// 	fromDaysToTable(meetingElement);
-// }
-
 // Returns an anonymous function that is attached to each item in requested
 function clickRequested(i, title, creator, mid) {
 	return function() {
-		requestedClicked(parsedData['my_requests'][i]['times']);
+		resetEverything();
+		fromDatesToTable(parsedData['my_requests'][i]['times']);
+		makeSomeUnselectable();
+		// requestedClicked();
 		$('#tableHeader').text(title);
 		// document.getElementById('getselected').style.visibility = 'hidden';
 		// document.getElementById('clearselected').style.visibility = 'visible';
@@ -288,36 +193,32 @@ function clickRequested(i, title, creator, mid) {
 	}
 };
 
-// When pending is clicked, displays the user's response times and days on the table
-function requestedClicked(meetingElement) {
-	resetEverything();
-	fromDaysToTable(meetingElement);
-	makeSomeUnselectable();
-}
-
 // Returns an anonymous function that is attached to each item in responded
 function clickMyResponded(i, title, creator, finaltime) {
 	return function() {
-		respondedClicked(parsedData['my_responded'][i]['times']);
-		$('#tableHeader').text(title + ' ('+creator+')');
+		// When responded is clicked, displays the user's response times and days on the table 
+		// after clearing it
+		resetEverything();
+		fromDatesToTable(parsedData['my_responded'][i]['times']);
+		// respondedClicked(parsedData['my_responded'][i]['times']);
 		// document.getElementById('getselected').style.visibility = 'hidden';
 		// document.getElementById('clearselected').style.visibility = 'hidden';
+
+		// Modify the title and subheader
+		$('#tableHeader').text(title + ' ('+creator+')');
 		$('#tableSubHeader').text('-Your Response');
+		
+		// Makes the rest of the cells unselectable
 		makeUnselectable();
+
+		// Highlights the final time if it has already been selected
 		for (var j = 0; j < finaltime.length; j++) {
-			var daytime = "#"+finaltime[j]["day"]+"_"+finaltime[j]["time"];
+			var daytime = "#"+finaltime[j]["date"]+"_"+finaltime[j]["time"];
 			$(daytime).css('border', '5px solid yellow');
 		}
 		
 	}
 };
-
-// When responded is clicked, displays the user's response times and days on the table
-function respondedClicked(meetingElement) {
-	resetEverything();
-	fromDaysToTable(meetingElement);
-}
-
 
 //--------------------------------- 
 // Need another ajax call for user preferred times
@@ -327,7 +228,7 @@ function respondedClicked(meetingElement) {
 // preferredTimes in {"day": __, "time:":__} format
 //---------------------------------
 
-//--------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 // creates JSON containing all selected cells, title, invitees, mid,
 // depending on if user responds to or creates a meeting
@@ -419,7 +320,7 @@ function createFinalJSON(netid) {
 	resetEverything();
 }
 
-//--------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 function dropdown() {
     document.getElementById("myRequestedDiv").classList.toggle("show");

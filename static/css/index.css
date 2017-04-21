@@ -42,10 +42,6 @@ a {
 	cursor: pointer;
 }
 
-.tooltipDiv {
-	white-space: pre-line;
-}
-
 .dropdown {
     float: left;
     overflow: hidden;
@@ -99,19 +95,13 @@ div.rowDiv {
 }
 
 div.rowDiv:hover {
-	background-color: lightgreen;
+	background-color: #b3ffb3;
 }
 
 #myRespondedDiv {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-right: 1px;
-}
-
-.scrollbar
-{
-	height: 250px;
-	overflow-y: scroll;
 }
 
 .force-overflow

@@ -60,7 +60,7 @@ def index():
 						  "my_meetings": [
 						    {
 						      "all_responded": False, 
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "finaltime": [], 
 						      "mid": 2, 
 						      "nresp_netids": [
@@ -72,7 +72,7 @@ def index():
 						      "responder_times": {
 						        "hsolis": [
 						          {
-						            "date": "Fri", 
+						            "date": "04-21-2017", 
 						            "time": "12pm"
 						          }
 						        ]
@@ -81,10 +81,10 @@ def index():
 						    }, 
 						    {
 						      "all_responded": True, 
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "finaltime": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
@@ -98,27 +98,27 @@ def index():
 						      "responder_times": {
 						        "gwan": [
 						          {
-						            "date": "Thu", 
+						            "date": "04-20-2017", 
 						            "time": "8pm"
 						          }, 
 						          {
-						            "date": "Fri", 
+						            "date": "04-21-2017", 
 						            "time": "12pm"
 						          }
 						        ], 
 						        "hsolis": [
 						          {
-						            "date": "Thu", 
+						            "date": "04-20-2017", 
 						            "time": "8pm"
 						          }, 
 						          {
-						            "date": "Fri", 
+						            "date": "04-21-2017", 
 						            "time": "12pm"
 						          }
 						        ], 
 						        "ksha": [
 						          {
-						            "date": "Fri", 
+						            "date": "04-21-2017", 
 						            "time": "12pm"
 						          }
 						        ]
@@ -128,43 +128,43 @@ def index():
 						  ], 
 						  "my_preferred": [
 						    {
-						      "day": "Sat", 
+						      "day": "04-22-2017", 
 						      "time": "9am"
 						    },
 						    {
-						      "day": "Sun", 
+						      "day": "04-23-2017", 
 						      "time": "10am"
 						    }
 						  ],  
 						  "my_requests": [
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "gwan", 
 						      "mid": 6, 
 						      "times": [
 						        {
-						          "date": "Mon", 
+						          "date": "04-24-2017", 
 						          "time": "3pm"
 						        }, 
 						        {
-						          "date": "Mon", 
+						          "date": "04-24-2017", 
 						          "time": "9am"
 						        }
 						      ], 
 						      "title": "WeightLifting"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "gwan", 
 						      "mid": 9, 
 						      "times": [
 						        {
-						          "date": "Wed", 
-						          "time": "3am"
+						          "date": "04-26-2017", 
+						          "time": "6am"
 						        }, 
 						        {
-						          "date": "Tue", 
-						          "time": "5am"
+						          "date": "04-25-2017", 
+						          "time": "7am"
 						        }
 						      ],
 						      # "title": "Should've'st" Note, ' symbols in title break frontend
@@ -173,39 +173,39 @@ def index():
 						  ], 
 						  "my_responded": [
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "hsolis", 
 						      "finaltime": [], 
 						      "mid": 2, 
 						      "mine": True, 
 						      "times": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
 						      "title": "Back Massage"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "kl9", 
 						      "finaltime": [], 
 						      "mid": 4, 
 						      "mine": False, 
 						      "times": [
 						        {
-						          "date": "Fri", 
-						          "time": "12am"
+						          "date": "04-21-2017", 
+						          "time": "8pm"
 						        }
 						      ], 
 						      "title": "Code@Night"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "hsolis", 
 						      "finaltime": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
@@ -213,22 +213,22 @@ def index():
 						      "mine": True, 
 						      "times": [
 						        {
-						          "date": "Thu", 
+						          "date": "04-20-2017", 
 						          "time": "8pm"
 						        }, 
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
 						      "title": "Colonial Lunch"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "hsolis", 
 						      "finaltime": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
@@ -236,22 +236,22 @@ def index():
 						      "mine": True, 
 						      "times": [
 						        {
-						          "date": "Thu", 
+						          "date": "04-20-2017", 
 						          "time": "8pm"
 						        }, 
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
 						      "title": "Colonial Lunch"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "hsolis", 
 						      "finaltime": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
@@ -259,22 +259,22 @@ def index():
 						      "mine": True, 
 						      "times": [
 						        {
-						          "date": "Thu", 
+						          "date": "04-20-2017", 
 						          "time": "8pm"
 						        }, 
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
 						      "title": "Colonial Lunch"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "hsolis", 
 						      "finaltime": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
@@ -282,22 +282,22 @@ def index():
 						      "mine": True, 
 						      "times": [
 						        {
-						          "date": "Thu", 
+						          "date": "04-20-2017", 
 						          "time": "8pm"
 						        }, 
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
 						      "title": "Colonial Lunch"
 						    }, 
 						    {
-						      "creation_date": "Thu", 
+						      "creation_date": "04-20-2017", 
 						      "creator": "hsolis", 
 						      "finaltime": [
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 
@@ -305,11 +305,11 @@ def index():
 						      "mine": True, 
 						      "times": [
 						        {
-						          "date": "Thu", 
+						          "date": "04-20-2017", 
 						          "time": "8pm"
 						        }, 
 						        {
-						          "date": "Fri", 
+						          "date": "04-21-2017", 
 						          "time": "12pm"
 						        }
 						      ], 

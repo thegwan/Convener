@@ -10,11 +10,14 @@ class Table(object):
 	DAYS_IN_WEEK = 7
 	# array of days with today's day at index 0
 	inOrderDayArray = []
+	dayArray = []
 	
 	def __init__(self):
 		# fill inOrderDayArray with dates for the next two weeks
 		for i in range(2 * self.DAYS_IN_WEEK):
 			self.inOrderDayArray.append((datetime.now() + timedelta(i)).strftime('%B<br/>%d'))
+			self.dayArray.append((datetime.now() + timedelta(i)).strftime('%m-%d-%Y'))
+
 
 		# print table
 		self.html = "<table id='mainTable' class='table table-bordered table-condensed overwrite_table'>"
@@ -54,16 +57,16 @@ class Table(object):
 						hour = 12
 					if row < 12:
 						if index == 6:
-							html += "<td id ='%s_%dam' class='cell bold_col'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+							html += "<td id ='%s_%dam' class='cell bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
 						else:
-							html += "<td id ='%s_%dam' class='cell'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+							html += "<td id ='%s_%dam' class='cell'>%d</td>" % (self.dayArray[col], hour, hour)
 					else:
 						if row > 12:
 							hour += 1
 						if index == 6:
-							html += "<td id ='%s_%dpm' class='cell bold_col'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+							html += "<td id ='%s_%dpm' class='cell bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
 						else:
-							html += "<td id ='%s_%dpm' class='cell'>%d</td>" % (self.inOrderDayArray[col], hour, hour)
+							html += "<td id ='%s_%dpm' class='cell'>%d</td>" % (self.dayArray[col], hour, hour)
 					index += 1
 			html += "</tr>"
 		return html
