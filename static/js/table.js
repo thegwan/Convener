@@ -218,7 +218,7 @@ function resetEverything() {
 	// $('#getselected').text('Create');
 	$('#availableList div').remove();
 	document.getElementById('availableHeader').innerText = 'Available';
-
+	inMyMeeting = false;
 }
 
 // Makes it so only one cell can be used in the final submit
