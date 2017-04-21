@@ -271,6 +271,8 @@ function responsemap(userTimes, creatorTimes) {
 // where responderTimes is a dict of key netid, value times list pairs 
 // Gives a weight to each response depending on how many people responded
 function heatmap(responderTimes, respondedLength) {
+	console.log(responderTimes)
+	console.log(respondedLength)
 	// var colors = ['#24C904',  // most green
 	// 			  '#6ECF07',
 	// 			  '#87D008',
