@@ -114,7 +114,7 @@
           					<!-- Construct Table -->
           					{{ table.html | safe }}
           					<button type="button" id="clearButton" class="btn btn-md btn-default" onclick="clearSelected()">Clear</button>
-          					<button type="button" id="loadPreferredTimesButton" class="btn btn-md btn-default" onclick="">Load PTimes</button>
+          					<button type="button" id="loadPreferredTimesButton" class="btn btn-md btn-default" onclick="loadPTimes(' {{ init_data }}')">Load PTimes</button>
           					
           					<button type="button" id="createMeetingButton" class="btn btn-md btn-default" data-toggle="modal" data-target="#createMeetingModal">Create</button>
           					<button type="button" id="submitButton" class="btn btn-md btn-default" onclick="createFinalJSON('{{ user }}')">Submit</button>

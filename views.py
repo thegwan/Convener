@@ -34,11 +34,11 @@ def index():
 	jpost = request.get_json()
 
 	# sample creation
-	jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-17', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-17'}
+	jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-2017', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-2017'}
 	# sample response
-	jpost2 = {u'mid': 10, u'response': [{u'date': u'04-19-17', u'time': u'7am'}, {u'date': u'04-20-17', u'time': u'7am'}], u'netid': u'hsolis'}
+	jpost2 = {u'mid': 10, u'response': [{u'date': u'04-19-2017', u'time': u'7am'}, {u'date': u'04-20-2017', u'time': u'7am'}], u'netid': u'hsolis'}
 	# sample decision
-	jpost3 = {u'mid': 10, u'finalTime': [{u'date': u'04-22-17', u'time': u'10am'}], u'netid': u'gwan'}
+	jpost3 = {u'mid': 10, u'finalTime': [{u'date': u'04-22-2017', u'time': u'10am'}], u'netid': u'gwan'}
 	# sample update preferred times
 	jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
 	

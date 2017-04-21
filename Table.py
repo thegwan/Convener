@@ -18,7 +18,6 @@ class Table(object):
 			self.inOrderDayArray.append((datetime.now() + timedelta(i)).strftime('%B<br/>%d'))
 			self.dayArray.append((datetime.now() + timedelta(i)).strftime('%m-%d-%Y'))
 
-
 		# print table
 		self.html = "<table id='mainTable' class='table table-bordered table-condensed overwrite_table'>"
 		self.html += self.printHeader()

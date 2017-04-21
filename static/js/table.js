@@ -91,8 +91,7 @@ function getSelected(toServer) {
 		var day = daytime[0];
 		var time = daytime[1];
 		toServer.response.push({"day":day, "time":time});
-	}
-	
+	}	
 }
 
 // creates JSON with the final submit cell
@@ -280,3 +279,48 @@ function fromDatesToTable(listOfDatesAndTimes) {
 	}
 }
 
+// load preferred meeting times
+function loadPTimes(init_data) {
+	clearSelected();
+	parsedData = JSON.parse(init_data);
+
+	var cells = document.getElementsByClassName('cell');
+	var unselectable = document.getElementsByClassName('unselectable');
+
+	// remove unselectable elements from cells array
+	for (var i = 0; i < cells.length; i++) {
+		for (var j = 0; j < unselectable.length; j++) {
+			if (cells[i] == unselectable[j]) {
+				cells.splice(i, 1);
+				i--;
+			}
+		}
+	}
+
+	// format date into day and load preferred meeting times
+	for (var i = 0; i < cells.length; i++) {
+		var datetime = cells[i].id.split("_");
+		var date = datetime[0].split("-");
+		var time = datetime[1];
+
+		var month = Number(date[0]);
+		var day = Number(date[1]);
+		var year = Number(date[2])
+
+		var longdate = new Date(year, month - 1, day);
+		var longdayname = String(longdate).split(" ")[0]; // in form Mon, Tue, Wed ...
+
+		// loop through init_data checking if cells[i] is contained in init_data
+		for (var j = 0; j < parsedData['my_preferred'].length; j++) {
+			var pref_daytime = parsedData['my_preferred'][j];
+			var pref_day = pref_daytime['day'];
+			var pref_time = pref_daytime['time'];
+
+			if (pref_day == longdayname && pref_time == time)
+			{
+				cells[i].className += " selected";
+				console.log(cells[i]);
+			}
+		}
+	}	
+}
