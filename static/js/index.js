@@ -229,14 +229,20 @@ function clickMyResponded(i, title, creator, finaltime) {
 		// When responded is clicked, displays the user's response times and days on the table 
 		// after clearing it
 		resetEverything();
-		fromDatesToTable(parsedData['my_responded'][i]['times']);
+
+		
+		var usertimes = parsedData['my_responded'][i]['times'];
+		var creatortimes = parsedData['my_responded'][i]['creator_times'];
+
+		responsemap(usertimes, creatortimes)
+
 		// respondedClicked(parsedData['my_responded'][i]['times']);
 		// document.getElementById('getselected').style.visibility = 'hidden';
 		// document.getElementById('clearselected').style.visibility = 'hidden';
 
 		// Modify the title and subheader
 		$('#tableHeader').text(title + ' ('+creator+')');
-		$('#tableSubHeader').text('-Your Response');
+		$('#tableSubHeader').text('-Your Response overlayed on top of creator');
 		
 		// Makes the rest of the cells unselectable
 		makeUnselectable();
