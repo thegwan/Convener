@@ -42,6 +42,10 @@ a {
 	cursor: pointer;
 }
 
+.tooltipDiv {
+	white-space: pre-line;
+}
+
 .dropdown {
     float: left;
     overflow: hidden;
@@ -78,6 +82,7 @@ a {
 	background-color: inherit;
 	display: block;
 	padding: 10px 0px 10px 10px;
+	color: black;
 }
 
 .starDiv {
@@ -86,6 +91,7 @@ a {
 	display: block;
 	padding: 10px 0px 10px 0px;
 	text-align: center;
+	color: black;
 }
 
 div.rowDiv {
@@ -95,13 +101,19 @@ div.rowDiv {
 }
 
 div.rowDiv:hover {
-	background-color: #b3ffb3;
+	background-color: lightgreen;
 }
 
 #myRespondedDiv {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-right: 1px;
+}
+
+.scrollbar
+{
+	height: 250px;
+	overflow-y: scroll;
 }
 
 .force-overflow

@@ -134,6 +134,10 @@ def index():
 						    {
 						      "day": "Sun", 
 						      "time": "10am"
+						    },
+		    			    {
+						      "day": "Mon", 
+						      "time": "9am"
 						    }
 						  ],  
 						  "my_requests": [
