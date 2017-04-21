@@ -209,6 +209,8 @@ function resetEverything() {
 	clearSelected();
 	clearSelectedColored();
 	clearColored();
+	$("#prefTable").hide();
+	$("#mainTable").show();
 	$('#tableHeader').text('Convener');
 	// document.getElementById('getselected').style.visibility = 'visible';
 	// document.getElementById('clearselected').style.visibility = 'visible';
@@ -365,4 +367,16 @@ function loadPTimes() {
 			}
 		}
 	}	
+}
+
+// load preferred table (Table_Pref object)
+function loadPreferredTable(table_pref) {
+	if ($("#prefTable").is(":visible")) {
+		$("#prefTable").hide();
+		$("#mainTable").show();
+	}
+	else {
+		$("#prefTable").show();
+		$("#mainTable").hide();
+	}
 }

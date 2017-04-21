@@ -45,7 +45,7 @@
           <ul class="nav navbar-nav navbar-right">
           <li><a href="#">Welcome, {{ user }}</a></li>
           <li><a href="#" onclick="resetEverything()">Home</a></li>
-          <li><a href="#">Preferred</a></li>
+          <li><a href="#" onclick="loadPreferredTable()">Preferred</a></li>
           <li class="requestsLI">
           	<a class="requestsAnchor" onclick="dropdown()">
           		Requests
@@ -113,6 +113,7 @@
                   <div class="table-responsive">
           					<!-- Construct Table -->
           					{{ table.html | safe }}
+                    {{ table_pref.html | safe }}
           					<button type="button" id="clearButton" class="btn btn-md btn-default" onclick="clearSelected()">Clear</button>
           					<button type="button" id="loadPreferredTimesButton" class="btn btn-md btn-default" onclick="loadPTimes()">Load PTimes</button>
           					

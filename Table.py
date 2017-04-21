@@ -41,9 +41,8 @@ class Table(object):
 	# print each individual cell of the table
 	def printCells(self):
 		html = ""
-		# to determine where to put the vertical line
 		for row in range(6, self.HOURS_IN_DAY + 6):
-			index = 0
+			index = 0 # to determine where to put the vertical line
 			if row == 12:
 				html += "<tr id='bold_row'>"
 			else:
