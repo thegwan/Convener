@@ -164,12 +164,12 @@ function resetEverything() {
 	clearSelectedColored();
 	clearColored();
 	$('#tableHeader').text('Convener');
-	document.getElementById('getselected').style.visibility = 'visible';
-	document.getElementById('clearselected').style.visibility = 'visible';
-	document.getElementById('respondButton').style.visibility = 'hidden';
-	document.getElementById('submitButton').style.visibility = 'hidden';
+	// document.getElementById('getselected').style.visibility = 'visible';
+	// document.getElementById('clearselected').style.visibility = 'visible';
+	// document.getElementById('respondButton').style.visibility = 'hidden';
+	// document.getElementById('submitButton').style.visibility = 'hidden';
 	$('#tableSubHeader').text('Create Meeting');
-	$('#getselected').text('Create');
+	// $('#getselected').text('Create');
 }
 
 // Makes it so only one cell can be used in the final submit

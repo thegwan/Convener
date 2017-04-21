@@ -71,12 +71,13 @@ function parseInitialData(init_data) {
 		// $(rowDiv).addClass('row');
 		$(rowDiv).addClass('rowDiv');
 
-		var anchor = document.createElement("A");
-		anchor.addEventListener('click', f);
+		// var anchor = document.createElement("A");
+		// anchor.addEventListener('click', f);
+		rowDiv.addEventListener('click', f);
 		var textNode = document.createTextNode(meeting['title']);
-		anchor.appendChild(textNode);
+		titleDiv.appendChild(textNode);
 
-		titleDiv.appendChild(anchor);
+		// titleDiv.appendChild(anchor);
 		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
 		
 		// Add a star to the starDiv if the meeting is confirmed
@@ -87,6 +88,16 @@ function parseInitialData(init_data) {
 			starDiv.appendChild(document.createTextNode('-'));
 		}
 		$(starDiv).addClass('starDiv col-md-2');
+
+		// Corner styling for divs 
+		if (i == 0) {
+			$(titleDiv).addClass('topLeftDiv');
+			$(starDiv).addClass('topRightDiv');
+		}
+		else if (i == parsedData['my_responded'].length - 1) {
+			$(titleDiv).addClass('bottomLeftDiv');
+			$(starDiv).addClass('bottomRightDiv');
+		}
 
 		rowDiv.appendChild(titleDiv);
 		rowDiv.appendChild(starDiv);
@@ -229,9 +240,9 @@ function clickMyMeeting(i, title, respondedLength, mid) {
 	return function() {
 		myMeetingClicked(parsedData['my_meetings'][i]['times'], respondedLength);
 		$('#tableHeader').text(title);
-		$('#getselected').text('Submit');
-		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'hidden';
+		// $('#getselected').text('Submit');
+		// document.getElementById('getselected').style.visibility = 'hidden';
+		// document.getElementById('clearselected').style.visibility = 'hidden';
 		document.getElementById('respondButton').style.visibility = 'hidden';
 		document.getElementById('submitButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Select a final meeting time');
@@ -269,8 +280,8 @@ function clickRequested(i, title, creator, mid) {
 	return function() {
 		requestedClicked(parsedData['my_requests'][i]['times']);
 		$('#tableHeader').text(title);
-		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'visible';
+		// document.getElementById('getselected').style.visibility = 'hidden';
+		// document.getElementById('clearselected').style.visibility = 'visible';
 		document.getElementById('respondButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Created by: ' + creator);
 		requestMid = mid;
@@ -289,8 +300,8 @@ function clickMyResponded(i, title, creator, finaltime) {
 	return function() {
 		respondedClicked(parsedData['my_responded'][i]['times']);
 		$('#tableHeader').text(title + ' ('+creator+')');
-		document.getElementById('getselected').style.visibility = 'hidden';
-		document.getElementById('clearselected').style.visibility = 'hidden';
+		// document.getElementById('getselected').style.visibility = 'hidden';
+		// document.getElementById('clearselected').style.visibility = 'hidden';
 		$('#tableSubHeader').text('-Your Response');
 		makeUnselectable();
 		for (var j = 0; j < finaltime.length; j++) {
