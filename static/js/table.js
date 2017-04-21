@@ -280,9 +280,10 @@ function fromDatesToTable(listOfDatesAndTimes) {
 }
 
 // load preferred meeting times
-function loadPTimes(init_data) {
+function loadPTimes() {
 	clearSelected();
-	parsedData = JSON.parse(init_data);
+	alert('loadPTimes');
+	// parsedData = JSON.parse(init_data);
 
 	var cells = document.getElementsByClassName('cell');
 	var unselectable = document.getElementsByClassName('unselectable');
@@ -290,6 +291,7 @@ function loadPTimes(init_data) {
 	// remove unselectable elements from cells array
 	for (var i = 0; i < cells.length; i++) {
 		for (var j = 0; j < unselectable.length; j++) {
+			console.log('looping in double');
 			if (cells[i] == unselectable[j]) {
 				cells.splice(i, 1);
 				i--;
