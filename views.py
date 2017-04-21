@@ -128,11 +128,11 @@ def index():
 						  ], 
 						  "my_preferred": [
 						    {
-						      "day": "04-22-2017", 
+						      "day": "Sat", 
 						      "time": "9am"
 						    },
 						    {
-						      "day": "04-23-2017", 
+						      "day": "Sun", 
 						      "time": "10am"
 						    }
 						  ],  
