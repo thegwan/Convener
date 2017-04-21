@@ -56,16 +56,16 @@ class Table(object):
 						hour = 12
 					if row < 12:
 						if index == 6:
-							html += "<td id ='%s_%dam' class='cell bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
+							html += "<td id ='%s_%dam' class='cell selectable bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
 						else:
-							html += "<td id ='%s_%dam' class='cell'>%d</td>" % (self.dayArray[col], hour, hour)
+							html += "<td id ='%s_%dam' class='cell selectable'>%d</td>" % (self.dayArray[col], hour, hour)
 					else:
 						if row > 12:
 							hour += 1
 						if index == 6:
-							html += "<td id ='%s_%dpm' class='cell bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
+							html += "<td id ='%s_%dpm' class='cell selectable bold_col'>%d</td>" % (self.dayArray[col], hour, hour)
 						else:
-							html += "<td id ='%s_%dpm' class='cell'>%d</td>" % (self.dayArray[col], hour, hour)
+							html += "<td id ='%s_%dpm' class='cell selectable'>%d</td>" % (self.dayArray[col], hour, hour)
 					index += 1
 			html += "</tr>"
 		return html

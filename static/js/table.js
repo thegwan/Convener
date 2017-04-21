@@ -144,8 +144,9 @@ function clearSelected() {
 // Make all the cells unselectable
 function makeUnselectable() {
 	var cells = document.getElementsByClassName('cell');
+	$(cells[i]).removeClass('selectable');
 	for (var i = 0; i < cells.length; i++) {
-		if ($(cells[i]).hasClass( "selected")) {
+		if ($(cells[i]).hasClass("selected")) {
 			$(cells[i]).removeClass("selected");
   			$(cells[i]).addClass('unselectable');
 			$(cells[i]).addClass("selected");
@@ -161,8 +162,9 @@ function makeUnselectable() {
 function makeSomeUnselectable() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
-  		if (! ($(cells[i]).hasClass( "selected"))) {
+  		if (! ($(cells[i]).hasClass("selected"))) {
   			$(cells[i]).addClass('unselectable');
+			$(cells[i]).removeClass('selectable');
   		}
   		else {
   			$(cells[i]).removeClass('selected');
@@ -175,6 +177,7 @@ function makeSelectable() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
   		cells[i].classList.remove('unselectable');
+		$(cells[i]).addClass('selectable');
 	}
 	document.getElementById('mainTable').style.cursor = 'pointer';
 }
@@ -305,29 +308,16 @@ function fromDatesToTable(listOfDatesAndTimes) {
 		time = listOfDatesAndTimes[i]['time']
 		cell = document.getElementById(day + '_' + time);
 
-		if (! ($(cell).hasClass( "selected"))) {
+		if (! ($(cell).hasClass("selected"))) {
       		$(cell).addClass("selected");
 		}
-
 	}
 }
 
 // load preferred meeting times
 function loadPTimes() {
 	clearSelected();
-
-	var cells = document.getElementsByClassName('cell');
-	var unselectable = document.getElementsByClassName('unselectable');
-
-	// remove unselectable elements from cells array
-	for (var i = 0; i < cells.length; i++) {
-		for (var j = 0; j < unselectable.length; j++) {
-			if (cells[i] == unselectable[j]) {
-				cells.splice(i, 1);
-				i--;
-			}
-		}
-	}
+	var cells = document.getElementsByClassName('selectable');
 
 	// format date into day and load preferred meeting times
 	for (var i = 0; i < cells.length; i++) {
