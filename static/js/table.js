@@ -23,6 +23,30 @@ $(document).ready(function() {
   			$(this).removeClass("selectedColored");
   		}   
 	});
+	var $cell = $('.cell').hover(function() {
+		if (inMyMeeting) {
+			var cellId = $(this).attr('id');
+			if (cellId in availableDict) {
+				// alert('hovered');
+				$('#availableList div').remove();
+				var aList = availableDict[cellId];
+				for (var i = 0; i < aList.length; i++) {
+					var aDiv = document.createElement("DIV");
+					var textNode = document.createTextNode(aList[i]);
+					aDiv.appendChild(textNode);
+
+					document.getElementById('availableList').appendChild(aDiv);
+				}
+				var oldText = document.getElementById('availableHeader').innerText;
+				var startIndex = oldText.indexOf(' ');
+				var endIndex = oldText.indexOf('/');
+				var p1 = oldText.substring(0, startIndex + 1);
+				var p2 = oldText.substring(endIndex, oldText.length);
+				document.getElementById('availableHeader').innerText = p1 + aList.length + p2;		
+			}
+			
+		}
+	});
 	$(document).mouseup(function() {
 		$cell.off('mouseenter.selected')
 	})
@@ -169,6 +193,9 @@ function resetEverything() {
 	// document.getElementById('submitButton').style.visibility = 'hidden';
 	$('#tableSubHeader').text('Create Meeting');
 	// $('#getselected').text('Create');
+	$('#availableList div').remove();
+	document.getElementById('availableHeader').innerText = 'Available';
+
 }
 
 // Makes it so only one cell can be used in the final submit
@@ -227,27 +254,33 @@ function heatmap(responderTimes, respondedLength) {
 	// 	weight = 1;
 	// }
 	//alert(listOfDatesAndTimes.length);
+	listOfDatesAndTimes = [];
+	var responderKeys = Object.keys(responderTimes);
+	for (var i = 0; i < responderKeys.length; i++) {
+		listOfDatesAndTimes = listOfDatesAndTimes.concat(responderTimes[responderKeys[i]]);
+	}
+
 	for (var i = 0; i < listOfDatesAndTimes.length; i++) {
 		//console.log(listOfDatesAndTimes);
-		day = listOfDatesAndTimes[i]['day']
+		date = listOfDatesAndTimes[i]['date']
 		time = listOfDatesAndTimes[i]['time']
 
-		if (counts[day+'_'+time] == null) {
-			counts[day+'_'+time] = 1;
+		if (counts[date+'_'+time] == null) {
+			counts[date+'_'+time] = 1;
 		}
 		else {
-			counts[day+'_'+time] += 1;
+			counts[date+'_'+time] += 1;
 		}
 	}
 	// alert(counts);
 	var keys = Object.keys(counts);
 	//alert(keys.length);
 	for (var j = 0; j < keys.length; j++) {
-		//day = listOfDatesAndTimes[j]['day'];
+		//date = listOfDatesAndTimes[j]['date'];
 		// time = listOfDatesAndTimes[j]['time'];
 
 		cell = document.getElementById(keys[j]);
-		//alert(day + '_' + time);
+		//alert(date + '_' + time);
 		shade = counts[keys[j]] / respondedLength;
 		// redAndBlue = Math.floor(255 - weight * counts[keys[j]]);
 		// if (redAndBlue < 0) {

@@ -7,6 +7,12 @@ var requestMid;
 // The meeting id for when the user is the creator
 var createdMid;
 
+// A dict of key times which each value is the list of people for are available for any given time
+var availableDict;
+
+// If we are in a my meeting right now
+var inMyMeeting;
+
 // Takes the initial meeting JSON sent by the server and parses it into 
 // meetings that can be displayed on the page
 function parseInitialData(init_data) {
@@ -48,7 +54,7 @@ function parseInitialData(init_data) {
 		var textNode = document.createTextNode(meeting['title']);
 		
 		// Function that runs when any myMeeting is clicked
-		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid']);
+		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid'], meeting['resp_netids'].length + meeting['nresp_netids'].length);
 		rowDiv.addEventListener('click', f);
 
 		// Appends children to the DOM objects
@@ -161,21 +167,44 @@ function parseInitialData(init_data) {
 //-------------------------------------------------------------------------------------------------
 
 // Returns an anonymous function that is attached to each item in myMeetings
-function clickMyMeeting(i, title, respondedLength, mid) {
+function clickMyMeeting(i, title, respondedLength, mid, numResponding) {
 	return function() {
 		resetEverything();
-		heatmap(parsedData['my_meetings'][i]['times'], respondedLength);
+		heatmap(parsedData['my_meetings'][i]['responder_times'], respondedLength);
+		createAvailableDict(parsedData['my_meetings'][i]['responder_times'], numResponding);
 		// myMeetingClicked(, respondedLength);
 		$('#tableHeader').text(title);
 		// $('#getselected').text('Submit');
 		// document.getElementById('getselected').style.visibility = 'hidden';
 		// document.getElementById('clearselected').style.visibility = 'hidden';
-		document.getElementById('respondButton').style.visibility = 'hidden';
+		// document.getElementById('respondButton').style.visibility = 'hidden';
 		document.getElementById('submitButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Select a final meeting time');
 		createdMid = mid;
+		inMyMeeting = true;
 	}
 };
+
+// Creates the dict which lists the people who responded to my meeting at a given time
+function createAvailableDict (responderTimes, numResponding) {
+	availableDict = {};
+	var responderKeys = Object.keys(responderTimes);
+	for (var i = 0; i < responderKeys.length; i++) {
+		var netid = responderKeys[i];
+		var times = responderTimes[netid];
+		for (var j = 0; j < times.length; j++) {
+			var datetime = times[j]['date'] + '_' + times[j]['time'];
+			if (datetime in availableDict) {
+				availableDict[datetime].push(netid);				
+			}
+			else {
+				availableDict[datetime] = [netid];
+			}
+		}	
+	}
+	document.getElementById('availableHeader').innerText = 'Available: 0/' + numResponding;
+	// console.log(availableDict);	
+}
 
 // Returns an anonymous function that is attached to each item in requested
 function clickRequested(i, title, creator, mid) {
@@ -190,6 +219,7 @@ function clickRequested(i, title, creator, mid) {
 		document.getElementById('respondButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Created by: ' + creator);
 		requestMid = mid;
+		inMyMeeting = false;
 	}
 };
 
@@ -216,7 +246,7 @@ function clickMyResponded(i, title, creator, finaltime) {
 			var daytime = "#"+finaltime[j]["date"]+"_"+finaltime[j]["time"];
 			$(daytime).css('border', '5px solid yellow');
 		}
-		
+		inMyMeeting = false;
 	}
 };
 
