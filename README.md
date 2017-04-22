@@ -40,16 +40,15 @@ View our design document [here](https://docs.google.com/a/princeton.edu/document
     * Server to database communication
     * Client to server communication
     * Server to client communication
-* **In Progress: Testing tier communication**
-* March 31 - **April 7**
-    * Minimum viable product done
-    * Interactive Dashboard (Calendar, Lists of Meetings)
-    * CAS integration done
-    * Add email notification for when everyone has filled out the form.
-* April 7 - **April 14**
-    * Done with all priority features 
-    * Begin work on non-priority features
-    * Alpha test and debug with a couple of known users.
+* **April 14**
+    * End to end connectivity done
+    * Fully working prototype completed
+    * Heatmap implemented 
+    * Working minimum viable product deployed on Heroku
+* **April 21**
+    * Client to Database security: in progress
+    * UI revamp: in progress
+    * Additional Features: in progress
 * April 14 - **April 21**
     * Done with top 2 non-priority features
     * Get user feedback 
