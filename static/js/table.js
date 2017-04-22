@@ -342,10 +342,14 @@ function heatmap(responderTimes, respondedLength) {
 
 		cell = document.getElementById(keys[j]);
 
-		var interval = 10 / (respondedLength-1);
-
 		$(cell).addClass("colored");
-		$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
+		if (respondedLength > 1) {
+			$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
+			var interval = 10 / (respondedLength-1);
+		}
+		else
+			$(cell).css('background', colors[0]);
+
 	}
 }
 
