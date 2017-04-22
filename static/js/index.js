@@ -54,7 +54,10 @@ function parseInitialData(init_data) {
 		var textNode = document.createTextNode(meeting['title']);
 		
 		// Function that runs when any myMeeting is clicked
-		var f = clickMyMeeting(i, meeting['title'], meeting['resp_netids'].length, meeting['mid'], meeting['resp_netids'].length + meeting['nresp_netids'].length);
+		var f = clickMyMeeting(i, meeting['title'], 
+			meeting['resp_netids'].length, meeting['mid'], 
+			meeting['resp_netids'].length + meeting['nresp_netids'].length,
+			meeting['creation_date']);
 		rowDiv.addEventListener('click', f);
 
 		// Appends children to the DOM objects
@@ -104,7 +107,10 @@ function parseInitialData(init_data) {
 		var textNode = document.createTextNode(meeting['title']);
 
 		// Function to be executed when responded is clicked
-		var f = clickMyResponded(i, meeting['title'], meeting['creator'], meeting['finaltime']);
+		var f = clickMyResponded(i, meeting['title'], 
+			meeting['creator'], 
+			meeting['finaltime'],
+			meeting['creation_date']);
 		rowDiv.addEventListener('click', f);
 
 		// Appends children to the DOM objects
@@ -154,7 +160,10 @@ function parseInitialData(init_data) {
 
 		var anchor = document.createElement("A");
 
-		var f = clickRequested(i, meeting['title'], meeting['creator'], meeting['mid']);
+		var f = clickRequested(i, meeting['title'],
+			meeting['creator'],
+			meeting['mid'],
+			meeting['creation_date']);
 
 		anchor.addEventListener('click', f);
 		var textNode = document.createTextNode(meeting['title']);
@@ -167,11 +176,12 @@ function parseInitialData(init_data) {
 //-------------------------------------------------------------------------------------------------
 
 // Returns an anonymous function that is attached to each item in myMeetings
-function clickMyMeeting(i, title, respondedLength, mid, numResponding) {
+function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationDate) {
 	return function() {
 		resetEverything();
-		heatmap(parsedData['my_meetings'][i]['responder_times'], respondedLength);
+		rotateTable(creationDate);
 		createAvailableDict(parsedData['my_meetings'][i]['responder_times'], numResponding);
+		heatmap(parsedData['my_meetings'][i]['responder_times'], respondedLength);
 		// myMeetingClicked(, respondedLength);
 		$('#tableHeader').text(title);
 		// $('#getselected').text('Submit');
@@ -207,9 +217,10 @@ function createAvailableDict (responderTimes, numResponding) {
 }
 
 // Returns an anonymous function that is attached to each item in requested
-function clickRequested(i, title, creator, mid) {
+function clickRequested(i, title, creator, mid, creationDate) {
 	return function() {
 		resetEverything();
+		rotateTable(creationDate);
 		fromDatesToTable(parsedData['my_requests'][i]['times']);
 		makeSomeUnselectable();
 		// requestedClicked();
@@ -224,12 +235,12 @@ function clickRequested(i, title, creator, mid) {
 };
 
 // Returns an anonymous function that is attached to each item in responded
-function clickMyResponded(i, title, creator, finaltime) {
+function clickMyResponded(i, title, creator, finaltime, creationDate) {
 	return function() {
 		// When responded is clicked, displays the user's response times and days on the table 
 		// after clearing it
 		resetEverything();
-
+		rotateTable(creationDate);
 		
 		var usertimes = parsedData['my_responded'][i]['times'];
 		var creatortimes = parsedData['my_responded'][i]['creator_times'];

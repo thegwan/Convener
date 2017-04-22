@@ -221,6 +221,7 @@ function resetEverything() {
 	$('#availableList div').remove();
 	document.getElementById('availableHeader').innerText = 'Available';
 	inMyMeeting = false;
+	neutralizeTable();
 }
 
 // Makes it so only one cell can be used in the final submit
@@ -275,8 +276,8 @@ function responsemap(userTimes, creatorTimes) {
 // where responderTimes is a dict of key netid, value times list pairs 
 // Gives a weight to each response depending on how many people responded
 function heatmap(responderTimes, respondedLength) {
-	console.log(responderTimes)
-	console.log(respondedLength)
+	// console.log(responderTimes)
+	// console.log(respondedLength)
 	// var colors = ['#24C904',  // most green
 	// 			  '#6ECF07',
 	// 			  '#87D008',
@@ -406,4 +407,93 @@ function loadPreferredTable(table_pref) {
 		$("#prefTable").show();
 		$("#mainTable").hide();
 	}
+}
+
+// Moves the main table to display starting from creation date
+function rotateTable(creationDate) {
+	var headers = $('#mainTable').find('th');
+	var dateParts = creationDate.split('-');
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		
+	// This year thing will be highly unstable near the edges of a year
+	myCells = document.getElementsByClassName('cell');
+	var firstCellId = myCells[0].id;
+	var oldYear = firstCellId.substring(firstCellId.lastIndexOf('-') + 1, firstCellId.indexOf('_'));
+
+	var oldIdsList = [];
+	var newIdsList = [];
+	var tempIdsList = [];
+
+	for (var i = 0; i < headers.length; i++) {
+		var oldTime = headers[i].innerText;
+		var oldDate = oldTime.split('\n');
+		// oldDate[0].trim();
+
+		// Calculate the new data from the creation date and add i days to make the whole table
+		var newDate = new Date(dateParts[2],dateParts[0]-1,dateParts[1]);
+		newDate.setDate(newDate.getDate() + i);
+
+		// headers[i].innerText = months[newDate.getMonth()].substring(0,3) + '\n' + padDigit(newDate.getDate());
+		headers[i].innerText = months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate());
+		
+		var oldMonth = padDigit(months.indexOf(oldDate[0].trim()) + 1);
+		var oldDay = padDigit(oldDate[1]);
+		
+		var newMonth = padDigit(newDate.getMonth() + 1);
+		var newDay = padDigit(newDate.getDate());
+
+		var newDateString = newMonth + '-' + newDay + '-' + oldYear;
+		
+		// console.log(oldMonth + '-' + oldDay + '-' + oldYear);
+
+
+		// Issue with changing the ids concurrently say I turn the first row which was 4/15 into 4/19 well the old 4/19 doesn't change
+		for (var j = 6; j < 12; j++) {
+			// console.log("Old ID: " + oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am');
+			// console.log(newDateString + '_' + j + 'am');
+			
+			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am').id = newDateString + '_' + j + 'am';
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am');
+			newIdsList.push(newDateString + '_' + j + 'am');
+		}
+		for (var j = 1; j <= 12; j++) {
+			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm').id = newDateString + '_' + j + 'pm';
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm');
+			newIdsList.push(newDateString + '_' + j + 'pm');
+		}
+	}
+
+	// Populate temporary ids list
+	for (var i = 0; i < oldIdsList.length; i++) {
+		var tempString = "temp" + i.toString();
+		tempIdsList.push(tempString);
+		document.getElementById(oldIdsList[i]).id = tempString;
+	}
+
+	// Convert temporary ids to new ids
+	for (var i = 0; i < tempIdsList.length; i++) {
+		document.getElementById(tempIdsList[i]).id = newIdsList[i];
+	}
+
+}
+
+// Resets the table to start from the current day
+function neutralizeTable() {
+	var today = new Date();
+
+	var month = padDigit(today.getMonth() + 1);
+	var day = padDigit(today.getDate());
+	var year = today.getYear();
+
+	var todayString = month + '-' + day + '-' + year;
+
+	rotateTable(todayString);
+}
+
+// Pads a single digit number with a leading 0, or just returns the number
+function padDigit(number) {
+	if (number.toString().length == 1) {
+		return '0' + number.toString();
+	}
+	return number.toString();
 }
