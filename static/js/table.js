@@ -283,16 +283,29 @@ function heatmap(responderTimes, respondedLength) {
 	// 			  '#DB950D',
 	// 			  '#DD7F0E',
 	// 			  '#DF680F']  // most orange
-	var colors = ['#0ABD21',  // most green
-				  '#17E731',
-				  '#2EE945',
-				  '#45EC59',
-				  '#5CEE6D',  
-				  '#74F182',
-				  '#8BF396',
-				  '#A2F5AA',
-				  '#B9F8BE',
-				  '#E8FDE7'];  // most whitish
+	// var colors = ['#0ABD21',  // most green
+	// 			  '#17E731',
+	// 			  '#2EE945',
+	// 			  '#45EC59',
+	// 			  '#5CEE6D',  
+	// 			  '#74F182',
+	// 			  '#8BF396',
+	// 			  '#A2F5AA',
+	// 			  '#B9F8BE',
+	// 			  '#E8FDE7'];  // most whitish
+	var colors = [
+				    '#0A9B03',
+				    '#0DCD04',
+					'#27D31D',
+				    '#41D937',
+				    '#5BDF51',
+				    '#6CE362',
+				    '#86E97C',
+				    '#97ED8D',
+				    '#A9F19E',
+				    '#C3F7B8',
+				    '#DDfDD2'
+				 ];
 	clearSelected();
 	var counts = {};
 	// var weight = 20;
@@ -328,20 +341,11 @@ function heatmap(responderTimes, respondedLength) {
 		// time = listOfDatesAndTimes[j]['time'];
 
 		cell = document.getElementById(keys[j]);
-		//alert(date + '_' + time);
-		shade = counts[keys[j]] / respondedLength;
-		// redAndBlue = Math.floor(255 - weight * counts[keys[j]]);
-		// if (redAndBlue < 0) {
-		// 	redAndBlue = 0;
-		// }
-		// green = 238 - weight * counts[keys[j]];
-		// if (green < 50) {
-		// 	green = 50;
-		// }
-		// $(cell).css('background', 'rgb(0,' + Math.floor(green) + ',0)');
-		
+
+		var interval = 10 / (respondedLength-1);
+
 		$(cell).addClass("colored");
-		$(cell).css('background', colors[10-Math.ceil(shade*10)]);
+		$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
 	}
 }
 
