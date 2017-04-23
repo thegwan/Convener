@@ -66,7 +66,8 @@ button#modalcreate {
 }
 
 .heading {
-	height: 300px;
+	/*height: 300px;*/
+	margin-top: 20px;
 }
 
 a {
@@ -135,7 +136,7 @@ div.rowDiv:hover {
 	background-color: lightgreen;
 }
 
-#myRespondedDiv {
+#myRespondedDiv, #myMeetingsDiv {
 	overflow-y: auto;
 	overflow-x: hidden;
 	padding-right: 1px;
@@ -143,7 +144,7 @@ div.rowDiv:hover {
 
 .scrollbar
 {
-	height: 250px;
+	height: 200px;
 	overflow-y: scroll;
 }
 
@@ -172,11 +173,15 @@ div.rowDiv:hover {
 
 .leftSection {
 	/*border-right: dashed orange 3px;*/
-	margin-top: 80px;
+	margin-top: 20px;
 }
 
 .rightSection {
 	margin-top: 80px;
+}
+
+.legendDiv {
+	margin-bottom: 10px;
 }
 
 /* am and pm divs for table */
@@ -196,4 +201,8 @@ div.rowDiv:hover {
 
 #leftFea, #middleFea, #rightFea {
 	margin-top: 0px;
+}
+
+.legendTable {
+	pointer-events: none;
 }

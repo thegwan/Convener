@@ -57,6 +57,7 @@ function parseInitialData(init_data) {
 		var f = clickMyMeeting(i, meeting['title'], 
 			meeting['resp_netids'].length, meeting['mid'], 
 			meeting['resp_netids'].length + meeting['nresp_netids'].length,
+			meeting['finaltime'],
 			meeting['creation_date']);
 		rowDiv.addEventListener('click', f);
 
@@ -66,12 +67,12 @@ function parseInitialData(init_data) {
 		titleDiv.appendChild(textNode);
 
 		// Adds classes to be styled in css later
-		$(rowDiv).addClass('rowDiv');
-		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
+		$(rowDiv).addClass('rowDiv tooltipDiv');
+		$(titleDiv).addClass('titleDiv col-md-10');
 		$(starDiv).addClass('starDiv col-md-2');
 
 		// Add a tooltip for when the meeting is hovered over
-		$(titleDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
+		$(rowDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
 		
 		// Add a star to the starDiv if the meeting is confirmed
 		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
@@ -166,7 +167,7 @@ function parseInitialData(init_data) {
 //-------------------------------------------------------------------------------------------------
 
 // Returns an anonymous function that is attached to each item in myMeetings
-function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationDate) {
+function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime, creationDate) {
 	return function() {
 		resetEverything();
 		rotateTable(creationDate);
@@ -187,6 +188,13 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationD
 
 		createdMid = mid;
 		inMyMeeting = true;
+
+		// Highlights the final time if it has already been selected
+		for (var j = 0; j < finaltime.length; j++) {
+			var daytime = "#"+finaltime[j]["date"]+"_"+finaltime[j]["time"];
+			$(daytime).css('border', '5px solid yellow');
+			$(daytime).addClass('selectedColored');
+		}
 	}
 };
 

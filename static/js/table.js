@@ -1,10 +1,17 @@
 $(document).ready(function() {
 	// highlight cells when mousedown
 	var $cell = $('.cell').mousedown(function() {
+		if ($(this).hasClass('unselectable')) {
+			return;
+		}
+
 		$(this).toggleClass('selected');
 		var flag = $(this).hasClass('selected')
 		// while mousedown, highlight cells when mouseenters cell
 		$cell.on('mouseenter.selected', function() {
+			if ($(this).hasClass('unselectable')) {
+				return;
+			}
 			$(this).toggleClass('selected', flag);
 		});
 		// highlight final meeting time

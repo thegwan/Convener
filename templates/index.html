@@ -71,6 +71,20 @@
             <!-- Left Column: Responded Meetings and My Meetings -->
             <div id="leftFea" class="fea">
               <div class="col-md-3 leftSection">
+              	<div class="legendDiv">
+              		Note: 
+              		<table class="table table-bordered legendTable">
+              			<tr>
+              				<th><i class="fa fa-calendar-check-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i></th>
+              				<th>Meeting is scheduled</th>
+              			</tr>
+              			<tr>
+              				<th><i class="fa fa-calendar-times-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i></th>
+              				<th>Final time not yet selected</th>
+              			</tr>
+              		</table>
+<!--               		<i class="fa fa-calendar-check-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i> means the meeting has been scheduled. <i class="fa fa-calendar-times-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i> means a final time has not yet been selected. -->
+              	</div>
                 <!-- Responded Meetings -->
                 <div class="heading pull-right">
                   <h4>Responded Meetings</h4>
@@ -79,18 +93,18 @@
                   </div>
                 </div>
                 <div class="fea-img pull-left">
-                  <i class="fa fa-css3"></i>
+                  <i class="fa fa-fax"></i>
                 </div>
                 <!--/ Responded Meetings -->
              	<!-- My Meetings -->
                 <div class="heading pull-right">
                   <h4>My Meetings</h4>
-                  <div id="myMeetingsDiv">
+                  <div id="myMeetingsDiv" class="scrollbar">
 
                   </div>
                 </div>
                 <div class="fea-img pull-left">
-                  <i class="fa fa-address-book"></i>
+                  <i class="fa fa-user-circle"></i>
                 </div>
                 <!--/ My Meetings -->
               </div>
