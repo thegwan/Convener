@@ -67,14 +67,9 @@
       <div class="container-full">
         <!-- Row 1 -->
         <div class="row">
-          <div class="header-section text-center">
-          	<div>Warning: This web app is still in pre-alpha production. Usage might not have the desired effects and user data might be lost at anytime.</div>
-            <h2 id="tableHeader">Convener</h2>
-            <h6 id="tableSubHeader">Create Meeting</h6>
-          </div>
           <div class="feature-info">
             <!-- Left Column: Responded Meetings and My Meetings -->
-            <div class="fea">
+            <div id="leftFea" class="fea">
               <div class="col-md-3 leftSection">
                 <!-- Responded Meetings -->
                 <div class="heading pull-right">
@@ -103,8 +98,16 @@
             <!--/ Left Column -->
             <div></div>
             <!-- Middle Column: Table -->
-            <div class="fea">
+            <div id="middleFea" class="fea">
               <div class="col-md-7 middleSection">
+	            <div class="header-section text-center row">
+	           	  <div class="col-md-1"></div>
+	          	  <!-- <div>Warning: This web app is still in pre-alpha production. Usage might not have the desired effects and user data might be lost at anytime.</div> -->
+	          	  <div class="col-md-11">
+	              	<h2 id="tableHeader">Convener</h2>
+	              	<h6 id="tableSubHeader">Create Meeting</h6>
+            	  </div>
+	            </div>
                 <div class="col-md-1">
                   <div id="am">AM</div>
                   <div id="pm">PM</div>
@@ -114,13 +117,13 @@
           					<!-- Construct Table -->
           					{{ table.html | safe }}
                     {{ table_pref.html | safe }}
-          					<button type="button" id="clearButton" class="btn btn-md btn-default" onclick="clearSelected()">Clear</button>
-          					<button type="button" id="loadPreferredTimesButton" class="btn btn-md btn-default" onclick="loadPTimes()">Load PTimes</button>
+          					<button type="button" id="clearButton" class="greenButton" onclick="clearSelected()">Clear</button>
+          					<button type="button" id="loadPreferredTimesButton" class="greenButton" onclick="loadPTimes()">Load PTimes</button>
           					
-          					<button type="button" id="createMeetingButton" class="btn btn-md btn-default" data-toggle="modal" data-target="#createMeetingModal">Create</button>
-          					<button type="button" id="submitButton" class="btn btn-md btn-default" onclick="makeFinalJSON('{{ user }}')">Submit</button>
-          					<button type="button" id="respondButton" class="btn btn-md btn-default" onclick="makeResponseJSON('{{ user }}')">Respond</button>
-          					<button type="button" id="updatePreferredTimesButton" class="btn btn-md btn-default" onclick="">Update PTimes</button>
+          					<button type="button" id="createMeetingButton" class="greenButton" data-toggle="modal" data-target="#createMeetingModal">Create</button>
+          					<button type="button" id="submitButton" class="greenButton" onclick="makeFinalJSON('{{ user }}')">Submit</button>
+          					<button type="button" id="respondButton" class="greenButton" onclick="makeResponseJSON('{{ user }}')">Respond</button>
+          					<button type="button" id="updatePreferredTimesButton" class="greenButton" onclick="">Update PTimes</button>
                     <!-- Create Meeting Modal -->
                     <div class="modal fade" id="createMeetingModal" role="dialog">
                       <div class="modal-dialog modal-lg">
@@ -163,7 +166,7 @@
             </div>
             <!--/ Middle Column -->
             <!-- Right Column: Available List -->
-            <div class="fea">
+            <div id="rightFea" class="fea">
               <div class="col-md-2 rightSection">
               	<div>
               		<h4 id="availableHeader">Available</h4>

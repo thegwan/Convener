@@ -178,11 +178,11 @@ function makeUnselectable() {
 	document.getElementById('mainTable').style.cursor = 'not-allowed';
 }
 
-// Make the white cells unselectable
+// Make the white cells unselectable, ignoring selected cells and colored cells 
 function makeSomeUnselectable() {
 	var cells = document.getElementsByClassName('cell');
 	for (var i = 0; i < cells.length; i++) {
-  		if (! ($(cells[i]).hasClass("selected"))) {
+  		if (! ($(cells[i]).hasClass("selected") || $(cells[i]).hasClass("colored"))) {
   			$(cells[i]).addClass('unselectable');
 			$(cells[i]).removeClass('selectable');
   		}
@@ -205,21 +205,30 @@ function makeSelectable() {
 // Removes everything from the table, makes the headers what they were on the start screen
 // Makes the clear and submit buttons visible again
 function resetEverything() {
+	// Makes all the cells selectable and removes their coloring
 	makeSelectable();
 	clearSelected();
 	clearSelectedColored();
 	clearColored();
+
+	// Hides the preference table and shows the main table
 	$("#prefTable").hide();
 	$("#mainTable").show();
 	$('#tableHeader').text('Convener');
-	// document.getElementById('getselected').style.visibility = 'visible';
-	// document.getElementById('clearselected').style.visibility = 'visible';
-	// document.getElementById('respondButton').style.visibility = 'hidden';
-	// document.getElementById('submitButton').style.visibility = 'hidden';
+
+	// Show only the clear, loadTimes, and create buttons
+	$('#respondButton').hide();
+	$('#submitButton').hide();
+	$('#updatePreferredTimesButton').hide();
+
+	$('#createMeetingButton').show();
+	$('#loadPreferredTimesButton').show();
+	$('#clearButton').show();
+	
+	// Reset the header texts
 	$('#tableSubHeader').text('Create Meeting');
-	// $('#getselected').text('Create');
 	$('#availableList div').remove();
-	document.getElementById('availableHeader').innerText = 'Available';
+	$('#availableHeader').text('');
 	inMyMeeting = false;
 	neutralizeTable();
 }
@@ -349,8 +358,8 @@ function heatmap(responderTimes, respondedLength) {
 
 		$(cell).addClass("colored");
 		if (respondedLength > 1) {
-			$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
 			var interval = 10 / (respondedLength-1);
+			$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
 		}
 		else
 			$(cell).css('background', colors[0]);
@@ -415,6 +424,13 @@ function loadPreferredTable(table_pref) {
 		$("#prefTable").show();
 		$("#mainTable").hide();
 	}
+
+	// Show only the clear and updatePreferredTimes buttons
+	$('#createMeetingButton').hide();
+	
+	// $('#loadPreferredTimesButton').hide();
+	// $('#clearButton').hide();
+	$('#updatePreferredTimesButton').show();
 }
 
 // Moves the main table to display starting from creation date

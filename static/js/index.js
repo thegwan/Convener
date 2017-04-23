@@ -74,19 +74,14 @@ function parseInitialData(init_data) {
 		$(titleDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
 		
 		// Add a star to the starDiv if the meeting is confirmed
-		if (meeting['finaltime'].length > 0) {
-			starDiv.appendChild(document.createTextNode('*'));
-		}
-		else {
-			starDiv.appendChild(document.createTextNode('-'));
-		}
+		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
 
 		// Corner styling for divs in the meetings lists
 		if (i == 0) {
 			$(titleDiv).addClass('topLeftDiv');
 			$(starDiv).addClass('topRightDiv');
 		}
-		else if (i == parsedData['my_meetings'].length - 1) {
+		if (i == parsedData['my_meetings'].length - 1) {
 			$(titleDiv).addClass('bottomLeftDiv');
 			$(starDiv).addClass('bottomRightDiv');
 		}
@@ -124,24 +119,19 @@ function parseInitialData(init_data) {
 		$(starDiv).addClass('starDiv col-md-2');
 		
 		// Add a star to the starDiv if the meeting is confirmed
-		if (meeting['finaltime'].length > 0) {
-			starDiv.appendChild(document.createTextNode('*'));
-		}
-		else {
-			starDiv.appendChild(document.createTextNode('-'));
-		}
+		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
 
 		// Corner styling for divs in the meetings lists
 		if (i == 0) {
 			$(titleDiv).addClass('topLeftDiv');
 			$(starDiv).addClass('topRightDiv');
 		}
-		else if (i == parsedData['my_responded'].length - 1) {
+		if (i == parsedData['my_responded'].length - 1) {
 			$(titleDiv).addClass('bottomLeftDiv');
 			$(starDiv).addClass('bottomRightDiv');
 		}
 
-		// Add the current row to the document
+		// Add the current row to the documen
 		document.getElementById('myRespondedDiv').appendChild(rowDiv);
 	}
 
@@ -182,14 +172,18 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationD
 		rotateTable(creationDate);
 		createAvailableDict(parsedData['my_meetings'][i]['responder_times'], numResponding);
 		heatmap(parsedData['my_meetings'][i]['responder_times'], respondedLength);
-		// myMeetingClicked(, respondedLength);
+		makeSomeUnselectable();
+		
 		$('#tableHeader').text(title);
-		// $('#getselected').text('Submit');
-		// document.getElementById('getselected').style.visibility = 'hidden';
-		// document.getElementById('clearselected').style.visibility = 'hidden';
-		// document.getElementById('respondButton').style.visibility = 'hidden';
-		document.getElementById('submitButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Select a final meeting time');
+
+		// Show only the submit button
+		$('#createMeetingButton').hide();
+		$('#clearButton').hide();
+		$('#loadPreferredTimesButton').hide();
+		$('#submitButton').show();
+		
+
 		createdMid = mid;
 		inMyMeeting = true;
 	}
@@ -223,12 +217,16 @@ function clickRequested(i, title, creator, mid, creationDate) {
 		rotateTable(creationDate);
 		fromDatesToTable(parsedData['my_requests'][i]['times']);
 		makeSomeUnselectable();
-		// requestedClicked();
 		$('#tableHeader').text(title);
-		// document.getElementById('getselected').style.visibility = 'hidden';
-		// document.getElementById('clearselected').style.visibility = 'visible';
-		document.getElementById('respondButton').style.visibility = 'visible';
 		$('#tableSubHeader').text('Created by: ' + creator);
+
+		// Show only the clear, loadTimes, and respond buttons
+		$('#createMeetingButton').hide();
+		$('#respondButton').show();
+
+
+		document.getElementById('respondButton').style.visibility = 'visible';
+
 		requestMid = mid;
 		inMyMeeting = false;
 	}
@@ -247,9 +245,11 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 
 		responsemap(usertimes, creatortimes)
 
-		// respondedClicked(parsedData['my_responded'][i]['times']);
-		// document.getElementById('getselected').style.visibility = 'hidden';
-		// document.getElementById('clearselected').style.visibility = 'hidden';
+		// Hide all buttons
+		$('#createMeetingButton').hide();
+		$('#clearButton').hide();
+		$('#loadPreferredTimesButton').hide();
+		
 
 		// Modify the title and subheader
 		$('#tableHeader').text(title + ' ('+creator+')');
@@ -319,7 +319,7 @@ function makeCreationJSON(netid) {
 
 	}, function(data) {
 		// alert('at least we made it this far');
-		parseData(data);
+		parseInitialData(data);
 	});
 	resetEverything();
 }
@@ -355,7 +355,7 @@ function makeResponseJSON(netid) {
 
 	}, function(data) {
 		// alert('at least we made it this far');
-		parseData(data);
+		parseInitialData(data);
 	});
 	resetEverything();
 }
@@ -389,7 +389,7 @@ function makePreferenceJSON(netid) {
 
 	}, function(data) {
 		// alert('at least we made it this far');
-		parseData(data);
+		parseInitialData(data);
 	});
 	resetEverything();
 }
@@ -423,7 +423,7 @@ function makeFinalJSON(netid) {
 
 	}, function(data) {
 		// alert('at least we made it this far');
-		parseData(data);
+		parseInitialData(data);
 	});
 	resetEverything();
 }
@@ -442,4 +442,21 @@ window.onclick = function(e) {
         myDropdown.classList.remove('show');
       }
   }
+}
+
+// Creates an image element that is a checked or unchecked
+function createScheduledImage(checked) {
+	var image = document.createElement("I");
+	$(image).addClass('fa');
+	$(image).attr('aria-hidden', 'true');
+	$(image).css('font-size', 'inherit');			
+	$(image).css('margin-top', '0px');			
+	
+	if (checked) {
+		$(image).addClass('fa-calendar-check-o');
+	}
+	else {
+		$(image).addClass('fa-calendar-times-o');
+	}
+	return image;
 }

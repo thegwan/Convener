@@ -11,16 +11,47 @@ body {
 	background: rgb(0,200,0);
 }
 */
+.greenButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background-color:#5FCF80;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #86ae47;
+}
+.greenButton:hover {
+	background-color:#7FEFA0;
+}
+.greenButton:active {
+	position:relative;
+	top:1px;
+}
 
 button#clearButton, button#loadPreferredTimesButton {
 	float: left;
-	background: rgb(0,200,0);
+	/*background: rgb(0,200,0);*/
+	/* Might need 10px of margin left here*/
 
+}
+
+#loadPreferredTimesButton {
+	margin-left: 10px;
 }
 
 button#updatePreferredTimesButton, button#submitButton, button#respondButton, button#createMeetingButton {
 	float: right;
-	background: rgb(0,200,0);
+	/*background: rgb(0,200,0);*/
 	
 }
 
@@ -139,10 +170,13 @@ div.rowDiv:hover {
 	border-bottom-right-radius: 4px;
 }
 
-/* Adds border to main section columns*/
-
 .leftSection {
-	border-right: dashed orange 3px;
+	/*border-right: dashed orange 3px;*/
+	margin-top: 80px;
+}
+
+.rightSection {
+	margin-top: 80px;
 }
 
 /* am and pm divs for table */
@@ -158,4 +192,8 @@ div.rowDiv:hover {
 
 #pm {
 	padding-top: 119px;
+}
+
+#leftFea, #middleFea, #rightFea {
+	margin-top: 0px;
 }

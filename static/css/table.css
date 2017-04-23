@@ -42,9 +42,9 @@ td.badtime {
 }
 
 #bold_row {
-    border-top: 2px solid black;
+    border-top: 2px solid orange;
 }
 
 .bold_col {
-    border-right: 2px solid orange !important;
+    border-right: 2px solid black !important;
 }
