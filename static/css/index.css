@@ -130,6 +130,7 @@ div.rowDiv {
 	background-color: #f9f9f9;
 	cursor: pointer;
 	color: #5fcf80;
+	display: flex;
 }
 
 div.rowDiv:hover {

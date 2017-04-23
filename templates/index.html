@@ -20,6 +20,7 @@
     ======================================================= -->
    	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/scrollbar.css') }}">
    	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tooltip.css') }}">
+   	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/snackbar.css') }}">
    	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
    	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 
@@ -86,25 +87,30 @@
 <!--               		<i class="fa fa-calendar-check-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i> means the meeting has been scheduled. <i class="fa fa-calendar-times-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i> means a final time has not yet been selected. -->
               	</div>
                 <!-- Responded Meetings -->
-                <div class="heading pull-right">
-                  <h4>Responded Meetings</h4>
-                  <div id="myRespondedDiv" class="scrollbar">
-
+                <div class="row">
+            	  <div class="fea-img col-md-2">
+                    <i class="fa fa-fax"></i>
                   </div>
+    			  <div class="heading col-md-10">
+             	    <h4>Responded Meetings</h4>
+          		  	<div id="myRespondedDiv" class="scrollbar">
+
+                 	</div>
+            	  </div>
                 </div>
-                <div class="fea-img pull-left">
-                  <i class="fa fa-fax"></i>
-                </div>
+                
                 <!--/ Responded Meetings -->
              	<!-- My Meetings -->
-                <div class="heading pull-right">
+             	<div class="row">
+                  <div class="fea-img col-md-2">
+                    <i class="fa fa-user-circle"></i>
+                  </div>
+                <div class="heading col-md-10">
                   <h4>My Meetings</h4>
                   <div id="myMeetingsDiv" class="scrollbar">
 
                   </div>
                 </div>
-                <div class="fea-img pull-left">
-                  <i class="fa fa-user-circle"></i>
                 </div>
                 <!--/ My Meetings -->
               </div>
@@ -163,7 +169,7 @@
                             </div>
                             <div class="form-group">        
                               <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" id="modalcreate" class="btn btn-default" onclick="makeCreationJSON('{{ user }}')">Create</button>
+                                <button type="submit" id="modalcreate" class="btn btn-default" onclick="makeCreationJSON('{{ user }}'); dismissModal();">Create</button>
                               </div>
                             </div>
                           </div>
@@ -183,6 +189,9 @@
             <!-- Right Column: Available List -->
             <div id="rightFea" class="fea">
               <div class="col-md-2 rightSection">
+              	<div id="snackbar">
+              		Hello World
+              	</div>
               	<div>
               		<h4 id="availableHeader">Available</h4>
               		<div id="availableList">

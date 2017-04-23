@@ -68,8 +68,8 @@ function parseInitialData(init_data) {
 
 		// Adds classes to be styled in css later
 		$(rowDiv).addClass('rowDiv tooltipDiv');
-		$(titleDiv).addClass('titleDiv col-md-10');
-		$(starDiv).addClass('starDiv col-md-2');
+		$(titleDiv).addClass('titleDiv col-md-10 col-sm-10 col-xs-10');
+		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
 
 		// Add a tooltip for when the meeting is hovered over
 		$(rowDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
@@ -116,8 +116,8 @@ function parseInitialData(init_data) {
 		
 		// Adds classes to be styled in css later
 		$(rowDiv).addClass('rowDiv');
-		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
-		$(starDiv).addClass('starDiv col-md-2');
+		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10 col-sm-10 col-xs-10');
+		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
 		
 		// Add a star to the starDiv if the meeting is confirmed
 		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
@@ -320,7 +320,7 @@ function makeCreationJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			alert('Event Created!');
+			displaySnackBar('Event Created');
 		}
 	});
 	// Refresh the page asynchronously
@@ -357,7 +357,7 @@ function makeResponseJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			alert('Response Submitted');
+			displaySnackBar('Response Submitted');
 		}
 	});
 	// Refresh the page asynchronously
@@ -392,7 +392,7 @@ function makePreferenceJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			alert('Preferences Submitted');
+			displaySnackBar('Preferences Submitted');
 		}
 	});
 	// Refresh the page asynchronously
@@ -428,7 +428,9 @@ function makeFinalJSON(netid) {
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
-		success: function(){alert('Meeting Scheduled');}
+		success: function(){
+			displaySnackBar('Meeting Scheduled');
+		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
@@ -457,7 +459,9 @@ function makeMeetingDeleteJSON(netid) {
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
-		success: function(){alert('Meeting Deleted');}
+		success: function(){
+			displaySnackBar('Meeting Deleted');
+		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
@@ -500,4 +504,18 @@ function createScheduledImage(checked) {
 		$(image).addClass('fa-calendar-times-o');
 	}
 	return image;
+}
+
+// Creates a snackbar with the message msg
+function displaySnackBar(msg) {
+    $('#snackbar').text(msg);
+    $('#snackbar').addClass('show');
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+}
+
+// Hides the modal
+function dismissModal() {
+	$('#createMeetingModal').modal('hide');
 }

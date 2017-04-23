@@ -425,6 +425,8 @@ function loadPTimes() {
 
 // load preferred table (Table_Pref object)
 function loadPreferredTable(table_pref) {
+	resetEverything();
+
 	if ($("#prefTable").is(":visible")) {
 		$("#prefTable").hide();
 		$("#mainTable").show();
