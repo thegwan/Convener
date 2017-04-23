@@ -57,6 +57,7 @@ function parseInitialData(init_data) {
 		var f = clickMyMeeting(i, meeting['title'], 
 			meeting['resp_netids'].length, meeting['mid'], 
 			meeting['resp_netids'].length + meeting['nresp_netids'].length,
+			meeting['finaltime'],
 			meeting['creation_date']);
 		rowDiv.addEventListener('click', f);
 
@@ -66,12 +67,12 @@ function parseInitialData(init_data) {
 		titleDiv.appendChild(textNode);
 
 		// Adds classes to be styled in css later
-		$(rowDiv).addClass('rowDiv');
-		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
-		$(starDiv).addClass('starDiv col-md-2');
+		$(rowDiv).addClass('rowDiv tooltipDiv');
+		$(titleDiv).addClass('titleDiv col-md-10 col-sm-10 col-xs-10');
+		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
 
 		// Add a tooltip for when the meeting is hovered over
-		$(titleDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
+		$(rowDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
 		
 		// Add a star to the starDiv if the meeting is confirmed
 		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
@@ -115,8 +116,8 @@ function parseInitialData(init_data) {
 		
 		// Adds classes to be styled in css later
 		$(rowDiv).addClass('rowDiv');
-		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10');
-		$(starDiv).addClass('starDiv col-md-2');
+		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10 col-sm-10 col-xs-10');
+		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
 		
 		// Add a star to the starDiv if the meeting is confirmed
 		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
@@ -166,7 +167,7 @@ function parseInitialData(init_data) {
 //-------------------------------------------------------------------------------------------------
 
 // Returns an anonymous function that is attached to each item in myMeetings
-function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationDate) {
+function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime, creationDate) {
 	return function() {
 		resetEverything();
 		rotateTable(creationDate);
@@ -187,6 +188,13 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationD
 
 		createdMid = mid;
 		inMyMeeting = true;
+
+		// Highlights the final time if it has already been selected
+		for (var j = 0; j < finaltime.length; j++) {
+			var daytime = "#"+finaltime[j]["date"]+"_"+finaltime[j]["time"];
+			$(daytime).css('border', '5px solid yellow');
+			$(daytime).addClass('selectedColored');
+		}
 	}
 };
 
@@ -312,7 +320,7 @@ function makeCreationJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			alert('Event Created!');
+			displaySnackBar('Event Created');
 		}
 	});
 	// Refresh the page asynchronously
@@ -349,7 +357,7 @@ function makeResponseJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			alert('Response Submitted');
+			displaySnackBar('Response Submitted');
 		}
 	});
 	// Refresh the page asynchronously
@@ -384,7 +392,7 @@ function makePreferenceJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			alert('Preferences Submitted');
+			displaySnackBar('Preferences Submitted');
 		}
 	});
 	// Refresh the page asynchronously
@@ -420,7 +428,9 @@ function makeFinalJSON(netid) {
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
-		success: function(){alert('Meeting Scheduled');}
+		success: function(){
+			displaySnackBar('Meeting Scheduled');
+		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
@@ -449,7 +459,9 @@ function makeMeetingDeleteJSON(netid) {
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
-		success: function(){alert('Meeting Deleted');}
+		success: function(){
+			displaySnackBar('Meeting Deleted');
+		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
@@ -492,4 +504,18 @@ function createScheduledImage(checked) {
 		$(image).addClass('fa-calendar-times-o');
 	}
 	return image;
+}
+
+// Creates a snackbar with the message msg
+function displaySnackBar(msg) {
+    $('#snackbar').text(msg);
+    $('#snackbar').addClass('show');
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+}
+
+// Hides the modal
+function dismissModal() {
+	$('#createMeetingModal').modal('hide');
 }

@@ -7,11 +7,12 @@
     opacity: 0;
     
     /* customizable */
-    transition: all 0.15s ease;
-    padding: 10px;
-    color: #333;
+    /*transition: all 0.05s ease;*/
+    padding: 5px;
+    color: #FFF;
     border-radius: 10px;
-    box-shadow: 2px 2px 1px silver;    
+    box-shadow: 2px 2px 1px silver;
+    font-size: 12px;
 }
 
 [tooltip]:hover:before {
@@ -19,9 +20,9 @@
     opacity: 1;
     
     /* customizable */
-    background: lightgreen;
-    margin-top: -50px;
-    margin-left: 20px;    
+    background: darkgreen;
+    margin-top: -20%;
+    left: 25%;    
 }
  
 [tooltip]:not([tooltip-persistent]):before {

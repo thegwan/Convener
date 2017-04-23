@@ -19,7 +19,14 @@ td:hover {
 
 td.unselectable {
 	background: rgb(228,228,228);
-	/*opacity: 50%;*/
+	/*pointer-events: none;*/
+}
+
+td.unselectable:hover {
+	pointer-events: auto;
+}
+
+td.unselectable:active {
 	pointer-events: none;
 }
 
