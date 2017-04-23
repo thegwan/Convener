@@ -43,12 +43,13 @@ $(document).ready(function() {
 				$('#availableList div').remove();
 				aList = [];
 			}
-			var oldText = document.getElementById('availableHeader').innerText;
+			//var oldText = document.getElementById('availableHeader').innerText;
+			var oldText = $('#availableHeader').text();
 			var startIndex = oldText.indexOf(' ');
 			var endIndex = oldText.indexOf('/');
 			var p1 = oldText.substring(0, startIndex + 1);
 			var p2 = oldText.substring(endIndex, oldText.length);
-			document.getElementById('availableHeader').innerText = p1 + aList.length + p2;		
+			$('#availableHeader').text(p1 + aList.length + p2);		
 		}
 	});
 	$(document).mouseup(function() {
@@ -220,6 +221,7 @@ function resetEverything() {
 	$('#respondButton').hide();
 	$('#submitButton').hide();
 	$('#updatePreferredTimesButton').hide();
+	$('#deleteMeetingButton').hide();
 
 	$('#createMeetingButton').show();
 	$('#loadPreferredTimesButton').show();
@@ -449,8 +451,9 @@ function rotateTable(creationDate) {
 	var tempIdsList = [];
 
 	for (var i = 0; i < headers.length; i++) {
-		var oldTime = headers[i].innerText;
-		var oldDate = oldTime.split('\n');
+		var oldTime = $(headers[i]).text();
+		var oldDate = [oldTime.substring(0, oldTime.length-2), oldTime.substring(oldTime.length-2)];
+		//var oldDate = oldTime.split('\n');
 		// oldDate[0].trim();
 
 		// Calculate the new data from the creation date and add i days to make the whole table
@@ -458,8 +461,9 @@ function rotateTable(creationDate) {
 		newDate.setDate(newDate.getDate() + i);
 
 		// headers[i].innerText = months[newDate.getMonth()].substring(0,3) + '\n' + padDigit(newDate.getDate());
-		headers[i].innerText = months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate());
-		
+		//headers[i].innerText = months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate());
+		$(headers[i]).text(months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate()));
+
 		var oldMonth = padDigit(months.indexOf(oldDate[0].trim()) + 1);
 		var oldDay = padDigit(oldDate[1]);
 		
@@ -486,7 +490,6 @@ function rotateTable(creationDate) {
 			newIdsList.push(newDateString + '_' + j + 'pm');
 		}
 	}
-
 	// Populate temporary ids list
 	for (var i = 0; i < oldIdsList.length; i++) {
 		var tempString = "temp" + i.toString();

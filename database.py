@@ -148,6 +148,20 @@ def updateMeeting(mid, allResponded=None, scheduledTime=None, notified=None):
 	db.session.commit()
 	return updatedMeeting
 
+# Deletes the meeting
+def deleteMeeting(mid):
+	print "delete code goes here, needs cascading to remove responses too (but not users)"
+	meeting = getMeeting(mid)
+	responses = getResponsesfromMeeting(mid)
+	print responses
+	for response in responses:
+		db.session.delete(response)
+		print "deleting response"
+	db.session.commit()
+	db.session.delete(meeting)
+	print "deleting meeting"
+	db.session.commit()
+
 ## Get Functions: Retrieve data from the database ############################################################################
 
 
@@ -196,6 +210,16 @@ def getResponse(meetingId, responderId):
 		return None
 
 	return response
+
+# Get a list of existing responses from a meetingId, returns the list or None of meetingId does not exist
+def getResponsesfromMeeting(meetingId):
+	if meetingId is None:
+		return None
+
+	rsp = (db.session.query(Response).\
+		filter(Response.meetingId==meetingId))
+
+	return rsp.all()
 
 # Returns all the meetings where a user with id netid is the creator
 def getUserCreatedMeetings(netid):

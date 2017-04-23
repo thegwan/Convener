@@ -36,18 +36,20 @@ def index():
 	jpost = request.get_json()
 
 	# sample creation
-	jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-2017', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-2017'}
+	jpost1 = {u'category': 'creation', u'title': 'The Olympics', u'response': [{u'date': u'04-18-2017', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-2017'}
 	# sample response
-	jpost2 = {u'mid': 10, u'response': [{u'date': u'04-19-2017', u'time': u'7am'}, {u'date': u'04-20-2017', u'time': u'7am'}], u'netid': u'hsolis'}
+	jpost2 = {u'category': 'response', u'mid': 10, u'response': [{u'date': u'04-19-2017', u'time': u'7am'}, {u'date': u'04-20-2017', u'time': u'7am'}], u'netid': u'hsolis'}
 	# sample decision
-	jpost3 = {u'mid': 10, u'finalTime': [{u'date': u'04-22-2017', u'time': u'10am'}], u'netid': u'gwan'}
+	jpost3 = {u'category': 'decision', u'mid': 10, u'finalTime': [{u'date': u'04-22-2017', u'time': u'10am'}], u'netid': u'gwan'}
 	# sample update preferred times
-	jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
+	jpost4 = {u'category': 'updatePref', u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
+	# sample meeting deletion
+	jpost5 = {u'category': 'meetingDelete', u'mid': 11, u'netid': 'gwan'}
+
 	
-	# test ajax security
-	#jpost = jpost4
 	if jpost is not None:
 		# test make sure received
+		#jpost = jpost5
 		print jpost
 		# update database
 		server2db.parse(jpost)

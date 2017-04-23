@@ -177,11 +177,12 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, creationD
 		$('#tableHeader').text(title);
 		$('#tableSubHeader').text('Select a final meeting time');
 
-		// Show only the submit button
+		// Show the submit and delete button
 		$('#createMeetingButton').hide();
 		$('#clearButton').hide();
 		$('#loadPreferredTimesButton').hide();
 		$('#submitButton').show();
+		$('#deleteMeetingButton').show();
 		
 
 		createdMid = mid;
@@ -206,7 +207,7 @@ function createAvailableDict (responderTimes, numResponding) {
 			}
 		}	
 	}
-	document.getElementById('availableHeader').innerText = 'Available: 0/' + numResponding;
+	$('#availableHeader').text('Available: 0/' + numResponding);
 	// console.log(availableDict);	
 }
 
@@ -223,7 +224,6 @@ function clickRequested(i, title, creator, mid, creationDate) {
 		// Show only the clear, loadTimes, and respond buttons
 		$('#createMeetingButton').hide();
 		$('#respondButton').show();
-
 
 		document.getElementById('respondButton').style.visibility = 'visible';
 
@@ -282,6 +282,7 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 
 function makeCreationJSON(netid) {
 	var toServer = {};
+	toServer.category = "creation";
 	toServer.netid = netid;
 	toServer.response = [];
 
@@ -330,6 +331,7 @@ function makeCreationJSON(netid) {
 
 function makeResponseJSON(netid) {
 	var toServer = {};
+	toServer.category = "response";
 	toServer.netid = netid;
 	toServer.response = [];
 
@@ -366,6 +368,7 @@ function makeResponseJSON(netid) {
 
 function makePreferenceJSON(netid) {
 	var toServer = {};
+	toServer.category = "updatePref";
 	toServer.netid = netid;
 	toServer.preferredTimes = [];
 
@@ -399,6 +402,7 @@ function makePreferenceJSON(netid) {
 
 function makeFinalJSON(netid) {
 	var toServer = {};
+	toServer.category = "decision";
 	toServer.netid = netid;
 	toServer.finalTime = [];
 
@@ -417,6 +421,35 @@ function makeFinalJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){alert('Meeting Scheduled');}
+	});
+	// Refresh the page asynchronously
+	$.getJSON('/_refreshPage', {
+
+	}, function(data) {
+		// alert('at least we made it this far');
+		parseInitialData(data);
+	});
+	resetEverything();
+}
+
+// Creates JSON to delete a meeting. Contains mid and netid
+
+function makeMeetingDeleteJSON(netid) {
+	var toServer = {};
+	toServer.category = "meetingDelete";
+	toServer.netid = netid;
+	toServer.mid = createdMid;
+
+	// Server needs to be prepared for this response
+
+	$.ajax({
+		type: 'POST',
+		contentType: 'application/json',
+		// Encode data as JSON.
+		data: JSON.stringify(toServer),
+		dataType: 'text',
+		url: '/',
+		success: function(){alert('Meeting Deleted');}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {

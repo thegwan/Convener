@@ -1,16 +1,8 @@
 # db2server.py
-# parses data from database to a json
+# parses data from server to database
 
 import json, re
 import database as db
-
-# sample data
-
-jpost1 = {u'title': 'The Olympics', u'response': [{u'date': u'04-18-2017', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-2017'}
-jpost2 = {u'mid': 1, u'response': [{u'date': u'04-19-2017', u'time': u'7am'}, {u'date': u'04-20-2017', u'time': u'7am'}], u'netid': u'gwan'}
-jpost3 = {u'mid': 3, u'finalTime': [{u'date': u'04-22-2017', u'time': u'10am'}], u'netid': u'gwan'}
-jpost4 = {u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
-
 
 #-----------------------------------------------------------------------
 
@@ -90,7 +82,7 @@ def responders_isValid(responders):
 
 # checks if creation jpost is valid
 def isValid_Creation(jpost):
-	creationFields   = ["title", "netid", "response", "responders", "creationDate"]
+	creationFields   = ["category", "title", "netid", "response", "responders", "creationDate"]
 
 	for key in jpost:
 		if key not in creationFields:
@@ -114,7 +106,7 @@ def isValid_Creation(jpost):
 
 # checks if response jpost is valid
 def isValid_Response(jpost):
-	responseFields   = ["mid", "netid", "response"]
+	responseFields   = ["category", "mid", "netid", "response"]
 
 	for key in jpost:
 		if key not in responseFields:
@@ -134,7 +126,7 @@ def isValid_Response(jpost):
 
 # checks if decision jpost is valid
 def isValid_Decision(jpost):
-	decisionFields   = ["mid", "netid", "finalTime"]
+	decisionFields   = ["category", "mid", "netid", "finalTime"]
 
 	for key in jpost:
 		if key not in decisionFields:
@@ -156,10 +148,9 @@ def isValid_Decision(jpost):
 
 # checks if preference jpost is valid
 def isValid_Preference(jpost):
-	preferenceFields = ["netid", "preferredTimes"]
+	preferenceFields = ["category", "netid", "preferredTimes"]
 
 	for key in jpost:
-		print key
 		if key not in preferenceFields:
 			return False
 
@@ -172,6 +163,31 @@ def isValid_Preference(jpost):
 	return True
 
 #-----------------------------------------------------------------------
+
+def isValid_MeetingDelete(jpost):
+	meetingDeleteFields = ["category", "mid", "netid"]
+	for key in jpost:
+		if key not in meetingDeleteFields:
+			return False
+
+	if not isinstance(jpost["netid"], basestring):
+		return False
+	if not isinstance(jpost["mid"], int):
+		return False
+
+	# check if netid is the creator of the meeting
+	meeting = db.getMeeting(jpost["mid"])
+	if meeting not in db.getUserCreatedMeetings(jpost["netid"]):
+		return False
+
+	print "meeting deletion ok"
+	return True
+
+
+#-----------------------------------------------------------------------		
+
+
+#-----------------------------------------------------------------------		
 
 # adds invited users to database if not already there
 def inviteUsers(responders):
@@ -255,16 +271,30 @@ def parsePreference(jpost):
 
 #-----------------------------------------------------------------------
 
+# deletes meeting from database
+def parseMeetingDelete(jpost):
+	if not isValid_MeetingDelete(jpost):
+		print "Meeting Deletion went wrong. Not deleted."
+		return
+
+	mid = jpost["mid"]
+
+	db.deleteMeeting(mid)
+
+#-----------------------------------------------------------------------
+
 # distinguishes between a meeting creation and a meeting response
 def parse(jpost):
-	if "responders" in jpost:
+	if jpost["category"] == "creation":
 		parseCreation(jpost)
-	elif "finalTime" in jpost:
+	elif jpost["category"] == "decision":
 		parseDecision(jpost)
-	elif "preferredTimes" in jpost:
+	elif jpost["category"] == "updatePref":
 		parsePreference(jpost)
-	elif "mid" in jpost:
+	elif jpost["category"] == "response":
 		parseResponse(jpost)
+	elif jpost["category"] == "meetingDelete":
+		parseMeetingDelete(jpost)
 	else:
 		return
 
