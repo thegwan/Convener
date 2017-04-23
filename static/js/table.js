@@ -364,7 +364,7 @@ function heatmap(responderTimes, respondedLength) {
 			$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
 		}
 		else
-			$(cell).css('background', colors[0]);
+			$(cell).css('background', colors[4]);
 
 	}
 }
@@ -418,6 +418,7 @@ function loadPTimes() {
 
 // load preferred table (Table_Pref object)
 function loadPreferredTable(table_pref) {
+	resetEverything();
 	if ($("#prefTable").is(":visible")) {
 		$("#prefTable").hide();
 		$("#mainTable").show();

@@ -118,13 +118,13 @@
           					{{ table.html | safe }}
                     {{ table_pref.html | safe }}
           					<button type="button" id="clearButton" class="greenButton" onclick="clearSelected()">Clear</button>
-          					<button type="button" id="loadPreferredTimesButton" class="greenButton" onclick="loadPTimes()">Load PTimes</button>
+          					<button type="button" id="loadPreferredTimesButton" class="greenButton" onclick="loadPTimes()">Load Preferences</button>
           					
           					<button type="button" id="createMeetingButton" class="greenButton" data-toggle="modal" data-target="#createMeetingModal">Create</button>
           					<button type="button" id="submitButton" class="greenButton" onclick="makeFinalJSON('{{ user }}')">Submit</button>
                     <button type="button" id="deleteMeetingButton" class="greenButton" onclick="makeMeetingDeleteJSON('{{ user }}')">Delete</button>
           					<button type="button" id="respondButton" class="greenButton" onclick="makeResponseJSON('{{ user }}')">Respond</button>
-          					<button type="button" id="updatePreferredTimesButton" class="greenButton" onclick="">Update PTimes</button>
+          					<button type="button" id="updatePreferredTimesButton" class="greenButton" onclick="makePreferenceJSON('{{ user }}')">Save</button>
                     <!-- Create Meeting Modal -->
                     <div class="modal fade" id="createMeetingModal" role="dialog">
                       <div class="modal-dialog modal-lg">
