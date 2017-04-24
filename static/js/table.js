@@ -447,7 +447,7 @@ function loadPreferredTable(table_pref) {
 function rotateTable(creationDate) {
 	var headers = $('#mainTable').find('th');
 	var dateParts = creationDate.split('-');
-	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		
 	// This year thing will be highly unstable near the edges of a year
 	myCells = document.getElementsByClassName('cell');
