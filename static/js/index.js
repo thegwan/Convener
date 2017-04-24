@@ -511,11 +511,11 @@ function createScheduledImage(checked) {
 
 // Creates a snackbar with the message msg
 function displaySnackBar(msg) {
-    $('#snackbar').text(msg);
-    $('#snackbar').addClass('show');
+    $('#mainSnackbar').text(msg);
+    $('#mainSnackbar').addClass('show');
 
     // After 3 seconds, remove the show class from DIV
-    setTimeout(function(){ $('#snackbar').removeClass('show'); }, 3000);
+    setTimeout(function(){ $('#mainSnackbar').removeClass('show'); }, 3000);
 }
 
 // Hides the modal

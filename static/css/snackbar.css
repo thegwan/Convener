@@ -1,7 +1,7 @@
 /* Taken from W3Schools */
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
-#snackbar {
+#mainSnackbar {
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
@@ -17,13 +17,35 @@
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
-#snackbar.show {
+#mainSnackbar.show {
     visibility: visible; /* Show the snackbar */
 
 /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
 However, delay the fade out process for 2.5 seconds */
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#tooltipSnackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #55BB55;
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 4px; /* Rounded borders */
+    padding: 5px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 80%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+#tooltipSnackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
 }
 
 /* Animations to fade the snackbar in and out */

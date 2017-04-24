@@ -11,7 +11,7 @@ class Table_Pref(object):
 	
 	def __init__(self):
 		# print table
-		self.html = "<table id='prefTable' class='table table-bordered table-condensed overwrite_table'>"
+		self.html = "<table id='prefTable' class='table table-bordered table-condensed overwrite_table' style='display: none;'>"
 		self.html += self.printHeader()
 		self.html += self.printCells()
 		self.html += "</table>"
