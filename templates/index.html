@@ -44,7 +44,7 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Welcome, {{ user }}</a></li>
+          <li><p>Welcome, {{ user }}</p></li>
           <li><a href="#" onclick="resetEverything()">Home</a></li>
           <li><a href="#" onclick="loadPreferredTable()">Preferred</a></li>
           <li class="requestsLI">
@@ -72,7 +72,7 @@
             <!-- Left Column: Responded Meetings and My Meetings -->
             <div id="leftFea" class="fea">
               <div class="col-md-3 leftSection">
-              	<div class="legendDiv">
+<!--               	<div class="legendDiv">
               		Note: 
               		<table class="table table-bordered legendTable">
               			<tr>
@@ -84,8 +84,7 @@
               				<th>Final time not yet selected</th>
               			</tr>
               		</table>
-<!--               		<i class="fa fa-calendar-check-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i> means the meeting has been scheduled. <i class="fa fa-calendar-times-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i> means a final time has not yet been selected. -->
-              	</div>
+              	</div> -->
                 <!-- Responded Meetings -->
                 <div class="row">
             	  <div class="fea-img col-md-2">
@@ -128,11 +127,11 @@
 	              	<h6 id="tableSubHeader">Create Meeting</h6>
             	  </div>
 	            </div>
-                <div class="col-md-1">
+<!--                 <div class="col-md-1">
                   <div id="am">AM</div>
                   <div id="pm">PM</div>
-                </div>
-                <div class="col-md-11">
+                </div> -->
+                <div class="col-md-12">
                   <div class="table-responsive">
           					<!-- Construct Table -->
           					{{ table.html | safe }}
@@ -205,14 +204,14 @@
               	  </div>
               	  <div class="row">
               	    <div class="col-md-6">
-              	    	<ul>
-	              	      <li>Gerry</li>	
+              	    	<ul id="respondedUnorderedList">
+	              	      <!-- <li>Gerry</li>	 -->
               	    	</ul>
               	    </div>
               	    <div class="col-md-6">
-              	    	<ul>
-              	    	  <li>Hector</li>
-              	    	  <li>John</li>
+              	    	<ul id="notRespondedUnorderedList">
+              	    	  <!-- <li>Hector</li> -->
+              	    	  <!-- <li>John</li> -->
               	    	</ul>
               	    </div>
               	  </div>

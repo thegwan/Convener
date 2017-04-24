@@ -174,7 +174,7 @@ div.rowDiv:hover {
 
 .leftSection {
 	/*border-right: dashed orange 3px;*/
-	margin-top: 20px;
+	margin-top: 80px;
 }
 
 .rightSection {
@@ -206,4 +206,20 @@ div.rowDiv:hover {
 
 .legendTable {
 	pointer-events: none;
+}
+
+.navbar-nav > li > p {
+	padding: 10px 15px;
+	margin: 10px 5px;
+	font-size: 14px;
+	color: #7a807c;
+	text-shadow: 1px 0px 0 #444;
+}
+
+#respondedUnorderedList, #notRespondedUnorderedList {
+	list-style: none;
+}
+
+.snackbarListItem {
+	text-decoration: none;
 }

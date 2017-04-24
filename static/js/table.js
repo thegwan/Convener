@@ -424,7 +424,7 @@ function loadPTimes() {
 }
 
 // load preferred table (Table_Pref object)
-function loadPreferredTable(table_pref) {
+function loadPreferredTable() {
 	resetEverything();
 	if ($("#prefTable").is(":visible")) {
 		$("#prefTable").hide();
@@ -438,9 +438,26 @@ function loadPreferredTable(table_pref) {
 	// Show only the clear and updatePreferredTimes buttons
 	$('#createMeetingButton').hide();
 	
-	// $('#loadPreferredTimesButton').hide();
+	$('#loadPreferredTimesButton').hide();
 	// $('#clearButton').hide();
 	$('#updatePreferredTimesButton').show();
+
+
+	$('#tableHeader').text('Preferred Meeting Times');
+	$('#tableSubHeader').text('Modify your preferred times');
+
+	// loop through init_data and put it on the pref_table
+	for (var j = 0; j < parsedData['my_preferred'].length; j++) {
+		var pref_daytime = parsedData['my_preferred'][j];
+		var pref_day = pref_daytime['day'];
+		var pref_time = pref_daytime['time'];
+		// console.log(pref_day + pref_time);
+		var pref_id = '#' + pref_day + '_' + pref_time;
+
+		if ($(pref_id)) {
+			$(pref_id).addClass("selected");
+		}
+	}
 }
 
 // Moves the main table to display starting from creation date

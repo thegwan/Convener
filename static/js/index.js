@@ -38,15 +38,17 @@ function parseInitialData(init_data) {
 	for (var i = 0; i < parsedData['my_meetings'].length; i++){
 		var meeting = parsedData['my_meetings'][i];
 
-		// Create a string of who has and hasn't responded
-		respString = '';
-		notRespString = '';
-		for (var j = 0; j < meeting['resp_netids'].length; j++){
-			respString += meeting['resp_netids'][j] + ' ';
-		}
-		for (var k = 0; k < meeting['nresp_netids'].length; k++){
-			notRespString += meeting['nresp_netids'][k] + ' ';
-		}
+		// // Create a string of who has and hasn't responded
+		// respString = '';
+		// notRespString = '';
+		// for (var j = 0; j < meeting['resp_netids'].length; j++){
+		// 	respString += meeting['resp_netids'][j] + ' ';
+		// }
+		// respString = respString.trim();
+		// for (var k = 0; k < meeting['nresp_netids'].length; k++){
+		// 	notRespString += meeting['nresp_netids'][k] + ' ';
+		// }
+		// notRespString = notRespString.trim();
 		// Elements where my meetings is to be stored
 		var rowDiv = document.createElement("DIV");
 		var titleDiv = document.createElement("DIV");
@@ -71,9 +73,16 @@ function parseInitialData(init_data) {
 		$(titleDiv).addClass('titleDiv col-md-10 col-sm-10 col-xs-10');
 		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
 
-		// Add a tooltip for when the meeting is hovered over
-		$(rowDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
+		// Add a snackbar for when the meeting is hovered over
+		// $(rowDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
 		
+		var mouseenterFunc = rowDivMouseenter(meeting);
+		var mouseleaveFunc = rowDivMouseleave(meeting);
+
+		$(rowDiv)
+			.mouseenter(mouseenterFunc)
+		  	.mouseleave(mouseleaveFunc);
+
 		// Add a star to the starDiv if the meeting is confirmed
 		starDiv.appendChild(createScheduledImage(meeting['finaltime'].length > 0));
 
@@ -116,7 +125,7 @@ function parseInitialData(init_data) {
 		
 		// Adds classes to be styled in css later
 		$(rowDiv).addClass('rowDiv');
-		$(titleDiv).addClass('tooltipDiv titleDiv col-md-10 col-sm-10 col-xs-10');
+		$(titleDiv).addClass('titleDiv col-md-10 col-sm-10 col-xs-10');
 		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
 		
 		// Add a star to the starDiv if the meeting is confirmed
@@ -504,7 +513,7 @@ function createScheduledImage(checked) {
 		$(image).addClass('fa-calendar-check-o');
 	}
 	else {
-		$(image).addClass('fa-calendar-times-o');
+		$(image).addClass('fa-ellipsis-h');
 	}
 	return image;
 }
@@ -521,4 +530,28 @@ function displaySnackBar(msg) {
 // Hides the modal
 function dismissModal() {
 	$('#createMeetingModal').modal('hide');
+}
+
+// Adds the responded netids to the snackbar on mouseover
+function rowDivMouseenter(meeting) {
+	return function() {
+		$('#respondedUnorderedList li').remove();
+		$('#notRespondedUnorderedList li').remove();
+		// Append the info to the snackbar
+		for (var i = 0; i < meeting['resp_netids'].length; i++) {
+			var listItem = document.createElement("LI");
+			$(listItem).addClass('snackbarListItem');
+			$(listItem).text(meeting['resp_netids'][i]);
+			document.getElementById('respondedUnorderedList').appendChild(listItem);
+		}
+
+		$('#tooltipSnackbar').addClass('show');
+		// alert('should show');
+	}
+}
+
+function rowDivMouseleave(meeting) {
+	return function() {
+		$('#tooltipSnackbar').removeClass('show');
+	}
 }

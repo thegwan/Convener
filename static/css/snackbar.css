@@ -44,8 +44,8 @@ However, delay the fade out process for 2.5 seconds */
 #tooltipSnackbar.show {
     visibility: visible; /* Show the snackbar */
 
-    -webkit-animation: fadein 0.5s;
-    animation: fadein 0.5s;
+    -webkit-animation: fadein 0.1s;
+    animation: fadein 0.1s;
 }
 
 /* Animations to fade the snackbar in and out */
