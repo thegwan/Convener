@@ -544,7 +544,12 @@ function rowDivMouseenter(meeting) {
 			$(listItem).text(meeting['resp_netids'][i]);
 			document.getElementById('respondedUnorderedList').appendChild(listItem);
 		}
-
+		for (var i = 0; i < meeting['nresp_netids'].length; i++) {
+			var listItem = document.createElement("LI");
+			$(listItem).addClass('snackbarListItem');
+			$(listItem).text(meeting['nresp_netids'][i]);
+			document.getElementById('notRespondedUnorderedList').appendChild(listItem);
+		}
 		$('#tooltipSnackbar').addClass('show');
 		// alert('should show');
 	}

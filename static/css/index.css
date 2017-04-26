@@ -218,6 +218,7 @@ div.rowDiv:hover {
 
 #respondedUnorderedList, #notRespondedUnorderedList {
 	list-style: none;
+	padding: 0px;
 }
 
 .snackbarListItem {
