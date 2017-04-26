@@ -268,8 +268,8 @@ function clearColored() {
 // where userTimes are the user's response, and creatorTimes are the creator's
 // response when initially creating the meeting
 function responsemap(userTimes, creatorTimes) {
-	colors = ['#0ABD21',
-			  '#E8FDE7'];
+	colors = ['#2074D6',
+			  '#A3F5FF'];
 	clearSelected();
 	// convert creatorTimes
 	for (var i = 0; i < creatorTimes.length; i++) {
@@ -294,41 +294,33 @@ function responsemap(userTimes, creatorTimes) {
 // where responderTimes is a dict of key netid, value times list pairs 
 // Gives a weight to each response depending on how many people responded
 function heatmap(responderTimes, respondedLength) {
-	// console.log(responderTimes)
-	// console.log(respondedLength)
-	// var colors = ['#24C904',  // most green
-	// 			  '#6ECF07',
-	// 			  '#87D008',
-	// 			  '#A0D209',
-	// 			  '#D3D60A',  // yellowish
-	// 			  '#D8C20B',
-	// 			  '#D9AC0C',
-	// 			  '#DB950D',
-	// 			  '#DD7F0E',
-	// 			  '#DF680F']  // most orange
-	// var colors = ['#0ABD21',  // most green
-	// 			  '#17E731',
-	// 			  '#2EE945',
-	// 			  '#45EC59',
-	// 			  '#5CEE6D',  
-	// 			  '#74F182',
-	// 			  '#8BF396',
-	// 			  '#A2F5AA',
-	// 			  '#B9F8BE',
-	// 			  '#E8FDE7'];  // most whitish
+
+	// var colors = [
+	// 			    '#0A9B03',
+	// 			    '#0DCD04',
+	// 				'#27D31D',
+	// 			    '#41D937',
+	// 			    '#5BDF51',
+	// 			    '#6CE362',
+	// 			    '#86E97C',
+	// 			    '#97ED8D',
+	// 			    '#A9F19E',
+	// 			    '#C3F7B8',
+	// 			    '#DDfDD2'
+	// 			 ];
 	var colors = [
-				    '#0A9B03',
-				    '#0DCD04',
-					'#27D31D',
-				    '#41D937',
-				    '#5BDF51',
-				    '#6CE362',
-				    '#86E97C',
-				    '#97ED8D',
-				    '#A9F19E',
-				    '#C3F7B8',
-				    '#DDfDD2'
-				 ];
+			    '#034AB0',
+				'#1064D1',
+				'#2074D6',
+			    '#3084DB',
+				'#4194E0',
+				'#51A4E5',
+				'#61B4EA',
+				'#72C4EF',
+				'#82D4F4',
+				'#92E4F9',
+			    '#A3F5FF'
+				];
 	clearSelected();
 	var counts = {};
 	// var weight = 20;
