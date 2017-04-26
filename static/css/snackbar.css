@@ -30,7 +30,7 @@ However, delay the fade out process for 2.5 seconds */
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: #55BB55;
+    background-color: #1aa3ff;
     color: #fff; /* White text color */
     text-align: center; /* Centered text */
     border-radius: 4px; /* Rounded borders */
