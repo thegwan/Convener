@@ -469,7 +469,7 @@ function rotateTable(creationDate) {
 
 	for (var i = 0; i < headers.length; i++) {
 		var oldTime = $(headers[i]).text();
-		var oldDate = [oldTime.substring(0, oldTime.length-2), oldTime.substring(oldTime.length-2)];
+		var oldDate = [oldTime.substring(3, 6), oldTime.substring(6, 9)];
 		//var oldDate = oldTime.split('\n');
 		// oldDate[0].trim();
 
@@ -498,19 +498,28 @@ function rotateTable(creationDate) {
 			// console.log(newDateString + '_' + j + 'am');
 			
 			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am').id = newDateString + '_' + j + 'am';
-			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am');
-			newIdsList.push(newDateString + '_' + j + 'am');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':00am');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':30am');
+			
+			newIdsList.push(newDateString + '_' + j + ':00am');
+			newIdsList.push(newDateString + '_' + j + ':30am');
 		}
 		for (var j = 1; j <= 12; j++) {
 			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm').id = newDateString + '_' + j + 'pm';
-			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm');
-			newIdsList.push(newDateString + '_' + j + 'pm');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':00pm');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':30pm');
+			
+			newIdsList.push(newDateString + '_' + j + ':00pm');
+			newIdsList.push(newDateString + '_' + j + ':30pm');
 		}
 	}
+
+	console.log(oldIdsList);
 	// Populate temporary ids list
 	for (var i = 0; i < oldIdsList.length; i++) {
 		var tempString = "temp" + i.toString();
 		tempIdsList.push(tempString);
+		console.log(oldIdsList[i]);
 		document.getElementById(oldIdsList[i]).id = tempString;
 	}
 
@@ -531,7 +540,7 @@ function neutralizeTable() {
 
 	var todayString = month + '-' + day + '-' + year;
 
-	rotateTable(todayString);
+	// rotateTable(todayString);
 }
 
 // Pads a single digit number with a leading 0, or just returns the number
