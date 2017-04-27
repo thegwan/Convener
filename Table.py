@@ -58,7 +58,7 @@ class Table(object):
 				html += "<tr>"
 			for col in range(2 * self.DAYS_IN_WEEK):
 				# am
-				if hour < 12:
+				if row < 12:
 					if not incr_hour:
 						html += self.formatCell(col, hour, '00', 'am')
 					else:
