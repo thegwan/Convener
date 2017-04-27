@@ -411,7 +411,7 @@ function makePreferenceJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Preferences Submitted', 3000);
+			displaySnackBar('Preferences Saved', 3000);
 		}
 	});
 	// Refresh the page asynchronously
