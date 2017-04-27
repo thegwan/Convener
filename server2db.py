@@ -214,6 +214,9 @@ def parseCreation(jpost):
 
 	netid = jpost["netid"]
 	title = jpost["title"]
+	# remove quotations from titles
+	title = title.replace("'", "")
+	title = title.replace('"', '')
 	creatorId = db.getUser(netid).uid
 	respondingIds = str([db.getUser(responder).uid for responder in responders])
 	creationDate = jpost["creationDate"]

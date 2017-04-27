@@ -22,7 +22,6 @@ def myMeetings_toList(my_meetings):
 		for responder in resp_netids:
 			times = db.getUserPreferredTimes(mid, responder)
 			responder_times[responder] = times
-		
 		my_meetings_list.append({
 			"mid":mid,
 			"title":title,
@@ -33,7 +32,6 @@ def myMeetings_toList(my_meetings):
 			"responder_times":responder_times,
 			"finaltime":finaltime
 			})
-
 	return my_meetings_list
 
 #-----------------------------------------------------------------------

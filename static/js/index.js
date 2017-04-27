@@ -54,7 +54,7 @@ function parseInitialData(init_data) {
 		var titleDiv = document.createElement("DIV");
 		var starDiv = document.createElement("DIV");
 		var textNode = document.createTextNode(meeting['title']);
-		console.log(meeting['title']);
+
 		// Function that runs when any myMeeting is clicked
 		var f = clickMyMeeting(i, meeting['title'], 
 			meeting['resp_netids'].length, meeting['mid'], 
