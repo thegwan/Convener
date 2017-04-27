@@ -251,7 +251,10 @@ div.rowDiv:hover {
 }
 
 .rightSection {
-	margin-top: 80px;
+	/*margin-top: 80px;*/
+	position: fixed;
+	top: 10%;
+	right:0%;
 }
 
 .legendDiv {

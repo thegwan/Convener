@@ -200,9 +200,9 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime
 
 		// Highlights the final time if it has already been selected
 		for (var j = 0; j < finaltime.length; j++) {
-			var daytime = "#"+finaltime[j]["date"]+"_"+finaltime[j]["time"];
-			$(daytime).css('border', '5px solid yellow');
-			$(daytime).addClass('selectedColored');
+			var daytime = finaltime[j]["date"]+"_"+finaltime[j]["time"];
+			document.getElementById(daytime).style.border = '5px solid yellow';
+			document.getElementById(daytime).classList.add('selectedColored');
 		}
 	}
 };
@@ -260,7 +260,7 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 		var usertimes = parsedData['my_responded'][i]['times'];
 		var creatortimes = parsedData['my_responded'][i]['creator_times'];
 
-		responsemap(usertimes, creatortimes)
+		responsemap(usertimes, creatortimes);
 
 		// Hide all buttons
 		$('#createMeetingButton').hide();
@@ -277,8 +277,9 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 
 		// Highlights the final time if it has already been selected
 		for (var j = 0; j < finaltime.length; j++) {
-			var daytime = "#"+finaltime[j]["date"]+"_"+finaltime[j]["time"];
-			$(daytime).css('border', '5px solid yellow');
+			var daytime = finaltime[j]["date"]+"_"+finaltime[j]["time"];
+			document.getElementById(daytime).style.border = '5px solid yellow';
+			document.getElementById(daytime).classList.add('selectedColored');
 		}
 		inMyMeeting = false;
 	}
