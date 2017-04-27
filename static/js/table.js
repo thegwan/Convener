@@ -515,7 +515,6 @@ function rotateTable(creationDate) {
 		var tempString = "temp" + i.toString();
 		tempIdsList.push(tempString);
 		
-		console.log(oldIdsList[i]);
 		document.getElementById(oldIdsList[i]).id = tempString;
 	}
 
