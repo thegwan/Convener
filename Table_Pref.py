@@ -20,8 +20,10 @@ class Table_Pref(object):
 	# print the days of the week as headers, starting from today
 	def printHeader(self):
 		html = "<tr>"
+		col = 0
 		for day in self.dayArray:
-			html += "<th>%s</th>" % day
+			html += '<th data-column="%d">%s</th>' % (col, day)
+			col += 1
 		html += "</tr>"
 		return html
 
@@ -55,6 +57,6 @@ class Table_Pref(object):
 	def formatCell(self, col, hour, am_pm, incr_hour):
 		html = ""
 		if not incr_hour:
-			return "<td id ='%s_%d:00%s' class='cell selectable'><b>%d:00</b></td>" % (self.dayArray[col], hour, am_pm, hour)
+			return "<td id ='%s_%d:00%s' class='cell selectable' data-column='%d'><b>%d:00</b></td>" % (self.dayArray[col], hour, am_pm, col, hour)
 		else:
-			return "<td id ='%s_%d:30%s' class='cell selectable'>30</td>" % (self.dayArray[col], hour, am_pm)
+			return "<td id ='%s_%d:30%s' class='cell selectable' data-column='%d'>30</td>" % (self.dayArray[col], hour, am_pm, col)

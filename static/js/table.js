@@ -63,11 +63,22 @@ $(document).ready(function() {
 		$cell.off('mouseenter.selected')
 	});
 
-	// When header is clicked, highlight the whole column
+	// When mainTable header is clicked, highlight the whole column
 	$('body').on('click', '#mainTable th', function() {
 		// grab the column number
 		var column = $(this).attr('data-column');
 		var cells_in_column = $('#mainTable td[data-column=' + column + ']');
+		if (cells_in_column.hasClass('selected'))
+			cells_in_column.removeClass('selected');
+		else
+			cells_in_column.addClass('selected');
+	});
+
+	// When prefTable header is clicked, highlight the whole column
+	$('body').on('click', '#prefTable th', function() {
+		// grab the column number
+		var column = $(this).attr('data-column');
+		var cells_in_column = $('#prefTable td[data-column=' + column + ']');
 		if (cells_in_column.hasClass('selected'))
 			cells_in_column.removeClass('selected');
 		else
