@@ -329,9 +329,19 @@ function makeCreationJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Event Created');
+			displaySnackBar("Event Created", 3000);
+
 		}
 	});
+
+	$.getJSON('/_creationError', {
+	}, function(data) {
+		valid = JSON.parse(data);
+		if (!valid) {
+			displaySnackBar("Please make sure NetIDs are spelled correctly", 6000);
+		}
+	});
+
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
 
@@ -366,7 +376,7 @@ function makeResponseJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Response Submitted');
+			displaySnackBar('Response Submitted', 3000);
 		}
 	});
 	// Refresh the page asynchronously
@@ -401,7 +411,7 @@ function makePreferenceJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Preferences Submitted');
+			displaySnackBar('Preferences Submitted', 3000);
 		}
 	});
 	// Refresh the page asynchronously
@@ -438,7 +448,7 @@ function makeFinalJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Meeting Scheduled');
+			displaySnackBar('Meeting Scheduled', 3000);
 		}
 	});
 	// Refresh the page asynchronously
@@ -469,7 +479,7 @@ function makeMeetingDeleteJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Meeting Deleted');
+			displaySnackBar('Meeting Deleted', 3000);
 		}
 	});
 	// Refresh the page asynchronously
@@ -519,12 +529,12 @@ function createScheduledImage(checked) {
 }
 
 // Creates a snackbar with the message msg
-function displaySnackBar(msg) {
+function displaySnackBar(msg, duration) {
     $('#mainSnackbar').text(msg);
     $('#mainSnackbar').addClass('show');
 
     // After 3 seconds, remove the show class from DIV
-    setTimeout(function(){ $('#mainSnackbar').removeClass('show'); }, 3000);
+    setTimeout(function(){ $('#mainSnackbar').removeClass('show'); }, duration);
 }
 
 // Hides the modal

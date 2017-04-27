@@ -17,11 +17,17 @@ with open('secrets', 'r') as s:
 app.secret_key = secrets[0].replace('\n', '')
 app.config['CAS_SERVER'] = 'https://fed.princeton.edu/cas/'
 app.config['CAS_AFTER_LOGIN'] = 'index'
+valid = False;
 
 @app.route('/_refreshPage/', methods = ['GET'])
 def refreshPage():
 	init_data = json.dumps(db2server.init_protocol(cas.username))
 	return init_data
+
+@app.route('/_creationError/', methods = ['GET'])
+def creationError():
+	global valid
+	return json.dumps(valid)
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
@@ -32,7 +38,7 @@ def index():
 	# if user has logged in for the first time, add user to db
 	server2db.inviteUsers([cas.username])
 
-	# get POSTed json (either a creation or a response)
+	# get POSTed json
 	jpost = request.get_json()
 
 	# sample creation
@@ -52,7 +58,8 @@ def index():
 		#jpost = jpost5
 		print jpost
 		# update database
-		server2db.parse(jpost)
+		global valid
+		valid = server2db.parse(jpost)
 	
 	# initial protocol
 	init_data = json.dumps(db2server.init_protocol(cas.username))

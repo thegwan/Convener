@@ -75,6 +75,11 @@ def responders_isValid(responders):
 	for netid in responders:
 		if not isinstance(netid, basestring):
 			return False
+		with open('netids.txt') as f:
+			netids = f.readlines()
+		netids = [n.strip() for n in netids]
+		if netid not in netids:
+			return False
 	return True
 
 
@@ -201,7 +206,7 @@ def inviteUsers(responders):
 def parseCreation(jpost):
 	if not isValid_Creation(jpost):
 		print "Creation update went wrong. Not updated."
-		return
+		return False
 
 	responders = jpost["responders"]
 	# make sure all responders exist in database
@@ -217,6 +222,7 @@ def parseCreation(jpost):
 	db.createResponse(meeting.mid, creatorId, str(jpost["response"]))
 	if db.getNotRespondedNetids(meeting.mid) == []:
 		db.updateMeeting(meeting.mid, allResponded=True)
+	return True
 
 #-----------------------------------------------------------------------
 
@@ -224,7 +230,7 @@ def parseCreation(jpost):
 def parseResponse(jpost):
 	if not isValid_Response(jpost):
 		print "Response update went wrong. Not updated."
-		return
+		return False
 
 	mid = jpost["mid"]
 
@@ -234,6 +240,7 @@ def parseResponse(jpost):
 	db.createResponse(mid, creatorId, str(jpost["response"]))
 	if db.getNotRespondedNetids(mid) == []:
 		db.updateMeeting(mid, allResponded=True)
+	return True
 
 
 #-----------------------------------------------------------------------
@@ -242,7 +249,7 @@ def parseResponse(jpost):
 def parseDecision(jpost):
 	if not isValid_Decision(jpost):
 		print "Final Time update went wrong. Not updated."
-		return
+		return False
 
 	mid = jpost["mid"]
 
@@ -254,6 +261,7 @@ def parseDecision(jpost):
 		db.updateMeeting(mid, allResponded=True, scheduledTime=finalTime)
 	else:
 		db.updateMeeting(mid, scheduledTime=finalTime)
+	return True
 
 
 #-----------------------------------------------------------------------
@@ -262,12 +270,13 @@ def parseDecision(jpost):
 def parsePreference(jpost):
 	if not isValid_Preference(jpost):
 		print "Preferred Times update went wrong. Not updated."
-		return
+		return False
 
 	netid = jpost["netid"]
 	preferredTimes = str(jpost["preferredTimes"])
 
 	db.updateUser(netid, preferredTimes=preferredTimes)
+	return True
 
 #-----------------------------------------------------------------------
 
@@ -275,28 +284,29 @@ def parsePreference(jpost):
 def parseMeetingDelete(jpost):
 	if not isValid_MeetingDelete(jpost):
 		print "Meeting Deletion went wrong. Not deleted."
-		return
+		return False
 
 	mid = jpost["mid"]
 
 	db.deleteMeeting(mid)
+	return True
 
 #-----------------------------------------------------------------------
 
 # distinguishes between a meeting creation and a meeting response
 def parse(jpost):
 	if jpost["category"] == "creation":
-		parseCreation(jpost)
+		return parseCreation(jpost)
 	elif jpost["category"] == "decision":
-		parseDecision(jpost)
+		return parseDecision(jpost)
 	elif jpost["category"] == "updatePref":
-		parsePreference(jpost)
+		return parsePreference(jpost)
 	elif jpost["category"] == "response":
-		parseResponse(jpost)
+		return parseResponse(jpost)
 	elif jpost["category"] == "meetingDelete":
-		parseMeetingDelete(jpost)
+		return parseMeetingDelete(jpost)
 	else:
-		return
+		return False
 
 #-----------------------------------------------------------------------
 

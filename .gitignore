@@ -1,4 +1,5 @@
 /venv*
 *.pyc
 secrets
+netids.txt
 .python-version

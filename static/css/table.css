@@ -18,6 +18,7 @@ td:hover {
 }
 
 td.unselectable {
+	/*background: rgb(228,228,228);*/
 	background: rgb(228,228,228);
 	/*pointer-events: none;*/
 }
@@ -33,8 +34,7 @@ td.unselectable:active {
 /* So, the !important stuff doesn't seem to work in firefox*/
 /* !important*/
 td.selected { 
-	/* background: rgb(0,228,0) ;*/
-	background: rgb(77,184,255) ;
+	background: #1AC9FF; /* #1AA3FF */
 }
 /* !important*/
 td.badtime { 
