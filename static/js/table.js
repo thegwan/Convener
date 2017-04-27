@@ -457,7 +457,9 @@ function rotateTable(creationDate) {
 	var headers = $('#mainTable').find('th');
 	var dateParts = creationDate.split('-');
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-		
+	var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	// console.log(headers);
+
 	// This year thing will be highly unstable near the edges of a year
 	myCells = document.getElementsByClassName('cell');
 	var firstCellId = myCells[0].id;
@@ -468,29 +470,23 @@ function rotateTable(creationDate) {
 	var tempIdsList = [];
 
 	for (var i = 0; i < headers.length; i++) {
-		var oldTime = $(headers[i]).text();
-		var oldDate = [oldTime.substring(3, 6), oldTime.substring(6, 9)];
-		//var oldDate = oldTime.split('\n');
-		// oldDate[0].trim();
+		var oldTime = headers[i].id;
+		var oldDate = oldTime.split('-');
 
 		// Calculate the new data from the creation date and add i days to make the whole table
 		var newDate = new Date(dateParts[2],dateParts[0]-1,dateParts[1]);
 		newDate.setDate(newDate.getDate() + i);
 
-		// headers[i].innerText = months[newDate.getMonth()].substring(0,3) + '\n' + padDigit(newDate.getDate());
-		//headers[i].innerText = months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate());
-		$(headers[i]).text(months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate()));
+		$(headers[i]).text(days[newDate.getDay()] + '\n' + months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate()));
+		$(headers[i]).attr('id', days[newDate.getDay()] + '-' + months[newDate.getMonth()] + '-' + padDigit(newDate.getDate()));
 
-		var oldMonth = padDigit(months.indexOf(oldDate[0].trim()) + 1);
-		var oldDay = padDigit(oldDate[1]);
+		var oldMonth = padDigit(months.indexOf(oldDate[1].trim()) + 1);
+		var oldDay = padDigit(oldDate[2]);
 		
 		var newMonth = padDigit(newDate.getMonth() + 1);
 		var newDay = padDigit(newDate.getDate());
 
 		var newDateString = newMonth + '-' + newDay + '-' + oldYear;
-		
-		// console.log(oldMonth + '-' + oldDay + '-' + oldYear);
-
 
 		// Issue with changing the ids concurrently say I turn the first row which was 4/15 into 4/19 well the old 4/19 doesn't change
 		for (var j = 6; j < 12; j++) {
@@ -514,11 +510,11 @@ function rotateTable(creationDate) {
 		}
 	}
 
-	console.log(oldIdsList);
 	// Populate temporary ids list
 	for (var i = 0; i < oldIdsList.length; i++) {
 		var tempString = "temp" + i.toString();
 		tempIdsList.push(tempString);
+		
 		console.log(oldIdsList[i]);
 		document.getElementById(oldIdsList[i]).id = tempString;
 	}
@@ -536,11 +532,11 @@ function neutralizeTable() {
 
 	var month = padDigit(today.getMonth() + 1);
 	var day = padDigit(today.getDate());
-	var year = today.getYear();
+	var year = today.getFullYear();
 
 	var todayString = month + '-' + day + '-' + year;
 
-	// rotateTable(todayString);
+	rotateTable(todayString);
 }
 
 // Pads a single digit number with a leading 0, or just returns the number

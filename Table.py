@@ -13,6 +13,8 @@ class Table(object):
 	inOrderDayArray = []
 	# used to create id for cells (stores date of each cell in mm-dd-yyyy)
 	idArray = []
+	# used to create id for header cells (store ids as day-month-date)
+	idHeaderArray = []
 	
 	def __init__(self):
 		# fill inOrderDayArray with dates for the next two weeks
@@ -21,6 +23,7 @@ class Table(object):
 			date = (datetime.now() + timedelta(i)).strftime('%d')
 			day = (datetime.now() + timedelta(i)).strftime('%a')
 			self.inOrderDayArray.append(day + "<br/>" + month + "<br/>" + date)
+			self.idHeaderArray.append(day + "-" + month + "-" + date)
 			self.idArray.append((datetime.now() + timedelta(i)).strftime('%m-%d-%Y'))
 
 		# print table
@@ -36,9 +39,9 @@ class Table(object):
 		index = 0
 		for day in self.inOrderDayArray:
 			if index == 6:
-				html += '<th class="bold_col">%s</th>' % day
+				html += '<th id="%s" class="bold_col">%s</th>' % (self.idHeaderArray[index], day)
 			else:
-				html += "<th>%s</th>" % day
+				html += '<th id="%s">%s</th>' % (self.idHeaderArray[index], day)
 			index += 1
 		html += "</tr>"
 		return html
