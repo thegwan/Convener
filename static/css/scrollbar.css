@@ -23,8 +23,8 @@
 									   40% 0%,
 									   75% 84%,
 									   from(#4D9CFB),
-									   to(#1920F8),
-									   color-stop(.6,#54DE5D))
+									   to(#1AA3FF),
+									   color-stop(.6,#0CA3FF))
 }
 
 ::-moz-scrollbar-track
@@ -48,8 +48,8 @@
 									   40% 0%,
 									   75% 84%,
 									   from(#4D9CFB),
-									   to(#1920F8),
-									   color-stop(.6,#54DE5D))
+									   to(#1AA3FF),
+									   color-stop(.6,#0CA3FF))
 }
 
 /*::-webkit-scrollbar-thumb:hover {

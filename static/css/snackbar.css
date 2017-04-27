@@ -30,14 +30,14 @@ However, delay the fade out process for 2.5 seconds */
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: #1aa3ff;
-    color: #fff; /* White text color */
+    background-color: #CCF3FF;
+    color: #000; /* Black text color */
     text-align: center; /* Centered text */
     border-radius: 4px; /* Rounded borders */
     padding: 5px; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
-    left: 80%; /* Center the snackbar */
+    left: 91%; /* Center the snackbar */
     bottom: 30px; /* 30px from the bottom */
 }
 

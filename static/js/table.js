@@ -268,8 +268,8 @@ function clearColored() {
 // where userTimes are the user's response, and creatorTimes are the creator's
 // response when initially creating the meeting
 function responsemap(userTimes, creatorTimes) {
-	colors = ['#2074D6',
-			  '#A3F5FF'];
+	colors = ['#1AC9FF',
+			  '#CCF3FF'];
 	clearSelected();
 	// convert creatorTimes
 	for (var i = 0; i < creatorTimes.length; i++) {
@@ -309,17 +309,17 @@ function heatmap(responderTimes, respondedLength) {
 	// 			    '#DDfDD2'
 	// 			 ];
 	var colors = [
-			    '#034AB0',
-				'#1064D1',
-				'#2074D6',
-			    '#3084DB',
-				'#4194E0',
-				'#51A4E5',
-				'#61B4EA',
-				'#72C4EF',
-				'#82D4F4',
-				'#92E4F9',
-			    '#A3F5FF'
+				'#00B0E6',
+				'#00C3FF',
+			    '#1AC9FF',
+				'#33CFFF',
+				'#4DD5FF',
+				'#66DBFF',
+				'#80E1FF',
+				'#99E7FF',
+				'#B3EDFF',
+			    '#CCf3FF',
+			    '#E6F9FF'
 				];
 	clearSelected();
 	var counts = {};
@@ -363,7 +363,7 @@ function heatmap(responderTimes, respondedLength) {
 			$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
 		}
 		else
-			$(cell).css('background', colors[4]);
+			$(cell).css('background', colors[5]);
 
 	}
 }
@@ -457,7 +457,9 @@ function rotateTable(creationDate) {
 	var headers = $('#mainTable').find('th');
 	var dateParts = creationDate.split('-');
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-		
+	var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+	// console.log(headers);
+
 	// This year thing will be highly unstable near the edges of a year
 	myCells = document.getElementsByClassName('cell');
 	var firstCellId = myCells[0].id;
@@ -468,29 +470,23 @@ function rotateTable(creationDate) {
 	var tempIdsList = [];
 
 	for (var i = 0; i < headers.length; i++) {
-		var oldTime = $(headers[i]).text();
-		var oldDate = [oldTime.substring(0, oldTime.length-2), oldTime.substring(oldTime.length-2)];
-		//var oldDate = oldTime.split('\n');
-		// oldDate[0].trim();
+		var oldTime = headers[i].id;
+		var oldDate = oldTime.split('-');
 
 		// Calculate the new data from the creation date and add i days to make the whole table
 		var newDate = new Date(dateParts[2],dateParts[0]-1,dateParts[1]);
 		newDate.setDate(newDate.getDate() + i);
 
-		// headers[i].innerText = months[newDate.getMonth()].substring(0,3) + '\n' + padDigit(newDate.getDate());
-		//headers[i].innerText = months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate());
-		$(headers[i]).text(months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate()));
+		$(headers[i]).text(days[newDate.getDay()] + '\n' + months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate()));
+		$(headers[i]).attr('id', days[newDate.getDay()] + '-' + months[newDate.getMonth()] + '-' + padDigit(newDate.getDate()));
 
-		var oldMonth = padDigit(months.indexOf(oldDate[0].trim()) + 1);
-		var oldDay = padDigit(oldDate[1]);
+		var oldMonth = padDigit(months.indexOf(oldDate[1].trim()) + 1);
+		var oldDay = padDigit(oldDate[2]);
 		
 		var newMonth = padDigit(newDate.getMonth() + 1);
 		var newDay = padDigit(newDate.getDate());
 
 		var newDateString = newMonth + '-' + newDay + '-' + oldYear;
-		
-		// console.log(oldMonth + '-' + oldDay + '-' + oldYear);
-
 
 		// Issue with changing the ids concurrently say I turn the first row which was 4/15 into 4/19 well the old 4/19 doesn't change
 		for (var j = 6; j < 12; j++) {
@@ -498,19 +494,27 @@ function rotateTable(creationDate) {
 			// console.log(newDateString + '_' + j + 'am');
 			
 			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am').id = newDateString + '_' + j + 'am';
-			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am');
-			newIdsList.push(newDateString + '_' + j + 'am');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':00am');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':30am');
+			
+			newIdsList.push(newDateString + '_' + j + ':00am');
+			newIdsList.push(newDateString + '_' + j + ':30am');
 		}
 		for (var j = 1; j <= 12; j++) {
 			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm').id = newDateString + '_' + j + 'pm';
-			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm');
-			newIdsList.push(newDateString + '_' + j + 'pm');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':00pm');
+			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':30pm');
+			
+			newIdsList.push(newDateString + '_' + j + ':00pm');
+			newIdsList.push(newDateString + '_' + j + ':30pm');
 		}
 	}
+
 	// Populate temporary ids list
 	for (var i = 0; i < oldIdsList.length; i++) {
 		var tempString = "temp" + i.toString();
 		tempIdsList.push(tempString);
+		
 		document.getElementById(oldIdsList[i]).id = tempString;
 	}
 
@@ -527,11 +531,11 @@ function neutralizeTable() {
 
 	var month = padDigit(today.getMonth() + 1);
 	var day = padDigit(today.getDate());
-	var year = today.getYear();
+	var year = today.getFullYear();
 
 	var todayString = month + '-' + day + '-' + year;
 
-	// rotateTable(todayString);
+	rotateTable(todayString);
 }
 
 // Pads a single digit number with a leading 0, or just returns the number
