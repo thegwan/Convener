@@ -15,7 +15,6 @@ def myMeetings_toList(my_meetings):
 		creation_date = meeting.creationDate	
 		resp_netids  = db.getRespondedNetids(meeting.mid)
 		nresp_netids = db.getNotRespondedNetids(meeting.mid)
-		#times = db.getRespondedPreferredTimes(meeting.mid)
 		all_responded = len(nresp_netids) == 0
 		finaltime = db.getScheduledTime(mid)
 
@@ -24,9 +23,6 @@ def myMeetings_toList(my_meetings):
 			times = db.getUserPreferredTimes(mid, responder)
 			responder_times[responder] = times
 		
-		# all_times = []
-		# for time in times:
-		# 	all_times += time
 
 		my_meetings_list.append({
 			"mid":mid,
@@ -96,62 +92,11 @@ def myRequests_toList(my_requests):
 
 #-----------------------------------------------------------------------
 
-# # returns list of pending (not allResponded) meetings for the user
-# def pending_toList(pending, netid):
-# 	pending_list = []
-# 	for meeting in pending:
-# 		title = meeting.title	
-# 		mid = meeting.mid
-# 		creator = db.getUserFromId(meeting.creatorId).netid
-# 		times = db.getUserPreferredTimes(meeting.mid, netid)
-# 		mine = creator == netid
-
-# 		pending_list.append({
-# 			"mid":mid,
-# 			"title":title,
-# 			"creator":creator,
-# 			"times":times,
-# 			"mine":mine
-# 			})
-
-# 	return pending_list
-
-
-# #-----------------------------------------------------------------------
-
-# # returns list of confirmed meetings for the user
-# def confirmed_toList(confirmed, netid):
-# 	confirmed_list = []
-# 	for meeting in confirmed:
-# 		mid = meeting.mid
-# 		title = meeting.title	
-# 		creator = db.getUserFromId(meeting.creatorId).netid
-# 		times = db.getUserPreferredTimes(meeting.mid, netid)
-# 		mine = creator == netid
-# 		finaltime = db.getScheduledTime(mid)
-
-# 		confirmed_list.append({
-# 			"mid":mid,
-# 			"title":title,
-# 			"creator":creator,
-# 			"times":times,
-# 			"mine":mine,
-# 			"finaltime":finaltime
-# 			})
-
-# 	return confirmed_list
-
-
-#-----------------------------------------------------------------------
-
-
+# creates json for data displayed on page at loadup
 def init_protocol(netid):
 
-	# get all meetings user created
 	my_meetings = db.getUserCreatedMeetings(netid)
-	# get all meetings user responded to
 	my_responded = db.getUserMeetings(netid)
-	# get all requests for user
 	my_requests = db.getUserRequestedMeetings(netid)
 
 	my_meetings_list = myMeetings_toList(my_meetings)

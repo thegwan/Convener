@@ -268,8 +268,8 @@ function clearColored() {
 // where userTimes are the user's response, and creatorTimes are the creator's
 // response when initially creating the meeting
 function responsemap(userTimes, creatorTimes) {
-	colors = ['#2074D6',
-			  '#A3F5FF'];
+	colors = ['#1AC9FF',
+			  '#CCF3FF'];
 	clearSelected();
 	// convert creatorTimes
 	for (var i = 0; i < creatorTimes.length; i++) {
@@ -309,17 +309,17 @@ function heatmap(responderTimes, respondedLength) {
 	// 			    '#DDfDD2'
 	// 			 ];
 	var colors = [
-			    '#034AB0',
-				'#1064D1',
-				'#2074D6',
-			    '#3084DB',
-				'#4194E0',
-				'#51A4E5',
-				'#61B4EA',
-				'#72C4EF',
-				'#82D4F4',
-				'#92E4F9',
-			    '#A3F5FF'
+				'#00B0E6',
+				'#00C3FF',
+			    '#1AC9FF',
+				'#33CFFF',
+				'#4DD5FF',
+				'#66DBFF',
+				'#80E1FF',
+				'#99E7FF',
+				'#B3EDFF',
+			    '#CCf3FF',
+			    '#E6F9FF'
 				];
 	clearSelected();
 	var counts = {};
@@ -363,7 +363,7 @@ function heatmap(responderTimes, respondedLength) {
 			$(cell).css('background', colors[10-Math.ceil((counts[keys[j]]-1)*interval)]);
 		}
 		else
-			$(cell).css('background', colors[4]);
+			$(cell).css('background', colors[5]);
 
 	}
 }

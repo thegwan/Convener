@@ -148,18 +148,14 @@ def updateMeeting(mid, allResponded=None, scheduledTime=None, notified=None):
 	db.session.commit()
 	return updatedMeeting
 
-# Deletes the meeting
+# Deletes the meeting given mid
 def deleteMeeting(mid):
-	print "delete code goes here, needs cascading to remove responses too (but not users)"
 	meeting = getMeeting(mid)
 	responses = getResponsesfromMeeting(mid)
-	print responses
 	for response in responses:
 		db.session.delete(response)
-		print "deleting response"
 	db.session.commit()
 	db.session.delete(meeting)
-	print "deleting meeting"
 	db.session.commit()
 
 ## Get Functions: Retrieve data from the database ############################################################################
