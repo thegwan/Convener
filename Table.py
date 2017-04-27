@@ -13,7 +13,9 @@ class Table(object):
 	inOrderDayArray = []
 	# used to create id for cells (stores date of each cell in mm-dd-yyyy)
 	idArray = []
-	
+	# used to create id for header cells (store ids as day-month-date)
+	idHeaderArray = []
+
 	def __init__(self):
 		# fill inOrderDayArray with dates for the next two weeks
 		for i in range(2 * self.DAYS_IN_WEEK):
@@ -21,6 +23,7 @@ class Table(object):
 			date = (datetime.now() + timedelta(i)).strftime('%d')
 			day = (datetime.now() + timedelta(i)).strftime('%a')
 			self.inOrderDayArray.append(day + "<br/>" + month + "<br/>" + date)
+			self.idHeaderArray.append(day + "-" + month + "-" + date)
 			self.idArray.append((datetime.now() + timedelta(i)).strftime('%m-%d-%Y'))
 
 		# print table
@@ -36,9 +39,9 @@ class Table(object):
 		index = 0
 		for day in self.inOrderDayArray:
 			if index == 6:
-				html += '<th class="bold_col">%s</th>' % day
+				html += '<th id="%s" class="bold_col">%s</th>' % (self.idHeaderArray[index], day)
 			else:
-				html += "<th>%s</th>" % day
+				html += '<th id="%s">%s</th>' % (self.idHeaderArray[index], day)
 			index += 1
 		html += "</tr>"
 		return html
@@ -57,18 +60,10 @@ class Table(object):
 			else:
 				html += "<tr>"
 			for col in range(2 * self.DAYS_IN_WEEK):
-				# am
 				if row < 12:
-					if not incr_hour:
-						html += self.formatCell(col, hour, '00', 'am')
-					else:
-						html += self.formatCell(col, hour, '30', 'am')
-				# pm
+					html += self.formatCell(col, incr_hour, hour, 'am')
 				else:
-					if not incr_hour:
-						html += self.formatCell(col, hour, '00', 'pm')
-					else:
-						html += self.formatCell(col, hour, '30', 'pm')
+					html += self.formatCell(col, incr_hour, hour, 'pm')
 			html += "</tr>"
 			if incr_hour:
 				hour += 1
@@ -76,11 +71,26 @@ class Table(object):
 		return html
 
 	# adds the correct id, classes, and text to each cell
-	def formatCell(self, col, hour, minute, am_pm):
+	def formatCell(self, col, incr_hour, hour, am_pm):
+		html = ""
+		if not incr_hour:
+			html += self.addBoldCol(col, hour, am_pm, True)
+		else:
+			html += self.addBoldCol(col, hour, am_pm, False)
+		return html
+
+	# add bold vertical line (bold_col class) to separate each week
+	def addBoldCol(self, col, hour, am_pm, isStartOfHour):
 		html = ""
 		# bold_col: put a bold line to separate each week
 		if col == 6:
-			html += "<td id ='%s_%d:%s%s' class='cell selectable bold_col'>%d:%s</td>" % (self.idArray[col], hour, minute, am_pm, hour, minute)
+			if isStartOfHour:
+				html += "<td id ='%s_%d:00%s' class='cell selectable bold_col'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, hour)
+			else:
+				html += "<td id ='%s_%d:30%s' class='cell selectable bold_col'>30</td>" % (self.idArray[col], hour, am_pm)
 		else:
-			html += "<td id ='%s_%d:%s%s' class='cell selectable'>%d:%s</td>" % (self.idArray[col], hour, minute, am_pm, hour, minute)
+			if isStartOfHour:
+				html += "<td id ='%s_%d:00%s' class='cell selectable'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, hour)
+			else:
+				html += "<td id ='%s_%d:30%s' class='cell selectable'>30</td>" % (self.idArray[col], hour, am_pm)
 		return html

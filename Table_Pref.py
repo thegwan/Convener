@@ -55,6 +55,6 @@ class Table_Pref(object):
 	def formatCell(self, col, hour, am_pm, incr_hour):
 		html = ""
 		if not incr_hour:
-			return "<td id ='%s_%d:00%s' class='cell selectable'>%d:00</td>" % (self.dayArray[col], hour, am_pm, hour)
+			return "<td id ='%s_%d:00%s' class='cell selectable'><b>%d:00</b></td>" % (self.dayArray[col], hour, am_pm, hour)
 		else:
-			return "<td id ='%s_%d:30%s' class='cell selectable'>%d:30</td>" % (self.dayArray[col], hour, am_pm, hour)
+			return "<td id ='%s_%d:30%s' class='cell selectable'>30</td>" % (self.dayArray[col], hour, am_pm)
