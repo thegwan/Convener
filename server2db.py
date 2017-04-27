@@ -30,7 +30,7 @@ def date_isValid(date):
 def time_isValid(time):
 	if not isinstance(time, basestring):
 		return False
-	r = re.compile('^\d{1,2}[a,p]m$')
+	r = re.compile('^\d{1,2}:\d{2}[a,p]m$')
 	if r.match(time) is not None:
 		return True
 	return False
