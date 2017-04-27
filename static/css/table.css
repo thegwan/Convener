@@ -4,9 +4,15 @@ table {
     -ms-user-select: none; /* IE10+ */
 }
 
-td, th {
+td {
 	text-align: center;
 	color: black;
+}
+
+th {
+    text-align: center;
+    background: #CCF3FF;
+    color: black;
 }
 
 table:hover {

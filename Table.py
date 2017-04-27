@@ -6,7 +6,8 @@ from datetime import datetime, timedelta
 class Table(object):
 
 	# constants
-	HOURS_IN_DAY = 18 # starting from 6am
+	STARTING_TIME = 6 # starting from 6am
+	HALF_HOURS_IN_DAY = 36 # half hours from 6am - midnight
 	DAYS_IN_WEEK = 7
 	# array of days with today's day at index 0
 	inOrderDayArray = []
@@ -18,8 +19,8 @@ class Table(object):
 		for i in range(2 * self.DAYS_IN_WEEK):
 			month = (datetime.now() + timedelta(i)).strftime('%b')
 			date = (datetime.now() + timedelta(i)).strftime('%d')
-			# day = (datetime.now() + timedelta(i)).strftime('%a')
-			self.inOrderDayArray.append(month + "<br/>" + date)
+			day = (datetime.now() + timedelta(i)).strftime('%a')
+			self.inOrderDayArray.append(day + "<br/>" + month + "<br/>" + date)
 			self.idArray.append((datetime.now() + timedelta(i)).strftime('%m-%d-%Y'))
 
 		# print table
@@ -45,29 +46,41 @@ class Table(object):
 	# print each individual cell of the table
 	def printCells(self):
 		html = ""
-		for row in range(6, self.HOURS_IN_DAY + 6):
-			index = 0 # to determine where to put the vertical line
-			if row == 12:
+		incr_hour = False
+		hour = self.STARTING_TIME
+		for row in range(self.HALF_HOURS_IN_DAY):
+			if hour == 13:
+				hour = 1 
+			# put a bold line to separate am and pm
+			if hour == 12 and not incr_hour:
 				html += "<tr id='bold_row'>"
 			else:
 				html += "<tr>"
 			for col in range(2 * self.DAYS_IN_WEEK):
-				hour = row % 13
-				# so it says 12am instead of 0am
-				if hour == 0 and row < 12:
-					hour = 12
-				if row < 12:
-					if index == 6:
-						html += "<td id ='%s_%dam' class='cell selectable bold_col'>%d</td>" % (self.idArray[col], hour, hour)
+				# am
+				if hour < 12:
+					if not incr_hour:
+						html += self.formatCell(col, hour, '00', 'am')
 					else:
-						html += "<td id ='%s_%dam' class='cell selectable'>%d</td>" % (self.idArray[col], hour, hour)
+						html += self.formatCell(col, hour, '30', 'am')
+				# pm
 				else:
-					if row > 12:
-						hour += 1
-					if index == 6:
-						html += "<td id ='%s_%dpm' class='cell selectable bold_col'>%d</td>" % (self.idArray[col], hour, hour)
+					if not incr_hour:
+						html += self.formatCell(col, hour, '00', 'pm')
 					else:
-						html += "<td id ='%s_%dpm' class='cell selectable'>%d</td>" % (self.idArray[col], hour, hour)
-				index += 1
+						html += self.formatCell(col, hour, '30', 'pm')
 			html += "</tr>"
+			if incr_hour:
+				hour += 1
+			incr_hour = not incr_hour
+		return html
+
+	# adds the correct id, classes, and text to each cell
+	def formatCell(self, col, hour, minute, am_pm):
+		html = ""
+		# bold_col: put a bold line to separate each week
+		if col == 6:
+			html += "<td id ='%s_%d:%s%s' class='cell selectable bold_col'>%d:%s</td>" % (self.idArray[col], hour, minute, am_pm, hour, minute)
+		else:
+			html += "<td id ='%s_%d:%s%s' class='cell selectable'>%d:%s</td>" % (self.idArray[col], hour, minute, am_pm, hour, minute)
 		return html
