@@ -531,7 +531,7 @@ function neutralizeTable() {
 
 	var todayString = month + '-' + day + '-' + year;
 
-	rotateTable(todayString);
+	// rotateTable(todayString);
 }
 
 // Pads a single digit number with a leading 0, or just returns the number
