@@ -61,7 +61,18 @@ $(document).ready(function() {
 	});
 	$(document).mouseup(function() {
 		$cell.off('mouseenter.selected')
-	})
+	});
+
+	// When header is clicked, highlight the whole column
+	$('body').on('click', '#mainTable th', function() {
+		// grab the column number
+		var column = $(this).attr('data-column');
+		var cells_in_column = $('#mainTable td[data-column=' + column + ']');
+		if (cells_in_column.hasClass('selected'))
+			cells_in_column.removeClass('selected');
+		else
+			cells_in_column.addClass('selected');
+	});
 });
 // previous implementation
 // $(document).ready(function() {

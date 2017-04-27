@@ -36,13 +36,13 @@ class Table(object):
 	def printHeader(self):
 		html = "<tr>"
 		# to determine where to put the vertical line (divider)
-		index = 0
+		col = 0
 		for day in self.inOrderDayArray:
-			if index == 6:
-				html += '<th id="%s" class="bold_col">%s</th>' % (self.idHeaderArray[index], day)
+			if col == 6:
+				html += '<th id="%s" class="bold_col" data-column="%d">%s</th>' % (self.idHeaderArray[col], col, day)
 			else:
-				html += '<th id="%s">%s</th>' % (self.idHeaderArray[index], day)
-			index += 1
+				html += '<th id="%s" data-column="%d">%s</th>' % (self.idHeaderArray[col], col, day)
+			col += 1
 		html += "</tr>"
 		return html
 
@@ -85,12 +85,12 @@ class Table(object):
 		# bold_col: put a bold line to separate each week
 		if col == 6:
 			if isStartOfHour:
-				html += "<td id ='%s_%d:00%s' class='cell selectable bold_col'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, hour)
+				html += "<td id ='%s_%d:00%s' class='cell selectable bold_col' data-column='%d'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, col, hour)
 			else:
-				html += "<td id ='%s_%d:30%s' class='cell selectable bold_col'>30</td>" % (self.idArray[col], hour, am_pm)
+				html += "<td id ='%s_%d:30%s' class='cell selectable bold_col' data-column='%d'>30</td>" % (self.idArray[col], hour, am_pm, col)
 		else:
 			if isStartOfHour:
-				html += "<td id ='%s_%d:00%s' class='cell selectable'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, hour)
+				html += "<td id ='%s_%d:00%s' class='cell selectable' data-column='%d'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, col, hour)
 			else:
-				html += "<td id ='%s_%d:30%s' class='cell selectable'>30</td>" % (self.idArray[col], hour, am_pm)
+				html += "<td id ='%s_%d:30%s' class='cell selectable' data-column='%d'>30</td>" % (self.idArray[col], hour, am_pm, col)
 		return html
