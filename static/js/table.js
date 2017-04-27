@@ -477,7 +477,7 @@ function rotateTable(creationDate) {
 		var newDate = new Date(dateParts[2],dateParts[0]-1,dateParts[1]);
 		newDate.setDate(newDate.getDate() + i);
 
-		$(headers[i]).text(days[newDate.getDay()] + '\n' + months[newDate.getMonth()] + '\n' + padDigit(newDate.getDate()));
+		$(headers[i]).html(days[newDate.getDay()] + '<br/>' + months[newDate.getMonth()] + '<br/>' + padDigit(newDate.getDate()));
 		$(headers[i]).attr('id', days[newDate.getDay()] + '-' + months[newDate.getMonth()] + '-' + padDigit(newDate.getDate()));
 
 		var oldMonth = padDigit(months.indexOf(oldDate[1].trim()) + 1);
