@@ -89,8 +89,8 @@ def responders_isValid(responders):
 def isValid_Creation(jpost):
 	creationFields   = ["category", "title", "netid", "response", "responders", "creationDate"]
 
-	for key in jpost:
-		if key not in creationFields:
+	for key in creationFields:
+		if key not in jpost:
 			return False
 
 	if not isinstance(jpost["title"], basestring):
@@ -113,8 +113,8 @@ def isValid_Creation(jpost):
 def isValid_Response(jpost):
 	responseFields   = ["category", "mid", "netid", "response"]
 
-	for key in jpost:
-		if key not in responseFields:
+	for key in responseFields:
+		if key not in jpost:
 			return False
 
 	if not isinstance(jpost["mid"], int):
@@ -133,8 +133,8 @@ def isValid_Response(jpost):
 def isValid_Decision(jpost):
 	decisionFields   = ["category", "mid", "netid", "finalTime"]
 
-	for key in jpost:
-		if key not in decisionFields:
+	for key in decisionFields:
+		if key not in jpost:
 			return False
 
 	if not isinstance(jpost["mid"], int):
@@ -155,8 +155,8 @@ def isValid_Decision(jpost):
 def isValid_Preference(jpost):
 	preferenceFields = ["category", "netid", "preferredTimes"]
 
-	for key in jpost:
-		if key not in preferenceFields:
+	for key in preferenceFields:
+		if key not in jpost:
 			return False
 
 	if not isinstance(jpost["netid"], basestring):
@@ -171,8 +171,8 @@ def isValid_Preference(jpost):
 
 def isValid_MeetingDelete(jpost):
 	meetingDeleteFields = ["category", "mid", "netid"]
-	for key in jpost:
-		if key not in meetingDeleteFields:
+	for key in meetingDeleteFields:
+		if key not in jpost:
 			return False
 
 	if not isinstance(jpost["netid"], basestring):
