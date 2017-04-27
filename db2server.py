@@ -23,7 +23,6 @@ def myMeetings_toList(my_meetings):
 			times = db.getUserPreferredTimes(mid, responder)
 			responder_times[responder] = times
 		
-
 		my_meetings_list.append({
 			"mid":mid,
 			"title":title,
