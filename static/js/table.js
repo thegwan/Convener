@@ -440,15 +440,17 @@ function loadPreferredTable() {
 
 	// loop through init_data and put it on the pref_table
 	for (var j = 0; j < parsedData['my_preferred'].length; j++) {
+		console.log(parsedData['my_preferred'][j]);
 		var pref_daytime = parsedData['my_preferred'][j];
 		var pref_day = pref_daytime['day'];
 		var pref_time = pref_daytime['time'];
 		// console.log(pref_day + pref_time);
-		var pref_id = '#' + pref_day + '_' + pref_time;
-
-		if ($(pref_id)) {
-			$(pref_id).addClass("selected");
-		}
+		// var pref_id = '#' + pref_day + '_' + pref_time;
+		// // if ($(pref_id)) {
+		// 	alert(pref_id);
+		// 	$(pref_id).addClass("selected");
+		// // }
+		document.getElementById(pref_day + '_' + pref_time).classList.add('selected');
 	}
 }
 
