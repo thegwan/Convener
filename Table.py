@@ -38,7 +38,8 @@ class Table(object):
 		# to determine where to put the vertical line (divider)
 		col = 0
 		for day in self.inOrderDayArray:
-			if day[:3] == 'Sun':
+			# if day[:3] == 'Sun':
+			if col == 6:
 				html += '<th id="%s" class="bold_col" data-column="%d">%s</th>' % (self.idHeaderArray[col], col, day)
 			else:
 				html += '<th id="%s" data-column="%d">%s</th>' % (self.idHeaderArray[col], col, day)
@@ -83,7 +84,8 @@ class Table(object):
 	def addBoldCol(self, col, hour, am_pm, isStartOfHour):
 		html = ""
 		# bold_col: put a bold line to separate each week
-		if self.inOrderDayArray[col][:3] == 'Sun':
+		# if self.inOrderDayArray[col][:3] == 'Sun':
+		if col == 6:
 			if isStartOfHour:
 				html += "<td id ='%s_%d:00%s' class='cell selectable bold_col' data-column='%d'><b>%d:00</b></td>" % (self.idArray[col], hour, am_pm, col, hour)
 			else:
