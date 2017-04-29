@@ -68,10 +68,11 @@ $(document).ready(function() {
 		// grab the column number
 		var column = $(this).attr('data-column');
 		var cells_in_column = $('#mainTable td[data-column=' + column + ']');
-		if (cells_in_column.hasClass('selected'))
-			cells_in_column.removeClass('selected');
-		else
-			cells_in_column.addClass('selected');
+		if (! cells_in_column.hasClass('unselectable'))
+			if (cells_in_column.hasClass('selected'))
+				cells_in_column.removeClass('selected');
+			else
+				cells_in_column.addClass('selected');
 	});
 
 	// When prefTable header is clicked, highlight the whole column
@@ -79,10 +80,11 @@ $(document).ready(function() {
 		// grab the column number
 		var column = $(this).attr('data-column');
 		var cells_in_column = $('#prefTable td[data-column=' + column + ']');
-		if (cells_in_column.hasClass('selected'))
-			cells_in_column.removeClass('selected');
-		else
-			cells_in_column.addClass('selected');
+		if (! cells_in_column.hasClass('unselectable'))
+			if (cells_in_column.hasClass('selected'))
+				cells_in_column.removeClass('selected');
+			else
+				cells_in_column.addClass('selected');
 	});
 });
 // previous implementation
@@ -199,7 +201,7 @@ function makeUnselectable() {
 		if ($(cells[i]).hasClass("selected")) {
 			$(cells[i]).removeClass("selected");
   			$(cells[i]).addClass('unselectable');
-			$(cells[i]).addClass("selected");
+			// $(cells[i]).addClass("selected");
 		}
 		else {
   			$(cells[i]).addClass('unselectable');
