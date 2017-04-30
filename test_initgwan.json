@@ -1,0 +1,72 @@
+{
+  "my_meetings": [
+    {
+      "all_responded": true, 
+      "creation_date": "04-21-2017", 
+      "finaltime": [], 
+      "mid": 3, 
+      "nresp_netids": [], 
+      "resp_netids": [
+        "gwan", 
+        "hsolis", 
+        "bargotta"
+      ], 
+       "responder_times": {
+        "bargotta": [{"date": "04-23-2017", "time": "10:00am"}, {"date": "04-24-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "12:30pm"}, {"date": "04-24-2017", "time": "12:30pm"}, {"date": "04-23-2017", "time": "1:00pm"}, {"date": "04-24-2017", "time": "1:00pm"}], 
+        "gwan": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-24-2017", "time": "11:30am"}, {"date": "04-25-2017", "time": "12:30pm"}, {"date": "04-26-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}, {"date": "04-23-2017", "time": "12:30pm"}, {"date": "04-24-2017", "time": "12:30pm"}, {"date": "04-22-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "1:00pm"}, {"date": "04-24-2017", "time": "1:00pm"}, {"date": "04-25-2017", "time": "1:00pm"}], 
+        "hsolis": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-24-2017", "time": "11:30am"}, {"date": "04-25-2017", "time": "12:30pm"}, {"date": "04-26-2017", "time": "1:00pm"}]
+      }, 
+      "title": "test3"
+    }, 
+    {
+      "all_responded": true, 
+      "creation_date": "04-21-2017", 
+      "finaltime": [], 
+      "mid": 4, 
+      "nresp_netids": [], 
+      "resp_netids": [
+        "gwan", 
+        "hsolis", 
+        "bargotta"
+      ], 
+      "responder_times": {
+        "bargotta": [{"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "1:00pm"}], 
+        "gwan": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}, {"date": "04-22-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-23-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "12:30pm"}, {"date": "04-23-2017", "time": "1:00pm"}], 
+        "hsolis": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}]
+      }, 
+      "title": "test4"
+    }
+  ], 
+  "my_preferred": [], 
+  "my_requests": [
+    {
+      "creation_date": "04-21-2017", 
+      "creator": "bargotta", 
+      "mid": 5, 
+      "times": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-24-2017", "time": "11:30am"}, {"date": "04-25-2017", "time": "12:30pm"}, {"date": "04-26-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}, {"date": "04-23-2017", "time": "12:30pm"}, {"date": "04-24-2017", "time": "12:30pm"}, {"date": "04-22-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "1:00pm"}, {"date": "04-24-2017", "time": "1:00pm"}, {"date": "04-25-2017", "time": "1:00pm"}], 
+      "title": "test5"
+    }
+  ], 
+ "my_responded": [
+    {
+      "creation_date": "04-21-2017", 
+      "creator": "hsolis", 
+      "creator_times": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-24-2017", "time": "11:30am"}, {"date": "04-25-2017", "time": "12:30pm"}, {"date": "04-26-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}, {"date": "04-23-2017", "time": "12:30pm"}, {"date": "04-24-2017", "time": "12:30pm"}, {"date": "04-22-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "1:00pm"}, {"date": "04-24-2017", "time": "1:00pm"}, {"date": "04-25-2017", "time": "1:00pm"}], 
+      "finaltime": [], 
+      "mid": 1, 
+      "mine": false, 
+      "times": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-24-2017", "time": "11:30am"}, {"date": "04-25-2017", "time": "12:30pm"}, {"date": "04-26-2017", "time": "1:00pm"}], 
+      "title": "test1"
+    }, 
+    {
+      "creation_date": "04-21-2017", 
+      "creator": "hsolis", 
+      "creator_times": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}, {"date": "04-22-2017", "time": "1:00pm"}, {"date": "04-23-2017", "time": "9:00am"}, {"date": "04-23-2017", "time": "10:00am"}, {"date": "04-23-2017", "time": "11:30am"}, {"date": "04-23-2017", "time": "12:30pm"}, {"date": "04-23-2017", "time": "1:00pm"}], 
+      "finaltime": [], 
+      "mid": 2, 
+      "mine": false, 
+      "times": [{"date": "04-22-2017", "time": "9:00am"}, {"date": "04-22-2017", "time": "10:00am"}, {"date": "04-22-2017", "time": "11:30am"}, {"date": "04-22-2017", "time": "12:30pm"}], 
+      "title": "test2"
+    }
+  ]
+}
