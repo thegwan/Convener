@@ -330,7 +330,7 @@ function makeCreationJSON(netid) {
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar("Event Created", 3000);
+			// displaySnackBar("Event Created", 3000);
 
 		}
 	});
@@ -339,7 +339,10 @@ function makeCreationJSON(netid) {
 	}, function(data) {
 		valid = JSON.parse(data);
 		if (!valid) {
-			displaySnackBar("Please make sure NetIDs are spelled correctly", 6000);
+			displaySnackBar("Please make sure NetIDs are spelled correctly", 3000);
+		}
+		else {
+			displaySnackBar("Event Created", 3000);
 		}
 	});
 
