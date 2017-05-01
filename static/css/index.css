@@ -188,6 +188,9 @@ a {
 	display: block;
 	padding: 10px 0px 10px 10px;
 	color: black;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;	
+	-webkit-user-select: none;
 }
 
 .starDiv {
@@ -309,4 +312,22 @@ div.rowDiv:hover {
 .snackdivider {
 	width: 100px;
 	border-color: black;
+}
+
+h4 {
+	-moz-user-select: -moz-none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none;
+}
+
+#tableHeader {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;	
+	-webkit-user-select: none;
+}
+
+#tableSubHeader {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;	
+	-webkit-user-select: none;
 }
