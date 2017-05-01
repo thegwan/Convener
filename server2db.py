@@ -3,7 +3,7 @@
 
 import json, re
 import database as db
-from sendEmail import sendCreationEmail
+from sendEmail import sendCreationEmail, sendAllRespondedEmail, sendFinalTimeEmail
 
 #-----------------------------------------------------------------------
 
@@ -243,11 +243,13 @@ def parseResponse(jpost):
 	mid = jpost["mid"]
 
 	netid = jpost["netid"]
+	# This is not actually the creator id this is the respondedid
 	creatorId = db.getUser(netid).uid
 
 	db.createResponse(mid, creatorId, str(jpost["response"]))
 	if db.getNotRespondedNetids(mid) == []:
 		db.updateMeeting(mid, allResponded=True)
+		sendAllRespondedEmail(db.getMeeting(mid).title, db.getUserFromId(db.getMeeting(mid).creatorId).netid)
 	return True
 
 
@@ -269,6 +271,8 @@ def parseDecision(jpost):
 		db.updateMeeting(mid, allResponded=True, scheduledTime=finalTime)
 	else:
 		db.updateMeeting(mid, scheduledTime=finalTime)
+	# Doesn't necessarily work since the respondedNetids is everyone that responded, but not everyone invited
+	sendFinalTimeEmail(db.getMeeting(mid).title, netid, db.getRespondedNetids(mid), jpost["finalTime"][0])
 	return True
 
 
