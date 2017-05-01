@@ -3,6 +3,7 @@
 
 import json, re
 import database as db
+from sendEmail import sendCreationEmail
 
 #-----------------------------------------------------------------------
 
@@ -213,6 +214,7 @@ def parseCreation(jpost):
 	inviteUsers(responders)
 
 	netid = jpost["netid"]
+	# print(responders[0]);
 	title = jpost["title"]
 	# remove quotations from titles
 	title = title.replace("'", "")
@@ -223,6 +225,9 @@ def parseCreation(jpost):
 
 	meeting = db.createMeeting(title, creatorId, respondingIds, creationDate)
 	db.createResponse(meeting.mid, creatorId, str(jpost["response"]))
+
+	sendCreationEmail(title, netid, responders)
+	
 	if db.getNotRespondedNetids(meeting.mid) == []:
 		db.updateMeeting(meeting.mid, allResponded=True)
 	return True

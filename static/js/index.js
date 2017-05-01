@@ -343,17 +343,16 @@ function makeCreationJSON(netid) {
 		}
 		else {
 			displaySnackBar("Event Created", 3000);
+			// Refresh the page asynchronously
+			$.getJSON('/_refreshPage', {
+
+			}, function(data) {
+				// alert('at least we made it this far');
+				parseInitialData(data);
+			});
 		}
 	});
 
-	// Refresh the page asynchronously
-	$.getJSON('/_refreshPage', {
-
-	}, function(data) {
-		// alert('at least we made it this far');
-		parseInitialData(data);
-	});
-	resetEverything();
 }
 
 //-------------------------------------------------------------------------------------------------

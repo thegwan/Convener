@@ -3,3 +3,4 @@
 secrets
 netids.txt
 .python-version
+sendgrid.env
