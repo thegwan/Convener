@@ -123,6 +123,9 @@ def isValid_Response(jpost):
 		return False
 	if not datetimes_isValid(jpost["response"]):
 		return False
+
+	if db.getResponse(jpost["mid"], db.getUser(jpost["netid"]).uid) is not None:
+		return False
 		
 	print "response ok"
 	return True
@@ -163,7 +166,7 @@ def isValid_Preference(jpost):
 		return False
 	if not daytimes_isValid(jpost["preferredTimes"]):
 		return False
-		
+
 	print "preference ok"
 	return True
 
@@ -182,6 +185,8 @@ def isValid_MeetingDelete(jpost):
 
 	# check if netid is the creator of the meeting
 	meeting = db.getMeeting(jpost["mid"])
+	if meeting is None:
+		return False
 	if meeting not in db.getUserCreatedMeetings(jpost["netid"]):
 		return False
 

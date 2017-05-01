@@ -172,3 +172,10 @@ print db_state_unchanged()
 jpost21 = {u'category': 'meetingDelete', u'mid': 2, u'netid': 'bargotta'}
 print server2db.parse(jpost21) == False
 print database.getMeeting(2).title == 'test2'
+
+#----------------------------------------------------------
+# response when it already exists
+
+jpost22 = {u'category': 'response', u'mid': 4, u'response': [{'date': '04-18-2017', 'time': '4:00pm'}], u'netid': u'hsolis'}
+print server2db.parse(jpost22) == False
+print database.getResponse(4,1) == 10
