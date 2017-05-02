@@ -214,11 +214,12 @@ def parseCreation(jpost):
 		print "Creation update went wrong. Not updated."
 		return False
 
-	responders = jpost["responders"]
+	responders = list(set(jpost["responders"]))  # removes duplicates
 	# make sure all responders exist in database
 	inviteUsers(responders)
 
 	netid = jpost["netid"]
+
 	# print(responders[0]);
 	title = jpost["title"]
 	# remove quotations from titles
