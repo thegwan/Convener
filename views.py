@@ -1,6 +1,6 @@
 # views.py
 
-import json, db2server, server2db
+import json, db2server, server2db, autoDb
 from flask import redirect, url_for, request, render_template, jsonify
 from flask_cas import CAS
 from main import app
@@ -41,27 +41,13 @@ def index():
 	# get POSTed json
 	jpost = request.get_json()
 
-	# sample creation
-	jpost1 = {u'category': 'creation', u'title': 'The Olympics', u'response': [{u'date': u'04-18-2017', u'time': u'4pm'}], u'netid': u'gwan', u'responders': [u'hsolis'], u'creationDate': '04-17-2017'}
-	# sample response
-	jpost2 = {u'category': 'response', u'mid': 10, u'response': [{u'date': u'04-19-2017', u'time': u'7am'}, {u'date': u'04-20-2017', u'time': u'7am'}], u'netid': u'hsolis'}
-	# sample decision
-	jpost3 = {u'category': 'decision', u'mid': 10, u'finalTime': [{u'date': u'04-22-2017', u'time': u'10am'}], u'netid': u'gwan'}
-	# sample update preferred times
-	jpost4 = {u'category': 'updatePref', u'preferredTimes': [{u'day': u'Mon', u'time': u'10am'}, {u'day': u'Tue', u'time': u'11am'}], u'netid': u'gwan'}
-	# sample meeting deletion
-	jpost5 = {u'category': 'meetingDelete', u'mid': 11, u'netid': 'gwan'}
-
 	
 	if jpost is not None:
-		# test make sure received
-		#jpost = jpost5
-		print jpost
-		# update database
 		global valid
 		valid = server2db.parse(jpost)
 	
 	# initial protocol
+	autoDb.delete_expired_meetings()
 	init_data = json.dumps(db2server.init_protocol(cas.username))
 
 	# ------------------------------------------------------------------------------------------

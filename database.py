@@ -161,6 +161,12 @@ def deleteMeeting(mid):
 ## Get Functions: Retrieve data from the database ############################################################################
 
 
+# Return a list of all meetings in the database
+def getAllMeetings():
+	meetings = (db.session.query(Meeting))
+
+	return meetings.all()
+
 # Get a user from their netid, returns the user if they exist or None if they aren't in the database
 def getUser(netid):
 	usr = (db.session.query(User).\
