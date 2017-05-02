@@ -15,4 +15,4 @@ def auto_delete_meeting(meeting, numDays):
 def delete_expired_meetings():
 	meetings = db.getAllMeetings()
 	for meeting in meetings:
-		auto_delete_meeting(meeting, 10)
+		auto_delete_meeting(meeting, 14)
