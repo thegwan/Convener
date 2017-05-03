@@ -34,6 +34,11 @@ function parseInitialData(init_data) {
 	$('#myRequestedDiv div').remove();
 	
 	//------------------------------MY MEETINGS----------------------------------------------------
+	if (parsedData['my_meetings'].length == 0)
+		$('#myMeetingsDiv').text("No Meetings Created");
+	else
+		$('#myMeetingsDiv').text("");
+
 	// For displaying the information from my_meetings
 	for (var i = 0; i < parsedData['my_meetings'].length; i++){
 		var meeting = parsedData['my_meetings'][i];
@@ -101,6 +106,10 @@ function parseInitialData(init_data) {
 	}
 
 	//---------------------------RESPONDED---------------------------------------------------------
+	if (parsedData['my_responded'].length == 0)
+		$('#myRespondedDiv').text("No Responded Meetings");
+	else
+		$('#myRespondedDiv').text("");
 	// For displaying the information from my_responded
 	for (var i = 0; i < parsedData['my_responded'].length; i++){
 		var meeting = parsedData['my_responded'][i];
