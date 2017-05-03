@@ -248,7 +248,7 @@ function resetEverything() {
 	$("#mainTable").show();
 	$('#tableHeader').text('Convener');
 
-	// Show only the clear, loadTimes, and create buttons
+	// Show only the clear, loadTimes, invert, and create buttons
 	$('#respondButton').hide();
 	$('#submitButton').hide();
 	$('#updatePreferredTimesButton').hide();
@@ -257,6 +257,7 @@ function resetEverything() {
 	$('#createMeetingButton').show();
 	$('#loadPreferredTimesButton').show();
 	$('#clearButton').show();
+	$('#invertSelectionButton').show();
 	
 	// Reset the header texts
 	$('#tableSubHeader').text('Create Meeting');
@@ -451,12 +452,13 @@ function loadPreferredTable() {
 		$("#mainTable").hide();
 	}
 
-	// Show only the clear and updatePreferredTimes buttons
+	// Show only the clear, invert, and updatePreferredTimes buttons
 	$('#createMeetingButton').hide();
 	
 	$('#loadPreferredTimesButton').hide();
 	// $('#clearButton').hide();
 	$('#updatePreferredTimesButton').show();
+	$('#invertSelectionButton').show();
 
 
 	$('#tableHeader').text('Preferred Meeting Times');
@@ -475,6 +477,15 @@ function loadPreferredTable() {
 		// 	$(pref_id).addClass("selected");
 		// // }
 		document.getElementById(pref_day + '_' + pref_time).classList.add('selected');
+	}
+}
+
+// invert selected cells
+function invertSelection() {
+	allCells = $('.cell');
+	for (var i = 0; i < allCells.length; i++) {
+		if (! allCells[i].classList.contains('unselectable'))
+			allCells[i].classList.toggle('selected');
 	}
 }
 

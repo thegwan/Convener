@@ -116,7 +116,7 @@ button#clearButton, button#loadPreferredTimesButton {
 
 }
 
-#loadPreferredTimesButton {
+#loadPreferredTimesButton, #invertSelectionButton {
 	margin-left: 10px;
 }
 

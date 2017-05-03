@@ -190,6 +190,7 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime
 		// Show the submit and delete button
 		$('#createMeetingButton').hide();
 		$('#clearButton').hide();
+		$('#invertSelectionButton').hide();
 		$('#loadPreferredTimesButton').hide();
 		$('#submitButton').show();
 		$('#deleteMeetingButton').show();
@@ -238,8 +239,9 @@ function clickRequested(i, title, creator, mid, creationDate) {
 		$('#tableHeader').text(title);
 		$('#tableSubHeader').text('Created by: ' + creator);
 
-		// Show only the clear, loadTimes, and respond buttons
+		// Show only the clear, loadTimes, invert, and respond buttons
 		$('#createMeetingButton').hide();
+		$('#invertSelectionButton').show();
 		$('#respondButton').show();
 
 		document.getElementById('respondButton').style.visibility = 'visible';
@@ -266,6 +268,7 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 		$('#createMeetingButton').hide();
 		$('#clearButton').hide();
 		$('#loadPreferredTimesButton').hide();
+		$('#invertSelectionButton').hide();
 		
 
 		// Modify the title and subheader
