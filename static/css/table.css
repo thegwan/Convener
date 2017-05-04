@@ -12,7 +12,8 @@ td {
 
 th {
     text-align: center;
-    background: #CCF3FF;
+    background: #E6F7FF;
+    /*background: #CCF3FF;*/ /* old light blue color */
     color: black;
     font-size: 15px;
 }
