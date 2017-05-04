@@ -496,7 +496,15 @@ function loadPreferredTable() {
 
 // invert selected cells
 function invertSelection() {
-	allCells = $('.cell');
+	var prefTableDisplay = $('#prefTable').css('display');
+	var mainTableDisplay = $('#mainTable').css('display');
+	
+	// ony get the cells of the table that is not hidden
+	if (prefTableDisplay == 'none' && mainTableDisplay == 'table')
+		allCells = $('#mainTable .cell');
+	else if (prefTableDisplay == 'table' && mainTableDisplay == 'none')
+		allCells = $('#prefTable .cell');
+
 	for (var i = 0; i < allCells.length; i++) {
 		if (! allCells[i].classList.contains('unselectable'))
 			allCells[i].classList.toggle('selected');
