@@ -68,11 +68,23 @@ $(document).ready(function() {
 		// grab the column number
 		var column = $(this).attr('data-column');
 		var cells_in_column = $('#mainTable td[data-column=' + column + ']');
+
 		if (! cells_in_column.hasClass('unselectable'))
 			if (cells_in_column.hasClass('selected'))
 				cells_in_column.removeClass('selected');
 			else
 				cells_in_column.addClass('selected');
+		else {
+			var hasSelected = cells_in_column.hasClass('selected');
+			for (var i = 0; i < cells_in_column.length; i++) {
+				if (! cells_in_column[i].classList.contains('unselectable')) {
+					if (hasSelected)
+						cells_in_column[i].classList.remove('selected');
+					else
+						cells_in_column[i].classList.add('selected');
+				}
+			}
+		}
 	});
 
 	// When prefTable header is clicked, highlight the whole column
