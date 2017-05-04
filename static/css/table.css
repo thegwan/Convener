@@ -5,14 +5,16 @@ table {
 }
 
 td {
-	text-align: center;
-	color: black;
+    text-align: center;
+    color: black;
+    font-size: 12px;
 }
 
 th {
     text-align: center;
     background: #CCF3FF;
     color: black;
+    font-size: 15px;
 }
 
 table:hover {
@@ -52,7 +54,7 @@ td.badtime {
 }
 
 .cell {
-   padding: 0px 5px !important;
+   padding: 0px 0px !important;
 }
 
 #bold_row {
