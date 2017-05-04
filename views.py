@@ -44,6 +44,7 @@ def index():
 	
 	if jpost is not None:
 		global valid
+		print jpost
 		valid = server2db.parse(jpost)
 	
 	# initial protocol
