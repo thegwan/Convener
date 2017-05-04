@@ -109,14 +109,14 @@ body {
 
 
 
-button#clearButton, button#loadPreferredTimesButton {
+button#clearButton, button#invertSelectionButton, button#loadPreferredTimesButton {
 	float: left;
 	/*background: rgb(0,200,0);*/
 	/* Might need 10px of margin left here*/
 
 }
 
-#loadPreferredTimesButton, #invertSelectionButton {
+#invertSelectionButton, #loadPreferredTimesButton {
 	margin-left: 10px;
 }
 
