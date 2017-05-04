@@ -290,7 +290,7 @@ div.rowDiv:hover {
 .navbar-nav > li > p {
 	padding: 10px 15px;
 	margin: 10px 5px;
-	font-size: 14px;
+	font-size: 16px;
 	color: #1AA3FF;
 	text-shadow: 1px 0px 0 #1AA3FF;
 }
@@ -314,6 +314,11 @@ div.rowDiv:hover {
 	border-color: black;
 }
 
+.tabtext {
+	font-size: 16px !important; 
+}
+
+
 h4 {
 	-moz-user-select: -moz-none; 
 	-khtml-user-select: none; 
@@ -327,6 +332,12 @@ h4 {
 }
 
 #tableSubHeader {
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;	
+	-webkit-user-select: none;
+}
+
+#tableSubSubHeader {
 	-moz-user-select: -moz-none;
 	-khtml-user-select: none;	
 	-webkit-user-select: none;

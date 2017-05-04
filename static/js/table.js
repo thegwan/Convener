@@ -272,7 +272,8 @@ function resetEverything() {
 	$('#invertSelectionButton').show();
 	
 	// Reset the header texts
-	$('#tableSubHeader').text('Create Meeting');
+	$('#tableSubHeader').text('Paint over your available times to create a meeting!');
+	$('#tableSubSubHeader').text('');
 	$('#availableList div').remove();
 	$('#availableHeader').text('');
 	inMyMeeting = false;
@@ -474,7 +475,8 @@ function loadPreferredTable() {
 
 
 	$('#tableHeader').text('Preferred Meeting Times');
-	$('#tableSubHeader').text('Modify your preferred times');
+	$('#tableSubHeader').text('Modify your weekly availability!');
+	$('#tableSubSubHeader').text('');
 
 	// loop through init_data and put it on the pref_table
 	for (var j = 0; j < parsedData['my_preferred'].length; j++) {

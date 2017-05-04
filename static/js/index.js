@@ -194,7 +194,8 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime
 		makeSomeUnselectable();
 		
 		$('#tableHeader').text(title);
-		$('#tableSubHeader').text('Select a final meeting time');
+		$('#tableSubHeader').text('A view of all responses so far');
+		$('#tableSubSubHeader').text('Select a meeting time to schedule it!');
 
 		// Show the submit and delete button
 		$('#createMeetingButton').hide();
@@ -247,6 +248,7 @@ function clickRequested(i, title, creator, mid, creationDate) {
 		makeSomeUnselectable();
 		$('#tableHeader').text(title);
 		$('#tableSubHeader').text('Created by: ' + creator);
+		$('#tableSubSubHeader').text('Paint over your available times!');
 
 		// Show only the clear, loadTimes, invert, and respond buttons
 		$('#createMeetingButton').hide();
@@ -281,8 +283,9 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 		
 
 		// Modify the title and subheader
-		$('#tableHeader').text(title + ' ('+creator+')');
-		$('#tableSubHeader').text('-Your Response overlayed on top of creator');
+		$('#tableHeader').text(title);
+		$('#tableSubHeader').text('Creator: '+ creator);
+		$('#tableSubSubHeader').text('Your Response');
 		
 		// Makes the rest of the cells unselectable
 		makeUnselectable();

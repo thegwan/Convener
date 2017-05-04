@@ -45,10 +45,10 @@
           <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
           <li><p>Welcome, {{ user }}</p></li>
-          <li><a href="#" onclick="resetEverything()">Home</a></li>
-          <li><a href="#" onclick="loadPreferredTable()">Preferred</a></li>
+          <li><a class="tabtext" href="#" onclick="resetEverything()">Home</a></li>
+          <li><a class="tabtext" href="#" onclick="loadPreferredTable()">Preferred</a></li>
           <li class="requestsLI">
-          	<a class="requestsAnchor" onclick="dropdown()">
+          	<a class="tabtext" class="requestsAnchor" onclick="dropdown()">
           		Requests
           		<span id="requestsBadge" class="badge"></span>
       		</a>
@@ -56,7 +56,7 @@
 
           	</div>
           </li>
-          <li><a href="/logout">Log Out</a></li>
+          <li><a class="tabtext" href="/logout">Log Out</a></li>
         </ul>
         </div>
       </div>
@@ -124,7 +124,8 @@
 	          	  <!-- <div>Warning: This web app is still in pre-alpha production. Usage might not have the desired effects and user data might be lost at anytime.</div> -->
 	          	  <!-- <div class="col-md-11"> -->
 	              	<h2 id="tableHeader">Convener</h2>
-	              	<h6 id="tableSubHeader">Create Meeting</h6>
+	              	<h5 id="tableSubHeader">Create Meeting</h5>
+                  <h5 id="tableSubSubHeader"></h5>
             	  <!-- </div> -->
 	            </div>
 <!--                 <div class="col-md-1">
