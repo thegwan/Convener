@@ -1,6 +1,6 @@
 ## Welcome to Convener!
 
-[Convener](convener.herokuapp.com) is an easy tool for convening!
+[Convener](https://convener.herokuapp.com) is an easy tool for convening!
 
 Featuring the ability to choose times to convene a meeting up to two weeks in advance,
 save and delete weekly availability preferences, invite other people to your events, 
