@@ -20,12 +20,12 @@ $(document).ready(function() {
   			clearSelectedColored();
   			$(this).removeClass("colored");
   			$(this).addClass("selectedColored");
-			$(this).css('border', '5px solid yellow');
-			$(this).css('box-sizing', 'border-box'); // border stays inside element
+			// $(this).css('border', '5px solid yellow');
+			// $(this).css('box-sizing', 'border-box'); // border stays inside element
   		}
   		else if ($(this).hasClass("selectedColored")) { // hasClass selectedColored
   			// Unclick to unhighlight
-			$(this).css('border', '');
+			// $(this).css('border', '');
   			$(this).addClass("colored");
   			$(this).removeClass("selectedColored");
   		}   
@@ -238,7 +238,7 @@ function clearSelectedColored() {
 	for (var i = 0; i < cells.length; i++) {
 		if ($(cells[i]).hasClass('selectedColored')) {
 	  		$(cells[i]).removeClass("selectedColored");
-	  		$(cells[i]).css('border', '');
+	  		// $(cells[i]).css('border', '');
 			$(cells[i]).addClass("colored");
 		}
 	}

@@ -201,7 +201,7 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime
 		// Highlights the final time if it has already been selected
 		for (var j = 0; j < finaltime.length; j++) {
 			var daytime = finaltime[j]["date"]+"_"+finaltime[j]["time"];
-			document.getElementById(daytime).style.border = '5px solid yellow';
+			// document.getElementById(daytime).style.border = '5px solid yellow';
 			document.getElementById(daytime).classList.add('selectedColored');
 		}
 	}

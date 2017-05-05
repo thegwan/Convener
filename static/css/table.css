@@ -50,12 +50,21 @@ td.badtime {
 	background: rgb(228,0,0) ;
 }
 
-.finalSelected {
+/* This class appears to be non-existant: can't find it in *.js */
+/*.finalSelected {
 	border: 5px solid yellow;
+}*/
+
+.selectedColored {
+    /* use outline to get border inside element */
+    /*outline: 5px solid yellow;*/
+    /*outline-offset: -5px;*/
+    background: #0066FF !important;
+    color: white;
 }
 
 .cell {
-    padding: 0px 0px !important;
+    padding: 0px !important;
 }
 
 #bold_row {
