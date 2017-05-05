@@ -333,26 +333,22 @@ function makeCreationJSON(netid) {
 		contentType: 'application/json',
 		data: JSON.stringify(toServer),
 		dataType: 'text',
-		url: '/',
-		success: function(){
+		url: '/_getjpost/',
+		success: function(checkData){
 			// displaySnackBar("Event Created");
-		}
-	});
+			valid = JSON.parse(checkData);
+			if (!valid) {
+				displaySnackBar("Please make sure NetIDs are spelled correctly");
+			}
+			else {
+				displaySnackBar("Event Created");
+				// Refresh the page asynchronously
+				$.getJSON('/_refreshPage', {
 
-	$.getJSON('/_creationError', {
-	}, function(data) {
-		valid = JSON.parse(data);
-		if (!valid) {
-			displaySnackBar("Please make sure NetIDs are spelled correctly");
-		}
-		else {
-			displaySnackBar("Event Created");
-			// Refresh the page asynchronously
-			$.getJSON('/_refreshPage', {
-
-			}, function(data) {
-				parseInitialData(data);
-			});
+				}, function(data) {
+					parseInitialData(data);
+				});
+			}
 		}
 	});
 
@@ -378,18 +374,24 @@ function makeResponseJSON(netid) {
 		contentType: 'application/json',
 		data: JSON.stringify(toServer),
 		dataType: 'text',
-		url: '/',
-		success: function(){
-			displaySnackBar('Response Submitted');
+		url: '/_getjpost/',
+		success: function(checkData){
+			// displaySnackBar('Response Submitted');
+			valid = JSON.parse(checkData);
+			if (!valid) {
+				displaySnackBar("Something Went Wrong. Try refreshing the page.");
+			}
+			else {
+				displaySnackBar("Response Submitted");
+				// Refresh the page asynchronously
+				$.getJSON('/_refreshPage', {
+
+				}, function(data) {
+					parseInitialData(data);
+				});
+			}
 		}
 	});
-	// Refresh the page asynchronously
-	$.getJSON('/_refreshPage', {
-
-	}, function(data) {
-		parseInitialData(data);
-	});
-	resetEverything();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -410,18 +412,24 @@ function makePreferenceJSON(netid) {
 		contentType: 'application/json',
 		data: JSON.stringify(toServer),
 		dataType: 'text',
-		url: '/',
-		success: function(){
-			displaySnackBar('Preferences Saved');
+		url: '/_getjpost/',
+		success: function(checkData){
+			//displaySnackBar('Preferences Saved');
+			valid = JSON.parse(checkData);
+			if (!valid) {
+				displaySnackBar("Something Went Wrong. Try refreshing the page.");
+			}
+			else {
+				displaySnackBar("Preferences Saved");
+				// Refresh the page asynchronously
+				$.getJSON('/_refreshPage', {
+
+				}, function(data) {
+					parseInitialData(data);
+				});
+			}
 		}
 	});
-	// Refresh the page asynchronously
-	$.getJSON('/_refreshPage', {
-
-	}, function(data) {
-		parseInitialData(data);
-	});
-	resetEverything();
 }
 
 
@@ -447,18 +455,24 @@ function makeFinalJSON(netid) {
 		contentType: 'application/json',
 		data: JSON.stringify(toServer),
 		dataType: 'text',
-		url: '/',
-		success: function(){
-			displaySnackBar('Meeting Scheduled');
+		url: '/_getjpost/',
+		success: function(checkData){
+			//displaySnackBar('Meeting Scheduled');
+			valid = JSON.parse(checkData);
+			if (!valid) {
+				displaySnackBar("Something Went Wrong. Try refreshing the page.");
+			}
+			else {
+				displaySnackBar("Meeting Scheduled");
+				// Refresh the page asynchronously
+				$.getJSON('/_refreshPage', {
+
+				}, function(data) {
+					parseInitialData(data);
+				});
+			}
 		}
 	});
-	// Refresh the page asynchronously
-	$.getJSON('/_refreshPage', {
-
-	}, function(data) {
-		parseInitialData(data);
-	});
-	resetEverything();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -475,18 +489,24 @@ function makeMeetingDeleteJSON(netid) {
 		contentType: 'application/json',
 		data: JSON.stringify(toServer),
 		dataType: 'text',
-		url: '/',
-		success: function(){
-			displaySnackBar('Meeting Deleted');
+		url: '/_getjpost/',
+		success: function(checkData){
+			//displaySnackBar('Meeting Deleted');
+			valid = JSON.parse(checkData);
+			if (!valid) {
+				displaySnackBar("Something Went Wrong. Try refreshing the page.");
+			}
+			else {
+				displaySnackBar("Meeting Deleted");
+				// Refresh the page asynchronously
+				$.getJSON('/_refreshPage', {
+
+				}, function(data) {
+					parseInitialData(data);
+				});
+			}
 		}
 	});
-	// Refresh the page asynchronously
-	$.getJSON('/_refreshPage', {
-
-	}, function(data) {
-		parseInitialData(data);
-	});
-	resetEverything();
 }
 
 //-------------------------------------------------------------------------------------------------
