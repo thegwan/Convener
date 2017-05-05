@@ -1,4 +1,5 @@
 # views.py
+# yses Flask-CAS: https://github.com/cameronbwhite/Flask-CAS
 
 import json, db2server, server2db, autoDb
 from flask import redirect, url_for, request, render_template, jsonify
@@ -31,7 +32,7 @@ def creationError():
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
-	#if not logged in display landing page
+	#if not logged in, display landing page
 	if cas.username is None or cas.token is None:
 		return redirect(url_for('landing'))
 
@@ -40,11 +41,8 @@ def index():
 
 	# get POSTed json
 	jpost = request.get_json()
-
-	
 	if jpost is not None:
 		global valid
-		print jpost
 		valid = server2db.parse(jpost)
 	
 	# initial protocol

@@ -88,7 +88,12 @@ def responders_isValid(responders):
 
 # checks if creation jpost is valid
 def isValid_Creation(jpost):
-	creationFields   = ["category", "title", "netid", "response", "responders", "creationDate"]
+	creationFields   = ["category",
+						"title", 
+						"netid", 
+						"response", 
+						"responders", 
+						"creationDate"]
 
 	for key in creationFields:
 		if key not in jpost:
@@ -105,7 +110,7 @@ def isValid_Creation(jpost):
 	if not date_isValid(jpost["creationDate"]):
 		return False
 		
-	print "creation ok"
+	# print "creation ok"
 	return True
 
 #-----------------------------------------------------------------------
@@ -128,7 +133,7 @@ def isValid_Response(jpost):
 	if db.getResponse(jpost["mid"], db.getUser(jpost["netid"]).uid) is not None:
 		return False
 		
-	print "response ok"
+	# print "response ok"
 	return True
 
 #-----------------------------------------------------------------------
@@ -150,7 +155,7 @@ def isValid_Decision(jpost):
 	if not datetimes_isValid(jpost["finalTime"]):
 		return False
 		
-	print "decision ok"
+	# print "decision ok"
 	return True
 
 #-----------------------------------------------------------------------
@@ -168,7 +173,7 @@ def isValid_Preference(jpost):
 	if not daytimes_isValid(jpost["preferredTimes"]):
 		return False
 
-	print "preference ok"
+	# print "preference ok"
 	return True
 
 #-----------------------------------------------------------------------
@@ -191,7 +196,7 @@ def isValid_MeetingDelete(jpost):
 	if meeting not in db.getUserCreatedMeetings(jpost["netid"]):
 		return False
 
-	print "meeting deletion ok"
+	# print "meeting deletion ok"
 	return True
 
 
@@ -211,7 +216,7 @@ def inviteUsers(responders):
 # updates database for a meeting creation
 def parseCreation(jpost):
 	if not isValid_Creation(jpost):
-		print "Creation update went wrong. Not updated."
+		# print "Creation update went wrong. Not updated."
 		return False
 
 	responders = list(set(jpost["responders"]))  # removes duplicates
@@ -243,7 +248,7 @@ def parseCreation(jpost):
 # updates database for a meeting response
 def parseResponse(jpost):
 	if not isValid_Response(jpost):
-		print "Response update went wrong. Not updated."
+		# print "Response update went wrong. Not updated."
 		return False
 
 	mid = jpost["mid"]
@@ -264,7 +269,7 @@ def parseResponse(jpost):
 # updates database for a meeting time decision
 def parseDecision(jpost):
 	if not isValid_Decision(jpost):
-		print "Final Time update went wrong. Not updated."
+		# print "Final Time update went wrong. Not updated."
 		return False
 
 	mid = jpost["mid"]
@@ -287,7 +292,7 @@ def parseDecision(jpost):
 # updates database with user preferred times
 def parsePreference(jpost):
 	if not isValid_Preference(jpost):
-		print "Preferred Times update went wrong. Not updated."
+		# print "Preferred Times update went wrong. Not updated."
 		return False
 
 	netid = jpost["netid"]
@@ -301,7 +306,7 @@ def parsePreference(jpost):
 # deletes meeting from database
 def parseMeetingDelete(jpost):
 	if not isValid_MeetingDelete(jpost):
-		print "Meeting Deletion went wrong. Not deleted."
+		# print "Meeting Deletion went wrong. Not deleted."
 		return False
 
 	mid = jpost["mid"]

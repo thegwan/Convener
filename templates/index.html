@@ -25,7 +25,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
 
    	<link rel="shortcut icon" href="/static/img/favicon.ico">
-  <!-- paraphrased from http://code.runnable.com/UpYDdiBGFJNXAAAz/parse-json-request-data-from-request-in-flask-for-python -->
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
    
 
@@ -46,7 +45,7 @@
           <ul class="nav navbar-nav navbar-right">
           <li><p>Welcome, {{ user }}!</p></li>
           <li><a href="#" onclick="resetEverything()">Home</a></li>
-          <li><a href="#" onclick="loadPreferredTable()">Preferred</a></li>
+          <li><a href="#" onclick="loadPreferredTable()">Preferences</a></li>
           <li class="requestsLI">
           	<a class="requestsAnchor" onclick="dropdown()">
           		Requests
@@ -73,19 +72,6 @@
             <!-- Left Column: Responded Meetings and My Meetings -->
             <div id="leftFea" class="fea">
               <div class="col-md-3 leftSection">
-<!--               	<div class="legendDiv">
-              		Note: 
-              		<table class="table table-bordered legendTable">
-              			<tr>
-              				<th><i class="fa fa-calendar-check-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i></th>
-              				<th>Meeting is scheduled</th>
-              			</tr>
-              			<tr>
-              				<th><i class="fa fa-calendar-times-o" aria-hidden="true" style="font-size: inherit; margin-top: 0px;"></i></th>
-              				<th>Final time not yet selected</th>
-              			</tr>
-              		</table>
-              	</div> -->
                 <!-- Responded Meetings -->
                 <div class="row">
             	  <div class="fea-img col-md-2">
@@ -121,18 +107,10 @@
             <div id="middleFea" class="fea">
               <div class="col-md-7 middleSection">
 	            <div class="header-section text-center row">
-	           	  <!-- <div class="col-md-1"></div> -->
-	          	  <!-- <div>Warning: This web app is still in pre-alpha production. Usage might not have the desired effects and user data might be lost at anytime.</div> -->
-	          	  <!-- <div class="col-md-11"> -->
 	              	<h2 id="tableHeader">Convener</h2>
 	              	<h5 id="tableSubHeader">Create Meeting</h5>
                   <h5 id="tableSubSubHeader"></h5>
-            	  <!-- </div> -->
 	            </div>
-<!--                 <div class="col-md-1">
-                  <div id="am">AM</div>
-                  <div id="pm">PM</div>
-                </div> -->
                 <div class="col-md-12">
                   <div class="table-responsive">
           					<!-- Construct Table -->
@@ -209,13 +187,10 @@
               	  <div class="row">
               	    <div class="col-md-6">
               	    	<ul id="respondedUnorderedList">
-	              	      <!-- <li>Gerry</li>	 -->
               	    	</ul>
               	    </div>
               	    <div class="col-md-6">
               	    	<ul id="notRespondedUnorderedList">
-              	    	  <!-- <li>Hector</li> -->
-              	    	  <!-- <li>John</li> -->
               	    	</ul>
               	    </div>
               	  </div>
@@ -243,8 +218,8 @@
     <script src="/static/js/jquery.easing.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/custom.js"></script>
-	<script src="{{ url_for('static', filename='js/table.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  	<script src="{{ url_for('static', filename='js/table.js') }}"></script>
+  	<script src="{{ url_for('static', filename='js/index.js') }}"></script>
     
   </body>
 </html>

@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import and_#, in_
+from sqlalchemy import and_
 from main import app
 import ast
 

@@ -43,17 +43,6 @@ function parseInitialData(init_data) {
 	for (var i = 0; i < parsedData['my_meetings'].length; i++){
 		var meeting = parsedData['my_meetings'][i];
 
-		// // Create a string of who has and hasn't responded
-		// respString = '';
-		// notRespString = '';
-		// for (var j = 0; j < meeting['resp_netids'].length; j++){
-		// 	respString += meeting['resp_netids'][j] + ' ';
-		// }
-		// respString = respString.trim();
-		// for (var k = 0; k < meeting['nresp_netids'].length; k++){
-		// 	notRespString += meeting['nresp_netids'][k] + ' ';
-		// }
-		// notRespString = notRespString.trim();
 		// Elements where my meetings is to be stored
 		var rowDiv = document.createElement("DIV");
 		var titleDiv = document.createElement("DIV");
@@ -77,9 +66,6 @@ function parseInitialData(init_data) {
 		$(rowDiv).addClass('rowDiv tooltipDiv');
 		$(titleDiv).addClass('titleDiv col-md-10 col-sm-10 col-xs-10');
 		$(starDiv).addClass('starDiv col-md-2 col-sm-2 col-xs-2');
-
-		// Add a snackbar for when the meeting is hovered over
-		// $(rowDiv).attr('tooltip', "Responded: " + respString + "\n" + " Not Responded: " + notRespString);
 		
 		var mouseenterFunc = rowDivMouseenter(meeting);
 		var mouseleaveFunc = rowDivMouseleave(meeting);
@@ -110,6 +96,7 @@ function parseInitialData(init_data) {
 		$('#myRespondedDiv').text("No Responded Meetings");
 	else
 		$('#myRespondedDiv').text("");
+
 	// For displaying the information from my_responded
 	for (var i = 0; i < parsedData['my_responded'].length; i++){
 		var meeting = parsedData['my_responded'][i];
@@ -204,6 +191,8 @@ function clickMyMeeting(i, title, respondedLength, mid, numResponding, finaltime
 		$('#loadPreferredTimesButton').hide();
 		$('#submitButton').show();
 		$('#deleteMeetingButton').show();
+		$('#respondButton').hide();
+		$('#updatePreferredTimesButton').hide();
 		
 
 		createdMid = mid;
@@ -254,6 +243,11 @@ function clickRequested(i, title, creator, mid, creationDate) {
 		$('#createMeetingButton').hide();
 		$('#invertSelectionButton').show();
 		$('#respondButton').show();
+		$('#clearButton').show();
+		$('#loadPreferredTimesButton').show();
+		$('#submitButton').hide();
+		$('#deleteMeetingButton').hide();
+		$('#updatePreferredTimesButton').hide();
 
 		document.getElementById('respondButton').style.visibility = 'visible';
 
@@ -280,6 +274,10 @@ function clickMyResponded(i, title, creator, finaltime, creationDate) {
 		$('#clearButton').hide();
 		$('#loadPreferredTimesButton').hide();
 		$('#invertSelectionButton').hide();
+		$('#submitButton').hide();
+		$('#deleteMeetingButton').hide();
+		$('#respondButton').hide();
+		$('#updatePreferredTimesButton').hide();
 		
 
 		// Modify the title and subheader
@@ -330,17 +328,14 @@ function makeCreationJSON(netid) {
 	document.getElementById('title').value = '';
 	document.getElementById('invite').value = '';
 
-	// console.log(toServer)
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
-		// Encode data as JSON.
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			// displaySnackBar("Event Created", 3000);
-
+			// displaySnackBar("Event Created");
 		}
 	});
 
@@ -348,15 +343,14 @@ function makeCreationJSON(netid) {
 	}, function(data) {
 		valid = JSON.parse(data);
 		if (!valid) {
-			displaySnackBar("Please make sure NetIDs are spelled correctly", 3000);
+			displaySnackBar("Please make sure NetIDs are spelled correctly");
 		}
 		else {
-			displaySnackBar("Event Created", 3000);
+			displaySnackBar("Event Created");
 			// Refresh the page asynchronously
 			$.getJSON('/_refreshPage', {
 
 			}, function(data) {
-				// alert('at least we made it this far');
 				parseInitialData(data);
 			});
 		}
@@ -379,23 +373,20 @@ function makeResponseJSON(netid) {
 
 	toServer.mid = requestMid;
 
-	// console.log(toServer)
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
-		// Encode data as JSON.
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Response Submitted', 3000);
+			displaySnackBar('Response Submitted');
 		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
 
 	}, function(data) {
-		// alert('at least we made it this far');
 		parseInitialData(data);
 	});
 	resetEverything();
@@ -414,28 +405,27 @@ function makePreferenceJSON(netid) {
 	// get selected cells, updates toServer.response
 	getSelectedDays(toServer);
 
-	// console.log(toServer)
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
-		// Encode data as JSON.
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Preferences Saved', 3000);
+			displaySnackBar('Preferences Saved');
 		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
 
 	}, function(data) {
-		// alert('at least we made it this far');
 		parseInitialData(data);
 	});
 	resetEverything();
 }
 
+
+//-------------------------------------------------------------------------------------------------
 // Creates JSON containing the one cell that represents the creator's scheduled time, and
 // and mid
 
@@ -455,24 +445,23 @@ function makeFinalJSON(netid) {
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
-		// Encode data as JSON.
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Meeting Scheduled', 3000);
+			displaySnackBar('Meeting Scheduled');
 		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
 
 	}, function(data) {
-		// alert('at least we made it this far');
 		parseInitialData(data);
 	});
 	resetEverything();
 }
 
+//-------------------------------------------------------------------------------------------------
 // Creates JSON to delete a meeting. Contains mid and netid
 
 function makeMeetingDeleteJSON(netid) {
@@ -481,29 +470,26 @@ function makeMeetingDeleteJSON(netid) {
 	toServer.netid = netid;
 	toServer.mid = createdMid;
 
-	// Server needs to be prepared for this response
-
 	$.ajax({
 		type: 'POST',
 		contentType: 'application/json',
-		// Encode data as JSON.
 		data: JSON.stringify(toServer),
 		dataType: 'text',
 		url: '/',
 		success: function(){
-			displaySnackBar('Meeting Deleted', 3000);
+			displaySnackBar('Meeting Deleted');
 		}
 	});
 	// Refresh the page asynchronously
 	$.getJSON('/_refreshPage', {
 
 	}, function(data) {
-		// alert('at least we made it this far');
 		parseInitialData(data);
 	});
 	resetEverything();
 }
 
+//-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
 function dropdown() {
@@ -541,12 +527,12 @@ function createScheduledImage(checked) {
 }
 
 // Creates a snackbar with the message msg
-function displaySnackBar(msg, duration) {
+function displaySnackBar(msg) {
     $('#mainSnackbar').text(msg);
     $('#mainSnackbar').addClass('show');
 
     // After 3 seconds, remove the show class from DIV
-    setTimeout(function(){ $('#mainSnackbar').removeClass('show'); }, duration);
+    setTimeout(function(){ $('#mainSnackbar').removeClass('show'); }, 3000);
 }
 
 // Hides the modal
@@ -573,7 +559,6 @@ function rowDivMouseenter(meeting) {
 			document.getElementById('notRespondedUnorderedList').appendChild(listItem);
 		}
 		$('#tooltipSnackbar').addClass('show');
-		// alert('should show');
 	}
 }
 

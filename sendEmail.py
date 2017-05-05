@@ -36,7 +36,7 @@ def sendFinalTimeEmail(title, netid, responders, time):
 		to_email = Email(respondee + "@princeton.edu")
 		subject = "Meeting Time Confirmed - " + title
 		content = Content("text/html", "<p>The meeting: <b>" + title + "</b> created by \
-			" + netid + " has been scheduled.</p> \
+			<b>" + netid + "</b> has been scheduled.</p> \
 			The meeting date is on " + time['date'] + " at " + time['time'] + " \
 			<p>Check it out at convener.herokuapp.com </p>")
 		mail = Mail(from_email, subject, to_email, content)

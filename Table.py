@@ -38,7 +38,6 @@ class Table(object):
 		# to determine where to put the vertical line (divider)
 		col = 0
 		for day in self.inOrderDayArray:
-			# if day[:3] == 'Sun':
 			if col == 6:
 				html += '<th id="%s" class="bold_col" data-column="%d">%s</th>' % (self.idHeaderArray[col], col, day)
 			else:

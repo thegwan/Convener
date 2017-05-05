@@ -35,7 +35,6 @@ $(document).ready(function() {
 			var cellId = $(this).attr('id');
 			var aList;
 			if (cellId in availableDict) {
-				// alert('hovered');
 				$('#availableList div').remove();
 				aList = availableDict[cellId];
 				for (var i = 0; i < aList.length; i++) {
@@ -99,50 +98,6 @@ $(document).ready(function() {
 				cells_in_column.addClass('selected');
 	});
 });
-// previous implementation
-// $(document).ready(function() {
-// 	// select and unselect clicked-on cells (good time)
-//   	$(".cell").click(function(){
-//   		if (!($(this).hasClass( "badtime")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored")) ) {
-// 	    	if ($(this).hasClass( "selected")) {
-// 	      		$(this).removeClass("selected");
-// 	   //    		$(this).removeClass('finalSelected');
-// 				// $(this).css('background', '');
-// 	    	}
-// 		    else {
-// 				// $(this).addClass('finalSelected');
-// 				// $(cell).css('background', 'rgb(0,2,0)');		      	
-// 		      	$(this).addClass("selected");
-// 	    	};
-//   		}
-//   		else {
-// 	  		if ($(this).hasClass("colored")) {
-// 	  			// Click a colored box to highlight it
-// 	  			clearSelectedColored();
-// 	  			$(this).removeClass("colored");
-// 	  			$(this).addClass("selectedColored");
-// 				$(this).css('border', '5px solid yellow');
-// 	  		}
-// 	  		else if ($(this).hasClass("selectedColored")){ // hasClass selectedColored
-// 	  			// Unclick to unhighlight
-// 				$(this).css('border', '');
-// 	  			$(this).addClass("colored");
-// 	  			$(this).removeClass("selectedColored");
-// 	  		}   			
-//   		}
-//   	});
-//   	// select and unselect double-clicked on cells (bad time)
-//   	$(".cell").dblclick(function(){
-//   		if (!($(this).hasClass( "selected")) && !($(this).hasClass("colored")) && !($(this).hasClass("selectedColored"))) {
-// 	    	if ($(this).hasClass( "badtime")) {
-// 	      		$(this).removeClass("badtime");
-// 	    	}
-// 		    else {
-// 		      	$(this).addClass("badtime");
-// 	    	};
-//   		};
-//   	});
-// });
 
 // disables create meeting button if no title or responders listed
 var checkButton = setInterval(function() {
@@ -156,7 +111,6 @@ var checkButton = setInterval(function() {
 
 // get all selected date cells from main table
 function getSelectedDates(toServer) {
-	//var main_table = document.getElementById("#mainTable");
 	var cells = document.getElementsByClassName('selected');
 
 	for (var i = 0; i < cells.length; i++) {
@@ -169,7 +123,6 @@ function getSelectedDates(toServer) {
 
 // get all selected day cells from preference table
 function getSelectedDays(toServer) {
-	// var pref_table = document.getElementById("#prefTable");
 	var cells = document.getElementsByClassName('selected');
 
 	for (var i = 0; i < cells.length; i++) {
@@ -182,7 +135,6 @@ function getSelectedDays(toServer) {
 
 // get the final submit cell
 function getSelectedColored(toServer) {
-	//var main_table = document.getElementById("#mainTable");
 	var cells = document.getElementsByClassName('selectedColored');
 
 	// should be length 1
@@ -333,19 +285,6 @@ function responsemap(userTimes, creatorTimes) {
 // Gives a weight to each response depending on how many people responded
 function heatmap(responderTimes, respondedLength) {
 
-	// var colors = [
-	// 			    '#0A9B03',
-	// 			    '#0DCD04',
-	// 				'#27D31D',
-	// 			    '#41D937',
-	// 			    '#5BDF51',
-	// 			    '#6CE362',
-	// 			    '#86E97C',
-	// 			    '#97ED8D',
-	// 			    '#A9F19E',
-	// 			    '#C3F7B8',
-	// 			    '#DDfDD2'
-	// 			 ];
 	var colors = [
 				'#00B0E6',
 				'#00C3FF',
@@ -359,15 +298,9 @@ function heatmap(responderTimes, respondedLength) {
 			    '#CCf3FF',
 			    '#E6F9FF'
 				];
+
 	clearSelected();
 	var counts = {};
-	// var weight = 20;
-	// 250 max r and b values, 
-	// var weight = Math.ceil(255 / respondedLength);
-	// if (respondedLength >= 30) {
-	// 	weight = 1;
-	// }
-	//alert(listOfDatesAndTimes.length);
 	listOfDatesAndTimes = [];
 	var responderKeys = Object.keys(responderTimes);
 	for (var i = 0; i < responderKeys.length; i++) {
@@ -375,7 +308,6 @@ function heatmap(responderTimes, respondedLength) {
 	}
 
 	for (var i = 0; i < listOfDatesAndTimes.length; i++) {
-		//console.log(listOfDatesAndTimes);
 		date = listOfDatesAndTimes[i]['date']
 		time = listOfDatesAndTimes[i]['time']
 
@@ -386,12 +318,9 @@ function heatmap(responderTimes, respondedLength) {
 			counts[date+'_'+time] += 1;
 		}
 	}
-	// alert(counts);
+
 	var keys = Object.keys(counts);
-	//alert(keys.length);
 	for (var j = 0; j < keys.length; j++) {
-		//date = listOfDatesAndTimes[j]['date'];
-		// time = listOfDatesAndTimes[j]['time'];
 
 		cell = document.getElementById(keys[j]);
 
@@ -467,14 +396,12 @@ function loadPreferredTable() {
 
 	// Show only the clear, invert, and updatePreferredTimes buttons
 	$('#createMeetingButton').hide();
-	
 	$('#loadPreferredTimesButton').hide();
-	// $('#clearButton').hide();
 	$('#updatePreferredTimesButton').show();
 	$('#invertSelectionButton').show();
 
 
-	$('#tableHeader').text('Preferred Meeting Times');
+	$('#tableHeader').text('Weekly Preferences');
 	$('#tableSubHeader').text('Modify your weekly availability!');
 	$('#tableSubSubHeader').text('');
 
@@ -484,12 +411,6 @@ function loadPreferredTable() {
 		var pref_daytime = parsedData['my_preferred'][j];
 		var pref_day = pref_daytime['day'];
 		var pref_time = pref_daytime['time'];
-		// console.log(pref_day + pref_time);
-		// var pref_id = '#' + pref_day + '_' + pref_time;
-		// // if ($(pref_id)) {
-		// 	alert(pref_id);
-		// 	$(pref_id).addClass("selected");
-		// // }
 		document.getElementById(pref_day + '_' + pref_time).classList.add('selected');
 	}
 }
@@ -517,9 +438,8 @@ function rotateTable(creationDate) {
 	var dateParts = creationDate.split('-');
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-	// console.log(headers);
 
-	// This year thing will be highly unstable near the edges of a year
+	// This year thing will be highly unstable near the edges of a year, but should not break
 	myCells = document.getElementsByClassName('cell');
 	var firstCellId = myCells[0].id;
 	var oldYear = firstCellId.substring(firstCellId.lastIndexOf('-') + 1, firstCellId.indexOf('_'));
@@ -547,12 +467,8 @@ function rotateTable(creationDate) {
 
 		var newDateString = newMonth + '-' + newDay + '-' + oldYear;
 
-		// Issue with changing the ids concurrently say I turn the first row which was 4/15 into 4/19 well the old 4/19 doesn't change
 		for (var j = 6; j < 12; j++) {
-			// console.log("Old ID: " + oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am');
-			// console.log(newDateString + '_' + j + 'am');
 			
-			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'am').id = newDateString + '_' + j + 'am';
 			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':00am');
 			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':30am');
 			
@@ -560,7 +476,7 @@ function rotateTable(creationDate) {
 			newIdsList.push(newDateString + '_' + j + ':30am');
 		}
 		for (var j = 1; j <= 12; j++) {
-			// document.getElementById(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + 'pm').id = newDateString + '_' + j + 'pm';
+			
 			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':00pm');
 			oldIdsList.push(oldMonth + '-' + oldDay + '-' + oldYear + '_' + j + ':30pm');
 			
