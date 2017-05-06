@@ -18,16 +18,17 @@ with open('secrets', 'r') as s:
 app.secret_key = secrets[0].replace('\n', '')
 app.config['CAS_SERVER'] = 'https://fed.princeton.edu/cas/'
 app.config['CAS_AFTER_LOGIN'] = 'index'
-valid = False;
 
 @app.route('/_refreshPage/', methods = ['GET'])
 def refreshPage():
 	init_data = json.dumps(db2server.init_protocol(cas.username))
 	return init_data
 
-@app.route('/_creationError/', methods = ['GET'])
-def creationError():
-	global valid
+@app.route('/_getjpost/', methods = ['GET', 'POST'])
+def getjpost():
+	jpost = request.get_json()
+	if jpost is not None:
+		valid = server2db.parse(jpost)
 	return json.dumps(valid)
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -38,12 +39,6 @@ def index():
 
 	# if user has logged in for the first time, add user to db
 	server2db.inviteUsers([cas.username])
-
-	# get POSTed json
-	jpost = request.get_json()
-	if jpost is not None:
-		global valid
-		valid = server2db.parse(jpost)
 	
 	# initial protocol
 	autoDb.delete_expired_meetings()

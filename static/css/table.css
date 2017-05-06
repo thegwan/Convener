@@ -57,10 +57,10 @@ td.badtime {
 
 .selectedColored {
     /* use outline to get border inside element */
-    border: 5px solid yellow !important;
-    /*outline-offset: -5px;*/
-    /*background: #0066FF !important;*/
-    /*color: white;*/
+    outline: 3px solid yellow;
+    outline-offset: -3px;
+/*    background: #E6ED2D !important;*/
+    color: black;
 }
 
 .cell {
