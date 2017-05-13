@@ -14,6 +14,10 @@ Project Manager: **Jerry Cai** (qizhec@princeton.edu)
 - **Aaron Bargotta** (bargotta@princeton.edu)
 - **Hector Solis** (hsolis@princeton.edu)
 
+### Deployed App
+Check out our awesome app [here](https://convener.herokuapp.com).
+
+
 ### Elevator Pitch
 Introducing Convener. Have you ever had difficulties scheduling group meetings with other students on campus? How many times have you had to painfully reschedule a meeting because someone couldn't make it? Finding an acceptable meeting time isn’t so easy. Our solution is an online web app called Convener. Convener provides a beautifully simple and robust interface for inviting and accepting meeting requests. With the ability to request, notify, and accept, Convener is the only tool you’ll need to use when scheduling a meeting. A few basic features like saving preferred meeting times to a profile makes it possible to schedule meetings almost autonomously. We are certainly not the first meeting time scheduler to exist. However, other solutions don’t understand Princeton students like we do. With the simplicity of CAS login, users will be much more likely to sign in and stay signed in and get the most out of all the features Convener seeks to provide. This is great since Princeton students tend to be involved in tons of things and likely need to schedule meetings quickly. Our goal is to get wide user adoption from the student population on campus and make convening less of a headache.
 
@@ -46,20 +50,21 @@ View our design document [here](https://docs.google.com/a/princeton.edu/document
     * Heatmap implemented 
     * Working minimum viable product deployed on Heroku
 * **April 21**
-    * Client to Database security: in progress
-    * UI revamp: in progress
-    * Additional Features: in progress
-* April 14 - **April 21**
-    * Done with top 2 non-priority features
-    * Get user feedback 
-* April 21 - **April 28**
-    * Beta test
-    * Done with 1 more non-priority feature
-* April 28 - **May 5**
-    * Clean up major features and fix bugs
+    * Client to Database security: added
+    * UI revamp: completed with color scheme change
+    * Additional Features: added saving preferred times
+* **April 28**
+    * Beta test with close friends completed
+    * Bug fixes on the frontened and more aesthetic changes
+    * Added email notifications for requesting and responding to meetings
+* **May 5**
+    * Clean up UI
+    * Bug fixes for deleting meetings 
+    * Added invert feature
+    * More security on backend
 * Demo Week
 * **May 14**
-    * Dean’s Date, everything done and submitted
+    * Everything done and submitted
 
 <!-- Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
